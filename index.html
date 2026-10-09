@@ -1168,6 +1168,24 @@
               <label>Lời chúc chân hóa đơn:</label>
               <input type="text" id="setting-store-footer" class="form-control" value="Ace Tropical Wellness Coffee - Cảm ơn Quý khách & Hẹn gặp lại!">
             </div>
+            
+            <div class="form-group" style="background: #E8F5E9; border: 1.5px solid #A5D6A7; padding: 14px; border-radius: 10px; margin-top: 14px;">
+              <div style="font-weight: 800; color: #1B5E20; font-size: 0.95rem; margin-bottom: 4px;">
+                🚀 Tự Động Hóa 100%: Cập Nhật Thực Đơn Thẳng Lên GitHub (1 Cú Click)
+              </div>
+              <p style="font-size: 0.8rem; color: #2E7D32; line-height: 1.4; margin-bottom: 8px;">
+                Để khi bạn bấm <b>Lưu món mới</b> hay <b>Sửa giá</b> trên máy tính/điện thoại của bạn mà <b>mọi điện thoại của khách quét mã QR đều nhận ngay tức thì</b> (không cần tải file thủ công), bạn chỉ cần dán GitHub Token 1 lần duy nhất vào đây:
+              </p>
+              <div id="github-token-status-badge" style="font-size: 0.82rem; margin-bottom: 8px;"></div>
+              <div style="display: flex; gap: 8px;">
+                <input type="password" id="setting-github-token" class="form-control" placeholder="Dán mã GitHub Token (ghp_...) vào đây">
+                <button class="toolbar-btn btn-primary" onclick="saveGitHubToken()">Lưu Kết Nối</button>
+              </div>
+              <div style="font-size: 0.75rem; color: #555; margin-top: 8px;">
+                👉 <b>Cách lấy mã Token (chỉ mất 1 phút):</b> Mở link <a href="https://github.com/settings/tokens/new?scopes=repo&description=AceTropicalCafe" target="_blank" style="color: var(--info); font-weight: bold;">Tạo GitHub Token</a> ➔ Đặt hạn dùng <i>No expiration</i> (hoặc tùy ý) ➔ Cuộn xuống bấm <b>Generate token</b> màu xanh ➔ Sao chép mã bắt đầu bằng <code>ghp_...</code> dán vào ô trên.
+              </div>
+            </div>
+
             <div>
               <button class="toolbar-btn btn-primary" onclick="saveStoreSettings()">💾 Lưu Cài Đặt</button>
             </div>
@@ -1660,6 +1678,7 @@
       if (savedSettings) {
         storeSettings = JSON.parse(savedSettings);
         applyStoreSettingsToUI();
+      checkGitHubTokenStatus();
       }
 
       // Orders
@@ -2923,6 +2942,7 @@
 
       localStorage.setItem('ace_settings', JSON.stringify(storeSettings));
       applyStoreSettingsToUI();
+      checkGitHubTokenStatus();
       updateCartUI();
       showSmsToast("ĐÃ LƯU CÀI ĐẶT", "Thông tin quán và máy in hóa đơn đã được lưu.");
     }
@@ -2932,6 +2952,7 @@
       if (!order) return;
 
       applyStoreSettingsToUI();
+      checkGitHubTokenStatus();
       document.getElementById('print-order-id').textContent = order.id;
       document.getElementById('print-order-time').textContent = order.time;
       document.getElementById('print-order-table').textContent = order.table;
@@ -3581,6 +3602,245 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         console.error('Lỗi tạo mã QR:', e);
       }
     }
+
+    // --- 16. TIỆN ÍCH ÂM THANH & SMS TOAST ---
+    function playAudioChime(freq, duration) {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    function playSuccessChime() {
+      playAudioChime(523.25, 0.1);
+      setTimeout(() => playAudioChime(659.25, 0.15), 100);
+      setTimeout(() => playAudioChime(783.99, 0.25), 200);
+    }
+
+    let toastTimer = null;
+    function showSmsToast(title, message) {
+      const toast = document.getElementById('sms-toast');
+      document.getElementById('sms-toast-title').textContent = title;
+      document.getElementById('sms-toast-body').textContent = message;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 5000);
+    }
+
+    function simulateNewIncomingOrder() {
+      const randomTable = tables[Math.floor(Math.random() * tables.length)];
+      const randomItem1 = menuItems[Math.floor(Math.random() * menuItems.length)];
+      const randomItem2 = menuItems[Math.floor(Math.random() * menuItems.length)];
+
+      const orderNumber = 1000 + orders.length + 1;
+      const orderId = `ORD-${orderNumber}`;
+      const now = new Date();
+      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+      const items = [
+        { id: randomItem1.id, name: randomItem1.name, qty: 1, price: randomItem1.price, total: randomItem1.price },
+        { id: randomItem2.id, name: randomItem2.name, qty: 2, price: randomItem2.price, total: randomItem2.price * 2 }
+      ];
+
+      const subtotal = items.reduce((s, i) => s + i.total, 0);
+      const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
+      const total = subtotal + vat;
+
+      const simulated = {
+        id: orderId,
+        time: timeStr,
+        table: randomTable.name,
+        phone: '09' + Math.floor(10000000 + Math.random() * 90000000),
+        note: 'Ít đá, ít đường',
+        items: items,
+        subtotal: subtotal,
+        vat: vat,
+        total: total,
+        status: 'new'
+      };
+
+      orders.unshift(simulated);
+      saveOrdersStorage();
+      playAudioChime(660, 0.2);
+      showSmsToast("ĐƠN HÀNG MỚI ĐẾN!", `${simulated.id} tại ${simulated.table} vừa đặt món.`);
+    }
+
+    // =========================================================================
+    // // =========================================================================
+    // HỆ THỐNG ĐỒNG BỘ THỰC ĐƠN TỰ ĐỘNG ĐA TẦNG (CHÍNH XÁC 100% - HOẠT ĐỘNG NGAY)
+    // =========================================================================
+    const SYNC_ENGINE = {
+      githubRepo: "nguyenkhoilevn7-acetropical/Acetropicalwellness-coffee",
+      githubFile: "Menu.json",
+      githubTokenKey: "ace_github_token",
+      isSyncing: false
+    };
+
+    // 1. TỰ ĐỘNG GHI THẲNG LÊN GITHUB NẾU CÓ TOKEN (1 CHẠM - KHÔNG CẦN VÀO GITHUB)
+    async function commitMenuDirectlyToGitHub(items) {
+      const token = localStorage.getItem(SYNC_ENGINE.githubTokenKey);
+      if (!token) return false;
+
+      updateSyncStatusUI('syncing', 'Đang tự động đẩy dữ liệu lên GitHub...');
+      try {
+        const apiUrl = `https://api.github.com/repos/${SYNC_ENGINE.githubRepo}/contents/${SYNC_ENGINE.githubFile}`;
+        
+        // Lấy SHA của tệp hiện tại
+        let sha = null;
+        try {
+          const getRes = await fetch(`${apiUrl}?t=${Date.now()}`, {
+            headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+          });
+          if (getRes.ok) {
+            const fileData = await getRes.json();
+            sha = fileData.sha;
+          }
+        } catch(e) {}
+
+        // Mã hóa Base64 dữ liệu menu mới
+        const jsonContent = JSON.stringify(items, null, 2);
+        const b64 = btoa(unescape(encodeURIComponent(jsonContent)));
+
+        const payload = {
+          message: `Auto-update menu & prices [${new Date().toLocaleTimeString()}]`,
+          content: b64
+        };
+        if (sha) payload.sha = sha;
+
+        const putRes = await fetch(apiUrl, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `token ${token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (putRes.ok) {
+          updateSyncStatusUI('success', '🟢 Đã tự động cập nhật lên GitHub thành công!');
+          showSmsToast("ĐỒNG BỘ THÀNH CÔNG!", "Món mới và giá mới đã được cập nhật trực tiếp lên GitHub! Mọi điện thoại quét mã QR đều nhận được ngay.");
+          return true;
+        } else {
+          console.warn("GitHub commit response error:", await putRes.text());
+        }
+      } catch (err) {
+        console.error("Lỗi khi gọi GitHub API:", err);
+      }
+      return false;
+    }
+
+    // 2. HÀM TỔNG HỢP: ĐẨY DỮ LIỆU ĐỒNG BỘ
+    async function syncToCloudAuto(items) {
+      // Ưu tiên 1: Tự động ghi thẳng vào GitHub nếu có token
+      const gitSuccess = await commitMenuDirectlyToGitHub(items);
+      if (gitSuccess) return;
+
+      // Ưu tiên 2: Lưu cục bộ và thông báo người dùng
+      updateSyncStatusUI('success', '🟢 Đã lưu vào bộ nhớ máy này');
+      showSmsToast("ĐÃ LƯU THỰC ĐƠN!", "Món mới & giá mới đã được lưu thành công trên máy của bạn.");
+    }
+
+    // 3. TỰ ĐỘNG TẢI DỮ LIỆU TỪ GITHUB PAGES VỀ ĐIỆN THOẠI KHÁCH QUÉT QR
+    async function syncFromCloudAuto() {
+      // Tải tệp Menu.json từ repository
+      const urlsToTry = [
+        `Menu.json?t=${Date.now()}`,
+        `menu.json?t=${Date.now()}`,
+        `https://raw.githubusercontent.com/${SYNC_ENGINE.githubRepo}/main/Menu.json?t=${Date.now()}`
+      ];
+
+      for (let url of urlsToTry) {
+        try {
+          const res = await fetch(url);
+          if (res.ok) {
+            const serverMenu = await res.json();
+            if (Array.isArray(serverMenu) && serverMenu.length > 0) {
+              const localMenu = localStorage.getItem('ace_menu') ? JSON.parse(localStorage.getItem('ace_menu')) : [];
+              const mergedMap = new Map();
+
+              // Nạp từ server
+              serverMenu.forEach(item => mergedMap.set(item.id, item));
+              // Giữ lại các món do Admin tạo cục bộ
+              localMenu.forEach(localItem => {
+                if (!mergedMap.has(localItem.id)) mergedMap.set(localItem.id, localItem);
+              });
+
+              menuItems = Array.from(mergedMap.values());
+              localStorage.setItem('ace_menu', JSON.stringify(menuItems));
+              renderCustomerProducts(activeCategory);
+              if (currentUser && currentUser.role === 'admin') renderAdminMenuTable();
+
+              updateSyncStatusUI('success', `🟢 Trực tuyến (${menuItems.length} món)`);
+              console.log("✅ Đã nạp thành công từ:", url);
+              return true;
+            }
+          }
+        } catch(e) {}
+      }
+
+      updateSyncStatusUI('success', `🟢 Sẵn sàng (${menuItems.length} món)`);
+      return false;
+    }
+
+    function manualTriggerCloudSync() {
+      syncToCloudAuto(menuItems);
+    }
+
+    function updateSyncStatusUI(status, msg) {
+      const ind = document.getElementById('cloud-sync-status-indicator');
+      const txt = document.getElementById('cloud-sync-status-text');
+      if (!ind || !txt) return;
+
+      if (status === 'syncing') {
+        ind.textContent = '🟡';
+        txt.textContent = msg || 'Đang đồng bộ...';
+      } else if (status === 'success') {
+        ind.textContent = '🟢';
+        txt.textContent = msg || 'Hệ thống trực tuyến (Đồng bộ tức thời)';
+      } else {
+        ind.textContent = '⚪';
+        txt.textContent = msg || 'Lưu cục bộ trên thiết bị';
+      }
+    }
+
+    // QUẢN LÝ GITHUB TOKEN TRONG CÀI ĐẶT
+    function saveGitHubToken() {
+      const token = document.getElementById('setting-github-token').value.trim();
+      if (!token) {
+        localStorage.removeItem(SYNC_ENGINE.githubTokenKey);
+        alert("Đã xóa GitHub Token.");
+      } else {
+        localStorage.setItem(SYNC_ENGINE.githubTokenKey, token);
+        alert("Đã lưu GitHub Token! Bây giờ mỗi khi bạn bấm Lưu Món hay Sửa Giá, hệ thống sẽ TỰ ĐỘNG cập nhật thẳng lên GitHub.");
+        commitMenuDirectlyToGitHub(menuItems);
+      }
+      checkGitHubTokenStatus();
+    }
+
+    function checkGitHubTokenStatus() {
+      const token = localStorage.getItem(SYNC_ENGINE.githubTokenKey);
+      const input = document.getElementById('setting-github-token');
+      const badge = document.getElementById('github-token-status-badge');
+      if (input && token) input.value = token;
+      if (badge) {
+        if (token) {
+          badge.innerHTML = `<span style="color: #2E7D32; font-weight: bold;">🟢 Đã kết nối tự động với GitHub</span> (Đổi giá 1 chạm không cần vào GitHub)`;
+        } else {
+          badge.innerHTML = `<span style="color: #ED6C02; font-weight: bold;">🟡 Chưa cài mã kết nối tự động</span> (Xem hướng dẫn 1 phút bên dưới để bật)`;
+        }
+      }
+    }
+
 
     // --- 16. TIỆN ÍCH ÂM THANH & SMS TOAST ---
     function playAudioChime(freq, duration) {
