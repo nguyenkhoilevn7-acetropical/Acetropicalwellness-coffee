@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Cà phê Sữa Đá Sài Gòn",
+    "category": "coffee",
+    "price": 35000,
+    "badge": "Bán chạy nhất",
+    "desc": "Cà phê nguyên chất rang xay đậm đà kết hợp sữa đặc ngọt ngào.",
+    "available": true,
+    "imgUrl": ""
+  },
+  {
+    "id": 2,
+    "name": "Cà phê Đen Đá Nguyên Chất",
+    "category": "coffee",
+    "price": 29000,
+    "badge": "Đậm vị",
+    "desc": "Hương vị truyền thống mạnh mẽ từ hạt Robusta Đắk Lắk.",
+    "available": true,
+    "imgUrl": ""
+  },
+  {
+    "id": 3,
+    "name": "Bạc Xỉu Đá Tầng",
+    "category": "coffee",
+    "price": 39000,
+    "badge": "Được yêu thích",
+    "desc": "Nhiều sữa ít cà phê, béo ngậy thơm ngon, phân tầng đẹp mắt.",
+    "available": true,
+    "imgUrl": ""
+  },
+  {
+    "id": 4,
+    "name": "Trà Đào Cam Sả",
+    "category": "tea",
+    "price": 45000,
+    "badge": "Thanh mát",
+    "desc": "Trà thanh dịu kết hợp những miếng đào giòn thơm nức và sả tươi.",
+    "available": true,
+    "imgUrl": ""
+  },
+  {
+    "id": 5,
+    "name": "Trà Sải Vải Sen Vàng",
+    "category": "tea",
+    "price": 49000,
+    "badge": "Đặc biệt",
+    "desc": "Trà ô long thơm ngát kèm hạt sen bùi béo và vải tươi mọng nước.",
+    "available": true,
+    "imgUrl": ""
+  },
+  {
+    "id": 6,
+    "name": "Bánh Croissant Bơ Tỏi Phô Mai",
+    "category": "bakery",
+    "price": 38000,
+    "badge": "Nướng nóng",
+    "desc": "Bánh sừng bò giòn rụm phủ bơ tỏi thơm lừng và ngập tràn phô mai.",
+    "available": true,
+    "imgUrl": ""
+  },
+  {
+    "id": 7,
+    "name": "Bánh Tiramisu Ý",
+    "category": "bakery",
+    "price": 48000,
+    "badge": "Best Dessert",
+    "desc": "Bánh ngọt vị cà phê đậm đà, kem mascarpone mềm mịn phủ cacao.",
+    "available": true,
+    "imgUrl": ""
+  },
+  {
+    "id": 8,
+    "name": "Sinh Tố Xoài Dừa Dầm",
+    "category": "smoothie",
+    "price": 52000,
+    "badge": "Nhiệt đới",
+    "desc": "Xoài chín mọng xay mịn cùng nước cốt dừa béo bùi và trân châu trắng.",
+    "available": true,
+    "imgUrl": ""
+  }
+]
