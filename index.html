@@ -980,8 +980,12 @@
               <h3 style="color: var(--primary-dark);">Danh Sách Món Ăn & Thức Uống</h3>
               <p style="font-size: 0.82rem; color: var(--text-muted);">Thêm món, cập nhật giá tiền, hình ảnh và trạng thái còn/hết món tức thời.</p>
             </div>
-            <div style="display: flex; gap: 8px;">
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
               <button class="toolbar-btn btn-primary" onclick="openItemModal(null)">➕ Thêm Món Mới</button>
+              <button class="toolbar-btn" style="background: #E8F5E9; color: var(--success); border-color: #C8E6C9;" onclick="exportMenuJson()">📥 Xuất File menu.json</button>
+              <label class="toolbar-btn" style="margin: 0; cursor: pointer;">
+                📤 Nhập menu.json <input type="file" accept=".json" style="display: none;" onchange="importMenuJson(event)">
+              </label>
               <button class="toolbar-btn" onclick="resetDefaultMenu()">🔄 Khôi Phục Menu Mẫu</button>
             </div>
           </div>
@@ -1534,6 +1538,8 @@
     // --- 2. KHỞI TẠO ỨNG DỤNG ---
     window.addEventListener('DOMContentLoaded', () => {
       loadStorageData();
+      // Tự động nạp menu.json từ máy chủ nếu có (đảm bảo khách quét QR luôn nhận giá mới nhất)
+      fetchMenuJsonFromServer();
       checkAuthSession();
 
       // Kiểm tra tham số ?table= trên URL
@@ -1768,6 +1774,8 @@
       if (mode === 'customer') {
         document.getElementById('view-customer').classList.add('active');
         document.getElementById('btn-mode-customer').classList.add('active');
+        renderCustomerProducts(activeCategory);
+        updateCartUI();
       } else if (mode === 'pos') {
         document.getElementById('view-pos').classList.add('active');
         document.getElementById('btn-mode-pos').classList.add('active');
@@ -3459,6 +3467,61 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       playAudioChime(660, 0.2);
       showSmsToast("ĐƠN HÀNG MỚI ĐẾN!", `${simulated.id} tại ${simulated.table} vừa đặt món.`);
     }
+
+    // --- ĐỒNG BỘ MENU QUA TỆP MENU.JSON (CHO KHÁCH QUÉT QR TỪ XA) ---
+    function fetchMenuJsonFromServer() {
+      // Thêm timestamp để tránh cache trình duyệt
+      fetch('menu.json?t=' + Date.now())
+        .then(response => {
+          if (!response.ok) throw new Error('Không tìm thấy menu.json trên máy chủ');
+          return response.json();
+        })
+        .then(serverMenu => {
+          if (Array.isArray(serverMenu) && serverMenu.length > 0) {
+            menuItems = serverMenu;
+            localStorage.setItem('ace_menu', JSON.stringify(menuItems));
+            renderCustomerProducts(activeCategory);
+            if (currentUser && currentUser.role === 'admin') renderAdminMenuTable();
+            console.log('Đã cập nhật thực đơn mới nhất từ menu.json của máy chủ!');
+          }
+        })
+        .catch(err => {
+          console.log('Sử dụng thực đơn lưu trong bộ nhớ cục bộ (localStorage):', err.message);
+        });
+    }
+
+    function exportMenuJson() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(menuItems, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "menu.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showSmsToast("ĐÃ TẢI FILE MENU.JSON", "Hãy tải tệp này lên GitHub của bạn để đồng bộ giá mới cho mọi điện thoại của khách!");
+    }
+
+    function importMenuJson(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (Array.isArray(imported)) {
+            menuItems = imported;
+            saveMenuStorage();
+            showSmsToast("NHẬP MENU THÀNH CÔNG", "Đã cập nhật thực đơn từ tệp mới!");
+          } else {
+            alert("Định dạng tệp không hợp lệ!");
+          }
+        } catch(err) {
+          alert("Lỗi khi đọc tệp JSON: " + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
   </script>
 </body>
 </html>
