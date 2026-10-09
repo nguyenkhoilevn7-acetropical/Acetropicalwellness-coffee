@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ace Tropical Wellness Coffee - QR Order & Quản Trị</title>
+  <title>Ace Tropical Wellness Coffee - QR Order & Quản Trị Hệ Thống</title>
   <style>
     :root {
       --primary: #6F4E37;
@@ -41,7 +41,7 @@
       flex-direction: column;
     }
 
-    /* HEADER */
+    /* TOP HEADER */
     header {
       background: var(--primary-dark);
       color: #FFF;
@@ -92,7 +92,7 @@
       display: block;
     }
 
-    /* NAVIGATION MODES (Chỉ hiển thị khi nhân viên/admin đăng nhập) */
+    /* NAVIGATION MODES (Chỉ hiển thị khi nhân viên / admin đã đăng nhập) */
     .nav-modes {
       display: flex;
       background: rgba(255, 255, 255, 0.12);
@@ -239,12 +239,20 @@
 
     .change-table-btn:hover { background: var(--accent-light); }
 
+    /* SEARCH & FILTER FOR CUSTOMER */
+    .customer-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
     .category-filter {
       display: flex;
       gap: 8px;
       overflow-x: auto;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
       scrollbar-width: none;
     }
     .category-filter::-webkit-scrollbar { display: none; }
@@ -269,6 +277,15 @@
       box-shadow: 0 4px 10px rgba(111, 78, 55, 0.25);
     }
 
+    .customer-search-input {
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      background: #FFF;
+      width: 220px;
+    }
+
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -290,6 +307,15 @@
     .product-card:hover {
       transform: translateY(-3px);
       box-shadow: var(--shadow-lg);
+    }
+
+    .product-card.just-added {
+      animation: pulseHighlight 2s ease-out;
+    }
+
+    @keyframes pulseHighlight {
+      0% { box-shadow: 0 0 0 4px #2E7D32; }
+      100% { box-shadow: var(--shadow); }
     }
 
     .product-img-wrapper {
@@ -570,6 +596,7 @@
 
     .toolbar-btn:hover { background: var(--accent-light); }
     .toolbar-btn.btn-primary { background: var(--primary); color: white; border-color: var(--primary); }
+    .toolbar-btn.btn-success { background: #E8F5E9; color: var(--success); border-color: #C8E6C9; }
     .toolbar-btn.btn-danger { background: #FFEBEE; color: var(--danger); border-color: #FFCDD2; }
 
     .kanban-grid {
@@ -873,8 +900,11 @@
         </button>
       </div>
 
-      <!-- DANH MỤC LỌC -->
-      <div class="category-filter" id="customer-category-filter"></div>
+      <!-- TÌM KIẾM VÀ DANH MỤC LỌC -->
+      <div class="customer-controls">
+        <div class="category-filter" id="customer-category-filter"></div>
+        <input type="text" class="customer-search-input" id="customer-search-input" placeholder="🔍 Tìm kiếm món ngon..." oninput="handleCustomerSearch(this.value)">
+      </div>
 
       <!-- GRID SẢN PHẨM -->
       <div class="products-grid" id="products-grid"></div>
@@ -969,7 +999,7 @@
             👥 Quản Lý & Cấp Quyền Nhân Viên
           </button>
           <button class="admin-tab-btn" onclick="switchAdminTab('tab-settings', this)">
-            ⚙️ Cài Đặt Quán
+            ⚙️ Cài Đặt Quán & Đồng Bộ
           </button>
         </div>
 
@@ -982,12 +1012,17 @@
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
               <button class="toolbar-btn btn-primary" onclick="openItemModal(null)">➕ Thêm Món Mới</button>
-              <button class="toolbar-btn" style="background: #E8F5E9; color: var(--success); border-color: #C8E6C9;" onclick="exportMenuJson()">📥 Xuất File menu.json</button>
+              <button class="toolbar-btn btn-success" onclick="exportMenuJson()">📥 Tải File Menu.json Để Lưu GitHub</button>
               <label class="toolbar-btn" style="margin: 0; cursor: pointer;">
-                📤 Nhập menu.json <input type="file" accept=".json" style="display: none;" onchange="importMenuJson(event)">
+                📤 Nhập Menu.json <input type="file" accept=".json" style="display: none;" onchange="importMenuJson(event)">
               </label>
-              <button class="toolbar-btn" onclick="resetDefaultMenu()">🔄 Khôi Phục Menu Mẫu</button>
+              <button class="toolbar-btn" onclick="resetDefaultMenu()">🔄 Khôi Phục Gốc</button>
             </div>
+          </div>
+
+          <!-- Thông báo hướng dẫn đồng bộ -->
+          <div style="background: #E8F5E9; border-left: 4px solid var(--success); padding: 10px 14px; border-radius: 6px; margin-top: 14px; font-size: 0.82rem; color: #1B5E20;">
+            💡 <b>Mẹo đồng bộ cho mọi điện thoại khách hàng:</b> Khi bạn thêm món mới hoặc sửa giá trong bảng này, hệ thống sẽ đổi giá ngay trên máy bạn. Để <b>mọi điện thoại khác quét mã QR đều nhận món và giá mới</b>, bạn chỉ cần bấm nút <b>"📥 Tải File Menu.json"</b> ở trên rồi tải đè lên tệp <code>Menu.json</code> trên GitHub của bạn!
           </div>
 
           <div style="overflow-x: auto;">
@@ -1067,7 +1102,7 @@
           </div>
         </div>
 
-        <!-- TAB 4: QUẢN LÝ TÀI KHOẢN & PHÂN QUYỀN NHÂN VIÊN (MỚI) -->
+        <!-- TAB 4: QUẢN LÝ TÀI KHOẢN & PHÂN QUYỀN NHÂN VIÊN -->
         <div class="admin-tab-content" id="tab-users">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <div>
@@ -1209,7 +1244,6 @@
     </div>
   </div>
 
-  <!-- CÁC MODAL KHÁC (MENU, SỬA ĐƠN, BÀN, QR, GIỎ HÀNG) -->
   <!-- MODAL: THÊM / SỬA MÓN ĂN -->
   <div class="modal-overlay" id="item-modal">
     <div class="modal-card">
@@ -1245,12 +1279,12 @@
           <textarea id="item-form-desc" class="form-control" rows="2" placeholder="Hương vị thơm ngon..."></textarea>
         </div>
         <div class="form-group">
-          <label>URL Hình Ảnh (Hoặc để trống):</label>
-          <input type="url" id="item-form-img" class="form-control" placeholder="https://... hoặc link ảnh">
+          <label>URL Hình Ảnh (Hoặc để trống dùng biểu tượng cà phê):</label>
+          <input type="url" id="item-form-img" class="form-control" placeholder="https://... hoặc link ảnh trực tiếp">
         </div>
         <div class="form-group">
           <label>
-            <input type="checkbox" id="item-form-avail" checked> Đang còn hàng
+            <input type="checkbox" id="item-form-avail" checked> Đang còn hàng (bỏ chọn nếu hết nguyên liệu)
           </label>
         </div>
       </div>
@@ -1477,7 +1511,7 @@
     </div>
   </div>
 
-  <!-- SCRIPT LOGIC VỚI AUTHENTICATION & PHÂN QUYỀN RBAC -->
+  <!-- SCRIPT LOGIC HOÀN CHỈNH & CHỐNG LỖI MẤT MÓN -->
   <script>
     // --- 1. DỮ LIỆU GỐC & TÀI KHOẢN MẪU ---
     const DEFAULT_USERS = [
@@ -1517,7 +1551,7 @@
     ];
 
     // STATE
-    let currentUser = null; // null: Khách hàng; { role: 'staff'|'admin', fullname: '...' }
+    let currentUser = null;
     let usersList = [];
     let menuItems = [];
     let tables = [];
@@ -1533,13 +1567,13 @@
     };
 
     let activeCategory = 'all';
+    let searchQuery = '';
     let temporaryEditingOrder = null;
+    let lastAddedItemId = null; // Để làm hiệu ứng phát sáng món mới thêm
 
     // --- 2. KHỞI TẠO ỨNG DỤNG ---
     window.addEventListener('DOMContentLoaded', () => {
       loadStorageData();
-      // Tự động nạp menu.json từ máy chủ nếu có (đảm bảo khách quét QR luôn nhận giá mới nhất)
-      fetchMenuJsonFromServer();
       checkAuthSession();
 
       // Kiểm tra tham số ?table= trên URL
@@ -1559,10 +1593,12 @@
       populateTableSelectDropdowns();
       renderOrders();
 
-      // Mặc định luôn ở chế độ khách nếu chưa đăng nhập
       if (!currentUser) {
         switchView('customer');
       }
+
+      // Tự động kéo tệp Menu.json / menu.json từ máy chủ GitHub
+      fetchMenuJsonFromServer();
 
       window.addEventListener('storage', (e) => {
         if (e.key === 'ace_menu' || e.key === 'ace_orders' || e.key === 'ace_tables' || e.key === 'ace_settings' || e.key === 'ace_users') {
@@ -1585,7 +1621,13 @@
     function loadStorageData() {
       // Menu
       const savedMenu = localStorage.getItem('ace_menu');
-      menuItems = savedMenu ? JSON.parse(savedMenu) : [...DEFAULT_MENU];
+      if (savedMenu) {
+        try {
+          menuItems = JSON.parse(savedMenu);
+        } catch(e) { menuItems = [...DEFAULT_MENU]; }
+      } else {
+        menuItems = [...DEFAULT_MENU];
+      }
 
       // Tables
       const savedTables = localStorage.getItem('ace_tables');
@@ -1609,6 +1651,79 @@
       } else {
         resetSampleOrders();
       }
+    }
+
+    // --- CƠ CHẾ NẠP THỰC ĐƠN THÔNG MINH (TRÁNH GHI ĐÈ MẤT MÓN MỚI) ---
+    function fetchMenuJsonFromServer() {
+      const fetchFile = (filename) => {
+        return fetch(filename + '?t=' + Date.now())
+          .then(res => {
+            if (!res.ok) throw new Error('Không tìm thấy ' + filename);
+            return res.json();
+          });
+      };
+
+      fetchFile('Menu.json')
+        .catch(() => fetchFile('menu.json'))
+        .then(serverMenu => {
+          if (Array.isArray(serverMenu) && serverMenu.length > 0) {
+            // THUẬT TOÁN HỢP NHẤT THÔNG MINH (SMART MERGE):
+            // Giữ lại tất cả các món mới mà Admin tự thêm cục bộ, đồng thời cập nhật giá từ server
+            const localMenu = localStorage.getItem('ace_menu') ? JSON.parse(localStorage.getItem('ace_menu')) : [];
+            const mergedMap = new Map();
+
+            // 1. Đưa các món từ server vào trước
+            serverMenu.forEach(item => mergedMap.set(item.id, item));
+
+            // 2. Nếu local có món mới (ID lớn hơn hoặc tên mới) mà server chưa có, giữ lại không được xóa!
+            localMenu.forEach(localItem => {
+              if (!mergedMap.has(localItem.id)) {
+                mergedMap.set(localItem.id, localItem);
+              }
+            });
+
+            menuItems = Array.from(mergedMap.values());
+            localStorage.setItem('ace_menu', JSON.stringify(menuItems));
+            renderCustomerProducts(activeCategory);
+            if (currentUser && currentUser.role === 'admin') renderAdminMenuTable();
+            console.log('✅ Đã nạp và hợp nhất menu thành công:', menuItems.length, 'món.');
+          }
+        })
+        .catch(err => {
+          console.log('ℹ️ Sử dụng dữ liệu menu trong bộ nhớ máy tính:', err.message);
+        });
+    }
+
+    function exportMenuJson() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(menuItems, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", "Menu.json");
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showSmsToast("ĐÃ TẢI FILE Menu.json", "Tải tệp này lên kho GitHub của bạn để cập nhật món mới cho TẤT CẢ điện thoại khách hàng!");
+    }
+
+    function importMenuJson(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (Array.isArray(imported)) {
+            menuItems = imported;
+            saveMenuStorage();
+            showSmsToast("NHẬP MENU THÀNH CÔNG", `Đã nhập ${imported.length} món từ tệp.`);
+          } else {
+            alert("Định dạng tệp không hợp lệ!");
+          }
+        } catch(err) {
+          alert("Lỗi khi đọc tệp JSON: " + err.message);
+        }
+      };
+      reader.readAsText(file);
     }
 
     function saveMenuStorage() {
@@ -1656,7 +1771,7 @@
       saveOrdersStorage();
     }
 
-    // --- 3. XÁC THỰC & PHÂN QUYỀN RBAC (MỚI) ---
+    // --- 3. BẢO MẬT & PHÂN QUYỀN RBAC ---
     function checkAuthSession() {
       const session = sessionStorage.getItem('ace_auth_user');
       if (session) {
@@ -1675,23 +1790,19 @@
       const authDisplay = document.getElementById('auth-user-display');
 
       if (!currentUser) {
-        // KHÁCH HÀNG: Ẩn toàn bộ nút POS & Backend
         navModes.style.display = 'none';
         authPanel.style.display = 'none';
         btnPos.style.display = 'none';
         btnBackend.style.display = 'none';
       } else {
-        // ĐÃ ĐĂNG NHẬP
         navModes.style.display = 'flex';
         authPanel.style.display = 'block';
         authDisplay.textContent = `👤 ${currentUser.fullname} (${currentUser.role === 'admin' ? 'Quản lý' : 'Nhân viên'})`;
 
         if (currentUser.role === 'staff') {
-          // NHÂN VIÊN: Chỉ thấy Quầy POS, KHÔNG THẤY Backend
           btnPos.style.display = 'flex';
           btnBackend.style.display = 'none';
         } else if (currentUser.role === 'admin') {
-          // ADMIN: Thấy ĐẦY ĐỦ POS & Backend
           btnPos.style.display = 'flex';
           btnBackend.style.display = 'flex';
         }
@@ -1745,7 +1856,7 @@
         switchView('pos');
       }
 
-      showSmsToast("ĐĂNG NHẬP THÀNH CÔNG", `Xin chào ${currentUser.fullname} (${currentUser.role === 'admin' ? 'Quản lý' : 'Nhân viên'})!`);
+      showSmsToast("ĐĂNG NHẬP THÀNH CÔNG", `Xin chào ${currentUser.fullname}!`);
     }
 
     function logoutUser() {
@@ -1808,11 +1919,11 @@
       }
     }
 
-    // --- 5. GIAO DIỆN KHÁCH HÀNG & MENU ---
+    // --- 5. GIAO DIỆN KHÁCH HÀNG & MENU (ĐẢM BẢO HIỂN THỊ 100%) ---
     function renderCustomerCategoryFilter() {
       const container = document.getElementById('customer-category-filter');
       container.innerHTML = CATEGORIES.map(c => `
-        <button class="cat-btn ${c.id === activeCategory ? 'active' : ''}" onclick="selectCustomerCategory('${c.id}', this)">
+        <button class="cat-btn ${c.id === activeCategory ? 'active' : ''}" id="cat-btn-${c.id}" onclick="selectCustomerCategory('${c.id}', this)">
           ${c.name}
         </button>
       `).join('');
@@ -1821,22 +1932,54 @@
     function selectCustomerCategory(catId, btn) {
       activeCategory = catId;
       document.querySelectorAll('#customer-category-filter .cat-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+      if (btn) {
+        btn.classList.add('active');
+      } else {
+        const target = document.getElementById(`cat-btn-${catId}`);
+        if (target) target.classList.add('active');
+      }
       renderCustomerProducts(catId);
+    }
+
+    function handleCustomerSearch(query) {
+      searchQuery = (query || '').trim().toLowerCase();
+      renderCustomerProducts(activeCategory);
     }
 
     function renderCustomerProducts(catId) {
       const grid = document.getElementById('products-grid');
-      const filtered = catId === 'all' ? menuItems : menuItems.filter(m => m.category === catId);
+
+      // Lọc theo danh mục
+      let filtered = (catId === 'all' || !catId) ? [...menuItems] : menuItems.filter(m => m.category === catId);
+
+      // Lọc thêm theo ô tìm kiếm nếu có
+      if (searchQuery) {
+        filtered = filtered.filter(m => 
+          m.name.toLowerCase().includes(searchQuery) ||
+          (m.desc && m.desc.toLowerCase().includes(searchQuery))
+        );
+      }
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px 10px; color: var(--text-muted);">
+            <div style="font-size: 40px; margin-bottom: 8px;">🔍</div>
+            <p>Không tìm thấy món ăn nào phù hợp trong mục này.</p>
+            <button class="change-table-btn" style="margin-top: 10px;" onclick="selectCustomerCategory('all')">Xem Tất Cả Món</button>
+          </div>
+        `;
+        return;
+      }
 
       grid.innerHTML = filtered.map(item => {
         const isOutOfStock = item.available === false;
         const imgDisplay = item.imgUrl 
           ? `<img src="${item.imgUrl}" alt="${item.name}">` 
           : `<div style="font-size: 50px;">☕</div>`;
+        const isJustAdded = lastAddedItemId === item.id;
 
         return `
-          <div class="product-card">
+          <div class="product-card ${isJustAdded ? 'just-added' : ''}" id="prod-card-${item.id}">
             ${isOutOfStock ? `<div class="out-of-stock-overlay">HẾT NGUYÊN LIỆU</div>` : ''}
             <div class="product-img-wrapper">
               ${item.badge ? `<span class="product-badge">${item.badge}</span>` : ''}
@@ -1865,8 +2008,11 @@
       const existing = cart.find(c => c.item.id === itemId);
       if (existing) {
         existing.qty += 1;
+        // Luôn cập nhật giá mới nhất
+        existing.item.price = item.price;
+        existing.item.name = item.name;
       } else {
-        cart.push({ item, qty: 1 });
+        cart.push({ item: { ...item }, qty: 1 });
       }
 
       playAudioChime(440, 0.08);
@@ -1889,6 +2035,15 @@
       const subtotalEl = document.getElementById('cart-subtotal');
       const vatEl = document.getElementById('cart-vat');
       const totalEl = document.getElementById('cart-total');
+
+      // Đồng bộ giá trong giỏ hàng với thực đơn hiện tại
+      cart.forEach(c => {
+        const currentItem = menuItems.find(m => m.id === c.item.id);
+        if (currentItem) {
+          c.item.price = currentItem.price;
+          c.item.name = currentItem.name;
+        }
+      });
 
       const totalItems = cart.reduce((s, c) => s + c.qty, 0);
       countEl.textContent = totalItems;
@@ -2275,7 +2430,6 @@
         document.getElementById('user-form-role').value = u.role;
         document.getElementById('user-form-active').checked = u.active !== false;
 
-        // Không cho đổi username admin gốc
         if (u.username === 'admin') {
           document.getElementById('user-form-username').disabled = true;
           document.getElementById('user-form-role').disabled = true;
@@ -2358,7 +2512,7 @@
       }
     }
 
-    // --- 10. QUẢN LÝ MENU (BACKEND) ---
+    // --- 10. QUẢN LÝ MENU (BACKEND) - ĐẢM BẢO HIỂN THỊ TỨC THÌ ---
     function renderAdminMenuTable() {
       const tbody = document.getElementById('admin-menu-tbody');
       tbody.innerHTML = menuItems.map(item => `
@@ -2439,8 +2593,10 @@
         return;
       }
 
+      let savedId;
       if (idVal) {
         const id = parseInt(idVal);
+        savedId = id;
         const item = menuItems.find(m => m.id === id);
         if (item) {
           item.name = name;
@@ -2453,12 +2609,21 @@
         }
       } else {
         const newId = menuItems.length > 0 ? Math.max(...menuItems.map(m => m.id)) + 1 : 1;
+        savedId = newId;
         menuItems.push({ id: newId, name, category: cat, price, badge, desc, imgUrl, available });
       }
 
+      lastAddedItemId = savedId;
+
+      // ĐẢM BẢO TỰ ĐỘNG CHUYỂN DANH MỤC VỀ 'TẤT CẢ' HOẶC DANH MỤC CỦA MÓN ĐỂ HIỂN THỊ NGAY
+      activeCategory = 'all';
+      renderCustomerCategoryFilter();
+
       saveMenuStorage();
+      updateCartUI();
       closeItemModal();
-      showSmsToast("MENU ĐÃ CẬP NHẬT", `Món "${name}" đã được lưu thành công.`);
+
+      showSmsToast("MENU ĐÃ CẬP NHẬT", `Món "${name}" (${formatMoney(price)}) đã được hiển thị trên thực đơn!`);
     }
 
     function deleteMenuItem(itemId) {
@@ -2472,7 +2637,7 @@
     }
 
     function resetDefaultMenu() {
-      if (confirm("Khôi phục lại thực đơn gốc?")) {
+      if (confirm("Khôi phục lại thực đơn gốc ban đầu? Mọi món tự thêm sẽ bị đặt lại.")) {
         menuItems = [...DEFAULT_MENU];
         saveMenuStorage();
         showSmsToast("KHÔI PHỤC MENU", "Đã đặt lại thực đơn mẫu chuẩn.");
@@ -3467,61 +3632,6 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       playAudioChime(660, 0.2);
       showSmsToast("ĐƠN HÀNG MỚI ĐẾN!", `${simulated.id} tại ${simulated.table} vừa đặt món.`);
     }
-
-    // --- ĐỒNG BỘ MENU QUA TỆP MENU.JSON (CHO KHÁCH QUÉT QR TỪ XA) ---
-    function fetchMenuJsonFromServer() {
-      // Thêm timestamp để tránh cache trình duyệt
-      fetch('menu.json?t=' + Date.now())
-        .then(response => {
-          if (!response.ok) throw new Error('Không tìm thấy menu.json trên máy chủ');
-          return response.json();
-        })
-        .then(serverMenu => {
-          if (Array.isArray(serverMenu) && serverMenu.length > 0) {
-            menuItems = serverMenu;
-            localStorage.setItem('ace_menu', JSON.stringify(menuItems));
-            renderCustomerProducts(activeCategory);
-            if (currentUser && currentUser.role === 'admin') renderAdminMenuTable();
-            console.log('Đã cập nhật thực đơn mới nhất từ menu.json của máy chủ!');
-          }
-        })
-        .catch(err => {
-          console.log('Sử dụng thực đơn lưu trong bộ nhớ cục bộ (localStorage):', err.message);
-        });
-    }
-
-    function exportMenuJson() {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(menuItems, null, 2));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", "menu.json");
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
-      showSmsToast("ĐÃ TẢI FILE MENU.JSON", "Hãy tải tệp này lên GitHub của bạn để đồng bộ giá mới cho mọi điện thoại của khách!");
-    }
-
-    function importMenuJson(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const imported = JSON.parse(e.target.result);
-          if (Array.isArray(imported)) {
-            menuItems = imported;
-            saveMenuStorage();
-            showSmsToast("NHẬP MENU THÀNH CÔNG", "Đã cập nhật thực đơn từ tệp mới!");
-          } else {
-            alert("Định dạng tệp không hợp lệ!");
-          }
-        } catch(err) {
-          alert("Lỗi khi đọc tệp JSON: " + err.message);
-        }
-      };
-      reader.readAsText(file);
-    }
-
   </script>
 </body>
 </html>
