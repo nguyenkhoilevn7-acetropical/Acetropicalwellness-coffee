@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Gọi Món & POS Quán Cafe</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @media print {
+            body * { visibility: hidden; }
+            #printable-receipt, #printable-receipt * { visibility: visible; }
+            #printable-receipt { position: absolute; left: 0; top: 0; width: 100%; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- Top Header Switcher -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-amber-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-mug-hot"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-lg text-slate-900 leading-tight">Misty Bean Cafe</h1>
+                    <p class="text-xs text-slate-500">Hệ thống QR Order & POS Thông Minh</p>
+                </div>
+            </div>
+
+            <div class="flex items-center bg-slate-100 p-1 rounded-xl">
+                <button onclick="switchView('customer')" id="btn-customer" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-white text-amber-700 shadow-sm">
+                    <i class="fa-solid fa-qrcode mr-2"></i> Giao diện Khách (Scan QR)
+                </button>
+                <button onclick="switchView('pos')" id="btn-pos" class="px-4 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:text-slate-900">
+                    <i class="fa-solid fa-cash-register mr-2"></i> Quầy POS & Pha Chế
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main App Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6">
+
+        <!-- ================= CUSTOMER VIEW ================= -->
+        <div id="view-customer" class="space-y-6">
+            <!-- Table & Customer Info Banner -->
+            <div class="bg-gradient-to-r from-amber-700 to-amber-900 rounded-2xl p-6 text-white shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="bg-amber-600/80 text-amber-100 text-xs px-3 py-1 rounded-full uppercase font-bold tracking-wider inline-block mb-2">Bàn đang chọn</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold flex items-center gap-2">
+                        <i class="fa-solid fa-chair text-amber-300"></i> <span id="current-table-display">Bàn 01 (Tầng trệt)</span>
+                    </h2>
+                    <p class="text-amber-100 text-sm mt-1">Quét mã QR gọi món tự động, thanh toán trực tuyến nhanh chóng.</p>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                    <button onclick="openTableModal()" class="bg-white/10 hover:bg-white/20 border border-white/30 px-4 py-2.5 rounded-xl text-sm font-semibold transition backdrop-blur-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-right-left"></i> Đổi bàn / Quét lại QR
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Menu Grid & Cart Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Menu Column -->
+                <div class="lg:col-span-2 space-y-4">
+                    <!-- Category Tabs -->
+                    <div class="flex overflow-x-auto gap-2 pb-2 hide-scrollbar" id="category-tabs">
+                        <button onclick="filterCategory('all')" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap bg-amber-700 text-white shadow-sm transition">Tất cả</button>
+                        <button onclick="filterCategory('coffee')" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition">Cà phê</button>
+                        <button onclick="filterCategory('tea')" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition">Trà trái cây</button>
+                        <button onclick="filterCategory('bakery')" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition">Bánh ngọt</button>
+                        <button onclick="filterCategory('smoothie')" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition">Đá xay & Sinh tố</button>
+                    </div>
+
+                    <!-- Items Grid -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="menu-items-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Order Cart Summary Column -->
+                <div class="space-y-4">
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 sticky top-24">
+                        <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+                            <h3 class="font-bold text-lg text-slate-900 flex items-center gap-2">
+                                <i class="fa-solid fa-receipt text-amber-700"></i> Giỏ hàng của bạn
+                            </h3>
+                            <span id="cart-item-count" class="bg-amber-100 text-amber-800 text-xs font-bold px-2.5 py-1 rounded-full">0 món</span>
+                        </div>
+
+                        <!-- Cart Items List -->
+                        <div class="divide-y divide-slate-100 max-h-72 overflow-y-auto my-3" id="cart-items-container">
+                            <div class="py-8 text-center text-slate-400 text-sm">
+                                <i class="fa-solid fa-mug-saucer text-3xl mb-2 text-slate-300"></i>
+                                <p>Chưa có món nào trong giỏ hàng.</p>
+                            </div>
+                        </div>
+
+                        <!-- Bill Calculation -->
+                        <div class="space-y-2 py-3 border-t border-slate-100 text-sm">
+                            <div class="flex justify-between text-slate-600">
+                                <span>Tạm tính</span>
+                                <span id="cart-subtotal">0 đ</span>
+                            </div>
+                            <div class="flex justify-between text-slate-600">
+                                <span>Thuế (VAT 8%)</span>
+                                <span id="cart-tax">0 đ</span>
+                            </div>
+                            <div class="flex justify-between font-bold text-base text-slate-900 pt-2 border-t border-dashed border-slate-200">
+                                <span>Tổng cộng</span>
+                                <span id="cart-total" class="text-amber-700">0 đ</span>
+                            </div>
+                        </div>
+
+                        <!-- Customer Phone Input for SMS Notification -->
+                        <div class="mt-4 bg-amber-50/60 p-3.5 rounded-xl border border-amber-200/60 space-y-2">
+                            <label class="block text-xs font-bold text-amber-900 uppercase tracking-wide">
+                                <i class="fa-solid fa-bell text-amber-700 mr-1"></i> Số điện thoại nhận tin nhắn hoàn thành món
+                            </label>
+                            <input type="tel" id="customer-phone" placeholder="Nhập SĐT của bạn (VD: 0912345678)" class="w-full px-3 py-2 bg-white border border-amber-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            <p class="text-[11px] text-amber-800/80 leading-snug">Hệ thống sẽ gửi thông báo SMS và chuông khi pha chế hoàn tất.</p>
+                        </div>
+
+                        <!-- Checkout Action Button -->
+                        <button onclick="proceedToCheckout()" id="btn-checkout" class="w-full mt-4 bg-amber-700 hover:bg-amber-800 disabled:bg-slate-300 disabled:cursor-not-allowed text-white font-bold py-3 rounded-xl shadow-lg shadow-amber-700/20 transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-credit-card"></i> Thanh toán & Đặt món ngay
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= POS & BARISTA VIEW ================= -->
+        <div id="view-pos" class="hidden space-y-6">
+            <!-- POS Controls & Header -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full uppercase font-bold tracking-wider inline-block mb-2">Quản lý trực tuyến</span>
+                    <h2 class="text-2xl font-extrabold text-slate-900">Bảng Điều Hành POS & Quầy Pha Chế</h2>
+                    <p class="text-slate-500 text-sm">Theo dõi đơn hàng thời gian thực, in hóa đơn bếp và bấm hoàn thành món.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="refreshOrders()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
+                        <i class="fa-solid fa-rotate"></i> Làm mới dữ liệu
+                    </button>
+                    <div class="bg-amber-50 border border-amber-200 text-amber-800 font-bold px-4 py-2 rounded-xl text-sm">
+                        Tổng đơn trong ngày: <span id="pos-total-orders">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kanban / Order Columns -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Column 1: New Orders -->
+                <div class="bg-slate-200/70 rounded-2xl p-4 space-y-4">
+                    <div class="flex justify-between items-center px-2">
+                        <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span> Mới đặt (Chờ bếp)
+                        </h3>
+                        <span id="count-new" class="bg-white text-slate-700 text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">0</span>
+                    </div>
+                    <div class="space-y-3 min-h-[400px]" id="orders-new-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Column 2: Preparing / In progress -->
+                <div class="bg-slate-200/70 rounded-2xl p-4 space-y-4">
+                    <div class="flex justify-between items-center px-2">
+                        <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-blue-500 inline-block"></span> Đang pha chế
+                        </h3>
+                        <span id="count-preparing" class="bg-white text-slate-700 text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">0</span>
+                    </div>
+                    <div class="space-y-3 min-h-[400px]" id="orders-preparing-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Column 3: Completed -->
+                <div class="bg-slate-200/70 rounded-2xl p-4 space-y-4">
+                    <div class="flex justify-between items-center px-2">
+                        <h3 class="font-bold text-slate-800 flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span> Đã hoàn thành (Sẵn sàng phục vụ)
+                        </h3>
+                        <span id="count-completed" class="bg-white text-slate-700 text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">0</span>
+                    </div>
+                    <div class="space-y-3 min-h-[400px]" id="orders-completed-list">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Table Selection Modal -->
+    <div id="table-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-bold text-slate-900">Chọn Bàn / Quét Mã QR</h3>
+                <button onclick="closeTableModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <p class="text-sm text-slate-500">Vui lòng chọn số bàn hoặc khu vực bạn đang ngồi tại quán:</p>
+            <div class="grid grid-cols-3 gap-3" id="table-grid-options">
+                <!-- Tables generated by JS -->
+            </div>
+            <button onclick="confirmTableSelection()" class="w-full bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 rounded-xl transition">Xác nhận bàn</button>
+        </div>
+    </div>
+
+    <!-- Payment Gateway Modal Simulation -->
+    <div id="payment-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl space-y-5">
+            <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                <h3 class="text-xl font-bold text-slate-900">Thanh toán đơn hàng</h3>
+                <button onclick="closePaymentModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="text-center space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                <p class="text-xs text-slate-500 uppercase font-semibold tracking-wider">Tổng số tiền thanh toán</p>
+                <div class="text-3xl font-extrabold text-amber-700" id="modal-total-amount">0 đ</div>
+                <p class="text-xs text-slate-600" id="modal-order-meta">Bàn 01 • 0 món</p>
+            </div>
+            <div class="space-y-3">
+                <label class="block text-xs font-bold text-slate-700 uppercase">Chọn phương thức thanh toán</label>
+                <div class="grid grid-cols-2 gap-3">
+                    <button onclick="selectPaymentMethod('momo')" id="pm-momo" class="payment-method-btn p-3 rounded-xl border-2 border-amber-600 bg-amber-50/50 flex flex-col items-center gap-1 transition">
+                        <i class="fa-solid fa-wallet text-pink-600 text-xl"></i>
+                        <span class="text-xs font-bold text-slate-800">Ví MoMo / QR</span>
+                    </button>
+                    <button onclick="selectPaymentMethod('banking')" id="pm-banking" class="payment-method-btn p-3 rounded-xl border-2 border-slate-200 bg-white flex flex-col items-center gap-1 transition">
+                        <i class="fa-solid fa-building-columns text-blue-600 text-xl"></i>
+                        <span class="text-xs font-bold text-slate-800">Chuyển khoản Ngân hàng</span>
+                    </button>
+                </div>
+            </div>
+            <div id="qr-code-box" class="text-center p-4 bg-white border border-slate-200 rounded-xl space-y-2">
+                <div class="w-36 h-36 mx-auto bg-slate-100 border border-slate-300 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-qrcode text-6xl text-slate-700"></i>
+                </div>
+                <p class="text-xs text-slate-500">Quét mã QR bằng ứng dụng ngân hàng hoặc MoMo để thanh toán tự động.</p>
+            </div>
+            <button onclick="processPaymentAndSubmit()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-emerald-600/20 transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-circle-check"></i> Xác nhận đã thanh toán xong
+            </button>
+        </div>
+    </div>
+
+    <!-- Receipt Print Preview Modal (Hidden for print layout) -->
+    <div id="receipt-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4">
+            <div class="text-center pb-2 border-b border-dashed border-slate-200" id="printable-receipt">
+                <h3 class="font-bold text-lg text-slate-900">MISTY BEAN CAFE</h3>
+                <p class="text-xs text-slate-500">ĐC: 123 Nguyễn Huệ, Q.1, TP.HCM</p>
+                <div class="my-3 font-mono text-left text-xs space-y-1">
+                    <p>----------------------------------------</p>
+                    <p id="rcpt-id">Mã đơn: #ORD-1001</p>
+                    <p id="rcpt-time">Thời gian: 10:45 09/10/2026</p>
+                    <p id="rcpt-table">Bàn: Bàn 01</p>
+                    <p id="rcpt-phone">SĐT KH: 0912345678</p>
+                    <p>----------------------------------------</p>
+                    <div id="rcpt-items-list" class="space-y-1">
+                        <!-- Populated -->
+                    </div>
+                    <p>----------------------------------------</p>
+                    <div class="flex justify-between font-bold text-sm pt-1">
+                        <span>Tổng cộng:</span>
+                        <span id="rcpt-total">0 đ</span>
+                    </div>
+                    <p class="text-center pt-2 font-bold text-emerald-600">ĐÃ THANH TOÁN (QR ONLINE)</p>
+                    <p class="text-center text-[10px] text-slate-400 pt-1">Cảm ơn quý khách và hẹn gặp lại!</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="window.print()" class="flex-1 bg-slate-800 hover:bg-slate-900 text-white font-semibold py-2.5 rounded-xl text-sm transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-print"></i> In hóa đơn (Máy in POS)
+                </button>
+                <button onclick="closeReceiptModal()" class="px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold py-2.5 rounded-xl text-sm transition">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast / SMS Alert Simulation Popup -->
+    <div id="toast-notification" class="fixed bottom-6 right-6 z-50 max-w-sm w-full bg-slate-900 text-white p-4 rounded-2xl shadow-2xl border border-slate-700 transform translate-y-32 opacity-0 transition-all duration-300 flex items-start gap-3">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500 flex items-center justify-center text-white shrink-0 shadow-lg">
+            <i class="fa-solid fa-bell text-lg"></i>
+        </div>
+        <div class="flex-1 space-y-1">
+            <div class="flex justify-between items-center">
+                <h4 class="font-bold text-sm text-emerald-400" id="toast-title">Thông báo SMS hoàn thành</h4>
+                <span class="text-[10px] text-slate-400" id="toast-time">Vừa xong</span>
+            </div>
+            <p class="text-xs text-slate-300" id="toast-message">Đơn hàng của bàn 01 đã được pha chế xong. Mời quý khách thưởng thức!</p>
+        </div>
+        <button onclick="hideToast()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Database Mock Data & State
+        const menuItems = [
+            { id: 1, name: 'Cà phê Sữa Đá Sài Gòn', category: 'coffee', price: 35000, desc: 'Cà phê nguyên chất rang xay đậm đà kết hợp sữa đặc ngọt ngào.', image: 'https://placehold.co/400x300/f59e0b/ffffff?text=Ca+Phe+Sua+Da' },
+            { id: 2, name: 'Cà phê Đen Đá Nguyên Chất', category: 'coffee', price: 29000, desc: 'Hương vị truyền thống mạnh mẽ, tỉnh táo suốt cả ngày.', image: 'https://placehold.co/400x300/78350f/ffffff?text=Ca+Phe+Den+Da' },
+            { id: 3, name: 'Bạc Xỉu Đá Tầng', category: 'coffee', price: 39000, desc: 'Nhiều sữa ít cà phê, béo ngậy thơm ngon chuẩn vị.', image: 'https://placehold.co/400x300/d97706/ffffff?text=Bac+Xiu' },
+            { id: 4, name: 'Trà Đào Cam Sả', category: 'tea', price: 45000, desc: 'Trà thơm thanh mát kết hợp đào miếng giòn tan và sả tươi.', image: 'https://placehold.co/400x300/ea580c/ffffff?text=Tra+Dao+Cam+Sa' },
+            { id: 5, name: 'Trà Sải Vải Sen Vàng', category: 'tea', price: 49000, desc: 'Trà ô long thơm ngát kèm hạt sen bùi và vải tươi mọng nước.', image: 'https://placehold.co/400x300/db2777/ffffff?text=Tra+Vai+Sen+Vang' },
+            { id: 6, name: 'Bánh Croissant Bơ Tỏi Phô Mai', category: 'bakery', price: 38000, desc: 'Bánh sừng bò nướng giòn rụm phủ phô mai béo ngậy thơm lừng.', image: 'https://placehold.co/400x300/ca8a04/ffffff?text=Croissant' },
+            { id: 7, name: 'Bánh Tiramisu Ý', category: 'bakery', price: 48000, desc: 'Bánh ngọt vị cà phê đậm đà, lớp kem mascarpone mềm mịn.', image: 'https://placehold.co/400x300/854d0e/ffffff?text=Tiramisu' },
+            { id: 8, name: 'Sinh Tố Xoài Dừa Dầm', category: 'smoothie', price: 52000, desc: 'Xoài tươi chín mọng xay mịn cùng cốt dừa đậm đặc.', image: 'https://placehold.co/400x300/eab308/ffffff?text=Sinh+To+Xoai' }
+        ];
+
+        let currentTable = "Bàn 01 (Tầng trệt)";
+        let cart = [];
+        let currentCategory = 'all';
+        let orders = [
+            {
+                id: "ORD-1000",
+                table: "Bàn 03 (Khu máy lạnh)",
+                time: "10:15",
+                phone: "0988776655",
+                items: [{name: "Cà phê Sữa Đá Sài Gòn", qty: 2, price: 35000}, {name: "Bánh Tiramisu Ý", qty: 1, price: 48000}],
+                total: 126360,
+                status: "preparing" // new, preparing, completed
+            }
+        ];
+        let selectedPayment = 'momo';
+        let lastCreatedOrder = null;
+
+        // Initialize App on Load
+        window.onload = function() {
+            renderMenu(menuItems);
+            renderTablesModalOptions();
+            updatePOSDashboard();
+        };
+
+        // Switch Views (Customer / POS)
+        function switchView(view) {
+            const btnCust = document.getElementById('btn-customer');
+            const btnPos = document.getElementById('btn-pos');
+            const viewCust = document.getElementById('view-customer');
+            const viewPos = document.getElementById('view-pos');
+
+            if (view === 'customer') {
+                btnCust.className = "px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-white text-amber-700 shadow-sm";
+                btnPos.className = "px-4 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:text-slate-900";
+                viewCust.classList.remove('hidden');
+                viewPos.classList.add('hidden');
+            } else {
+                btnPos.className = "px-4 py-2 rounded-lg text-sm font-semibold transition-all bg-white text-blue-700 shadow-sm";
+                btnCust.className = "px-4 py-2 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:text-slate-900";
+                viewPos.classList.remove('hidden');
+                viewCust.classList.add('hidden');
+                updatePOSDashboard();
+            }
+        }
+
+        // Render Menu Items
+        function renderMenu(items) {
+            const grid = document.getElementById('menu-items-grid');
+            grid.innerHTML = '';
+            items.forEach(item => {
+                grid.innerHTML += `
+                    <div class="bg-white rounded-2xl p-4 shadow-sm border border-slate-200 flex flex-col justify-between hover:shadow-md transition">
+                        <div>
+                            <div class="relative h-40 rounded-xl overflow-hidden mb-3 bg-slate-100">
+                                <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
+                                <span class="absolute top-2 right-2 bg-white/90 backdrop-blur-sm text-slate-900 text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">
+                                    ${item.price.toLocaleString()} đ
+                                </span>
+                            </div>
+                            <h4 class="font-bold text-slate-900 text-base">${item.name}</h4>
+                            <p class="text-xs text-slate-500 mt-1 line-clamp-2">${item.desc}</p>
+                        </div>
+                        <button onclick="addToCart(${item.id})" class="mt-4 w-full bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold py-2 px-4 rounded-xl text-sm transition flex items-center justify-center gap-2 border border-amber-200">
+                            <i class="fa-solid fa-plus text-xs"></i> Thêm vào giỏ
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        // Filter Category
+        function filterCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = "cat-btn px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap bg-white text-slate-600 border border-slate-200 hover:bg-slate-100 transition";
+            });
+            event.currentTarget.className = "cat-btn px-4 py-2 rounded-lg text-sm font-semibold whitespace-nowrap bg-amber-700 text-white shadow-sm transition";
+
+            if (cat === 'all') {
+                renderMenu(menuItems);
+            } else {
+                renderMenu(menuItems.filter(i => i.category === cat));
+            }
+        }
+
+        // Cart Logic
+        function addToCart(id) {
+            const item = menuItems.find(i => i.id === id);
+            const existing = cart.find(c => c.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...item, qty: 1 });
+            }
+            updateCartUI();
+        }
+
+        function updateQuantity(id, change) {
+            const item = cart.find(c => c.id === id);
+            if (item) {
+                item.qty += change;
+                if (item.qty <= 0) {
+                    cart = cart.filter(c => c.id !== id);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const countBadge = document.getElementById('cart-item-count');
+            const btnCheckout = document.getElementById('btn-checkout');
+
+            countBadge.innerText = `${cart.reduce((sum, i) => sum + i.qty, 0)} món`;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="py-8 text-center text-slate-400 text-sm">
+                        <i class="fa-solid fa-mug-saucer text-3xl mb-2 text-slate-300"></i>
+                        <p>Chưa có món nào trong giỏ hàng.</p>
+                    </div>
+                `;
+                btnCheckout.disabled = true;
+                document.getElementById('cart-subtotal').innerText = '0 đ';
+                document.getElementById('cart-tax').innerText = '0 đ';
+                document.getElementById('cart-total').innerText = '0 đ';
+                return;
+            }
+
+            btnCheckout.disabled = false;
+            container.innerHTML = '';
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                subtotal += item.price * item.qty;
+                container.innerHTML += `
+                    <div class="py-3 flex items-center justify-between gap-3">
+                        <div class="flex-1">
+                            <h5 class="font-bold text-xs text-slate-800">${item.name}</h5>
+                            <span class="text-xs text-amber-700 font-semibold">${item.price.toLocaleString()} đ</span>
+                        </div>
+                        <div class="flex items-center gap-2 bg-slate-100 rounded-lg p-1">
+                            <button onclick="updateQuantity(${item.id}, -1)" class="w-6 h-6 bg-white rounded flex items-center justify-center text-slate-700 text-xs font-bold shadow-sm">-</button>
+                            <span class="text-xs font-bold w-4 text-center">${item.qty}</span>
+                            <button onclick="updateQuantity(${item.id}, 1)" class="w-6 h-6 bg-white rounded flex items-center justify-center text-slate-700 text-xs font-bold shadow-sm">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const tax = Math.round(subtotal * 0.08);
+            const total = subtotal + tax;
+
+            document.getElementById('cart-subtotal').innerText = subtotal.toLocaleString() + ' đ';
+            document.getElementById('cart-tax').innerText = tax.toLocaleString() + ' đ';
+            document.getElementById('cart-total').innerText = total.toLocaleString() + ' đ';
+        }
+
+        // Table Selection Modal
+        function openTableModal() {
+            document.getElementById('table-modal').classList.remove('hidden');
+        }
+        function closeTableModal() {
+            document.getElementById('table-modal').classList.add('hidden');
+        }
+        function renderTablesModalOptions() {
+            const grid = document.getElementById('table-grid-options');
+            const tables = ["Bàn 01 (Tầng trệt)", "Bàn 02 (Tầng trệt)", "Bàn 03 (Khu máy lạnh)", "Bàn 04 (Khu máy lạnh)", "Bàn 05 (Sân thượng)", "Bàn 06 (Sân thượng)"];
+            grid.innerHTML = '';
+            tables.forEach(t => {
+                grid.innerHTML += `
+                    <button onclick="selectTable('${t}')" class="p-3 bg-slate-100 hover:bg-amber-50 border border-slate-200 hover:border-amber-600 rounded-xl text-xs font-bold text-slate-700 transition">
+                        <i class="fa-solid fa-chair block mb-1 text-amber-700 text-base"></i> ${t}
+                    </button>
+                `;
+            });
+        }
+        function selectTable(tableName) {
+            currentTable = tableName;
+            document.getElementById('current-table-display').innerText = tableName;
+            closeTableModal();
+        }
+
+        // Checkout & Payment Simulation
+        function proceedToCheckout() {
+            const phone = document.getElementById('customer-phone').value.trim();
+            if (!phone || phone.length < 9) {
+                showToast("Cảnh báo", "Vui lòng nhập số điện thoại hợp lệ để nhận thông báo hoàn thành món!", "bg-amber-600");
+                document.getElementById('customer-phone').focus();
+                return;
+            }
+
+            const subtotal = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+            const tax = Math.round(subtotal * 0.08);
+            const total = subtotal + tax;
+
+            document.getElementById('modal-total-amount').innerText = total.toLocaleString() + ' đ';
+            document.getElementById('modal-order-meta').innerText = `${currentTable} • ${cart.reduce((s, i) => s + i.qty, 0)} món`;
+            document.getElementById('payment-modal').classList.remove('hidden');
+        }
+
+        function closePaymentModal() {
+            document.getElementById('payment-modal').classList.add('hidden');
+        }
+
+        function selectPaymentMethod(method) {
+            selectedPayment = method;
+            document.querySelectorAll('.payment-method-btn').forEach(b => {
+                b.className = "payment-method-btn p-3 rounded-xl border-2 border-slate-200 bg-white flex flex-col items-center gap-1 transition";
+            });
+            document.getElementById(`pm-${method}`).className = "payment-method-btn p-3 rounded-xl border-2 border-amber-600 bg-amber-50/50 flex flex-col items-center gap-1 transition";
+        }
+
+        // Process Payment & Push Order to POS System
+        function processPaymentAndSubmit() {
+            const phone = document.getElementById('customer-phone').value.trim();
+            const subtotal = cart.reduce((sum, i) => sum + (i.price * i.qty), 0);
+            const tax = Math.round(subtotal * 0.08);
+            const total = subtotal + tax;
+
+            const newOrder = {
+                id: "ORD-" + Math.floor(1000 + Math.random() * 9000),
+                table: currentTable,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                phone: phone,
+                items: [...cart],
+                total: total,
+                status: "new"
+            };
+
+            orders.unshift(newOrder);
+            lastCreatedOrder = newOrder;
+
+            closePaymentModal();
+            updatePOSDashboard();
+
+            // Open Receipt Print Preview for Barista / Cashier
+            showReceiptModal(newOrder);
+
+            // Reset cart
+            cart = [];
+            updateCartUI();
+
+            showToast("Thanh toán thành công!", "Đơn hàng đã được chuyển tự động đến quầy pha chế và máy in bếp.", "bg-emerald-600");
+        }
+
+        // POS Dashboard Logic
+        function updatePOSDashboard() {
+            const newList = document.getElementById('orders-new-list');
+            const prepList = document.getElementById('orders-preparing-list');
+            const compList = document.getElementById('orders-completed-list');
+
+            newList.innerHTML = '';
+            prepList.innerHTML = '';
+            compList.innerHTML = '';
+
+            let countNew = 0, countPrep = 0, countComp = 0;
+
+            orders.forEach(ord => {
+                let itemsHtml = ord.items.map(i => `<li class="text-xs text-slate-600">• ${i.name} (x${i.qty})</li>`).join('');
+
+                let cardHtml = `
+                    <div class="bg-white rounded-xl p-4 shadow-sm border border-slate-200 space-y-3">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <span class="font-extrabold text-slate-900 text-sm">${ord.id}</span>
+                                <span class="text-xs text-amber-700 font-bold block">${ord.table}</span>
+                            </div>
+                            <span class="text-[11px] text-slate-400"><i class="fa-regular fa-clock"></i> ${ord.time}</span>
+                        </div>
+                        <div class="bg-slate-50 p-2.5 rounded-lg border border-slate-100 space-y-1">
+                            <p class="text-[11px] font-bold text-slate-700">Khách / SĐT: <span class="text-amber-800 font-normal">${ord.phone}</span></p>
+                            <ul class="space-y-0.5">${itemsHtml}</ul>
+                        </div>
+                        <div class="flex justify-between items-center pt-1">
+                            <span class="font-bold text-xs text-slate-900">${ord.total.toLocaleString()} đ</span>
+                            ${getActionButtons(ord)}
+                        </div>
+                    </div>
+                `;
+
+                if (ord.status === 'new') {
+                    countNew++;
+                    newList.innerHTML += cardHtml;
+                } else if (ord.status === 'preparing') {
+                    countPrep++;
+                    prepList.innerHTML += cardHtml;
+                } else if (ord.status === 'completed') {
+                    countComp++;
+                    compList.innerHTML += cardHtml;
+                }
+            });
+
+            document.getElementById('count-new').innerText = countNew;
+            document.getElementById('count-preparing').innerText = countPrep;
+            document.getElementById('count-completed').innerText = countComp;
+            document.getElementById('pos-total-orders').innerText = orders.length;
+        }
+
+        function getActionButtons(ord) {
+            if (ord.status === 'new') {
+                return `
+                    <button onclick="updateOrderStatus('${ord.id}', 'preparing')" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition shadow-sm">
+                        Nhận làm <i class="fa-solid fa-arrow-right ml-1"></i>
+                    </button>
+                `;
+            } else if (ord.status === 'preparing') {
+                return `
+                    <button onclick="updateOrderStatus('${ord.id}', 'completed')" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition shadow-sm animate-pulse">
+                        <i class="fa-solid fa-check mr-1"></i> HOÀN THÀNH MÓN
+                    </button>
+                `;
+            } else {
+                return `
+                    <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+                        <i class="fa-solid fa-circle-check"></i> Đã xong & Gửi SMS
+                    </span>
+                `;
+            }
+        }
+
+        function updateOrderStatus(orderId, newStatus) {
+            const order = orders.find(o => o.id === orderId);
+            if (order) {
+                order.status = newStatus;
+                updatePOSDashboard();
+
+                if (newStatus === 'completed') {
+                    // Trigger SMS Notification to Customer Phone
+                    triggerCustomerSMSNotification(order);
+                }
+            }
+        }
+
+        function triggerCustomerSMSNotification(order) {
+            // Display toast notification simulation on screen simulating SMS / Push to customer phone
+            document.getElementById('toast-title').innerText = `SMS Gửi đến SĐT: ${order.phone}`;
+            document.getElementById('toast-message').innerText = `Misty Bean Cafe: Đơn hàng #${order.id} (${order.table}) của quý khách đã pha chế xong. Mời quý khách đến quầy nhận đồ uống!`;
+            
+            const toast = document.getElementById('toast-notification');
+            toast.classList.remove('translate-y-32', 'opacity-0');
+
+            setTimeout(() => {
+                hideToast();
+            }, 6000);
+        }
+
+        function hideToast() {
+            const toast = document.getElementById('toast-notification');
+            toast.classList.add('translate-y-32', 'opacity-0');
+        }
+
+        function refreshOrders() {
+            updatePOSDashboard();
+            showToast("Làm mới", "Đã cập nhật dữ liệu đơn hàng mới nhất từ hệ thống POS.", "bg-slate-800");
+        }
+
+        // Receipt Modal
+        function showReceiptModal(order) {
+            document.getElementById('rcpt-id').innerText = `Mã đơn: #${order.id}`;
+            document.getElementById('rcpt-time').innerText = `Thời gian: ${order.time}`;
+            document.getElementById('rcpt-table').innerText = `Bàn: ${order.table}`;
+            document.getElementById('rcpt-phone').innerText = `SĐT KH: ${order.phone}`;
+            
+            const listContainer = document.getElementById('rcpt-items-list');
+            listContainer.innerHTML = '';
+            order.items.forEach(i => {
+                listContainer.innerHTML += `<div class="flex justify-between"><span>${i.name} x${i.qty}</span><span>${(i.price * i.qty).toLocaleString()}đ</span></div>`;
+            });
+            document.getElementById('rcpt-total').innerText = order.total.toLocaleString() + ' đ';
+
+            document.getElementById('receipt-modal').classList.remove('hidden');
+        }
+
+        function closeReceiptModal() {
+            document.getElementById('receipt-modal').classList.add('hidden');
+        }
+
+        function showToast(title, message, bgClass = "bg-slate-900") {
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-message').innerText = message;
+            const toast = document.getElementById('toast-notification');
+            toast.className = `fixed bottom-6 right-6 z-50 max-w-sm w-full ${bgClass} text-white p-4 rounded-2xl shadow-2xl border border-white/20 transform translate-y-0 opacity-100 transition-all duration-300 flex items-start gap-3`;
+            setTimeout(() => {
+                hideToast();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
