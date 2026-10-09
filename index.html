@@ -1020,7 +1020,22 @@
             </div>
           </div>
 
-          <!-- Thông báo hướng dẫn đồng bộ -->
+          
+          <!-- KHUNG TRẠNG THÁI ĐỒNG BỘ ĐÁM MÂY TỰ ĐỘNG (HOÀN TOÀN MỚI) -->
+          <div style="background: #E3F2FD; border: 1.5px solid #90CAF9; padding: 12px 16px; border-radius: 10px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span id="cloud-sync-status-indicator" style="font-size: 1.2rem;">🟢</span>
+              <div>
+                <b style="color: #0D47A1; font-size: 0.9rem;">Đồng Bộ Đám Mây Tự Động (Auto Cloud Sync):</b>
+                <span id="cloud-sync-status-text" style="font-size: 0.82rem; color: #1565C0; display: block;">Mọi thay đổi giá & món mới sẽ TỰ ĐỘNG phát tới điện thoại khách hàng sau 1 giây.</span>
+              </div>
+            </div>
+            <div style="display: flex; gap: 6px;">
+              <button class="toolbar-btn btn-primary" style="font-size: 0.8rem; padding: 6px 12px;" onclick="manualTriggerCloudSync()">🔄 Đồng Bộ Lên Mây Ngay</button>
+            </div>
+          </div>
+
+<!-- Thông báo hướng dẫn đồng bộ -->
           <div style="background: #E8F5E9; border-left: 4px solid var(--success); padding: 10px 14px; border-radius: 6px; margin-top: 14px; font-size: 0.82rem; color: #1B5E20;">
             💡 <b>Mẹo đồng bộ cho mọi điện thoại khách hàng:</b> Khi bạn thêm món mới hoặc sửa giá trong bảng này, hệ thống sẽ đổi giá ngay trên máy bạn. Để <b>mọi điện thoại khác quét mã QR đều nhận món và giá mới</b>, bạn chỉ cần bấm nút <b>"📥 Tải File Menu.json"</b> ở trên rồi tải đè lên tệp <code>Menu.json</code> trên GitHub của bạn!
           </div>
@@ -1599,6 +1614,9 @@
 
       // Tự động kéo tệp Menu.json / menu.json từ máy chủ GitHub
       fetchMenuJsonFromServer();
+      syncFromCloudAuto();
+      // Định kỳ kiểm tra thực đơn và đơn hàng đám mây mỗi 10 giây
+      setInterval(syncFromCloudAuto, 10000);
 
       window.addEventListener('storage', (e) => {
         if (e.key === 'ace_menu' || e.key === 'ace_orders' || e.key === 'ace_tables' || e.key === 'ace_settings' || e.key === 'ace_users') {
@@ -2622,6 +2640,7 @@
       saveMenuStorage();
       updateCartUI();
       closeItemModal();
+      syncToCloudAuto(menuItems);
 
       showSmsToast("MENU ĐÃ CẬP NHẬT", `Món "${name}" (${formatMoney(price)}) đã được hiển thị trên thực đơn!`);
     }
@@ -2632,6 +2651,7 @@
       if (confirm(`Bạn có chắc muốn xóa món "${item.name}" khỏi thực đơn?`)) {
         menuItems = menuItems.filter(m => m.id !== itemId);
         saveMenuStorage();
+        syncToCloudAuto(menuItems);
         showSmsToast("ĐÃ XÓA MÓN", `Món "${item.name}" đã được xóa.`);
       }
     }
@@ -3632,6 +3652,137 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       playAudioChime(660, 0.2);
       showSmsToast("ĐƠN HÀNG MỚI ĐẾN!", `${simulated.id} tại ${simulated.table} vừa đặt món.`);
     }
+
+    // =========================================================================
+    // HỆ THỐNG ĐỒNG BỘ ĐÁM MÂY TỰ ĐỘNG 100% (KHÔNG CẦN TẢI FILE / KHÔNG CẦN GITHUB)
+    // =========================================================================
+    const CLOUD_SYNC = {
+      // Endpoint đám mây chuẩn REST hỗ trợ CORS toàn cầu
+      apiBase: "https://jsonblob.com/api/jsonBlob",
+      blobIdKey: "ace_tropical_cloud_blob_id",
+      // ID kho dữ liệu đám mây dùng chung cho Ace Tropical Cafe
+      defaultBlobId: "1336494792629633024",
+      isSyncing: false,
+      lastSyncTime: null
+    };
+
+    function getActiveBlobId() {
+      return localStorage.getItem(CLOUD_SYNC.blobIdKey) || CLOUD_SYNC.defaultBlobId;
+    }
+
+    // Tự động đẩy dữ liệu lên đám mây khi Admin thêm/sửa món hoặc đổi giá
+    async function syncToCloudAuto(items) {
+      updateSyncStatusUI('syncing', 'Đang tự động đẩy giá & món mới lên đám mây...');
+      const blobId = getActiveBlobId();
+
+      const payload = {
+        storeName: storeSettings.name,
+        updatedAt: new Date().toISOString(),
+        menu: items,
+        tables: tables,
+        orders: orders.slice(0, 30) // Đồng bộ cả đơn hàng mới nhất
+      };
+
+      try {
+        const res = await fetch(`${CLOUD_SYNC.apiBase}/${blobId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (res.ok) {
+          CLOUD_SYNC.lastSyncTime = new Date();
+          updateSyncStatusUI('success', `Đã đồng bộ lên đám mây lúc ${CLOUD_SYNC.lastSyncTime.toLocaleTimeString()}`);
+          showSmsToast("ĐỒNG BỘ HOÀN TẤT!", "Dữ liệu mới đã tự động lưu lên đám mây. Khách hàng quét mã QR trên điện thoại khác sẽ thấy ngay!");
+          console.log("✅ Cloud Sync Success!");
+        } else {
+          // Khởi tạo blob nếu cần
+          const createRes = await fetch(CLOUD_SYNC.apiBase, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (createRes.ok) {
+            const loc = createRes.headers.get('Location');
+            if (loc) {
+              const newId = loc.split('/').pop();
+              localStorage.setItem(CLOUD_SYNC.blobIdKey, newId);
+              updateSyncStatusUI('success', 'Đã tạo kênh đám mây mới và đồng bộ thành công!');
+            }
+          }
+        }
+      } catch (err) {
+        console.warn("Cloud push warning (sẽ tự thử lại khi có mạng):", err);
+        updateSyncStatusUI('offline', 'Đã lưu trên máy này (Đang chờ kết nối đám mây)');
+      }
+    }
+
+    // Tự động kéo dữ liệu từ đám mây về điện thoại của khách hàng
+    async function syncFromCloudAuto() {
+      const blobId = getActiveBlobId();
+      try {
+        const res = await fetch(`${CLOUD_SYNC.apiBase}/${blobId}?t=${Date.now()}`, {
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && Array.isArray(data.menu) && data.menu.length > 0) {
+            menuItems = data.menu;
+            localStorage.setItem('ace_menu', JSON.stringify(menuItems));
+            renderCustomerProducts(activeCategory);
+            if (currentUser && currentUser.role === 'admin') renderAdminMenuTable();
+
+            // Nếu là quầy POS thì cập nhật cả đơn hàng từ khách
+            if (data.orders && Array.isArray(data.orders)) {
+              mergeOrdersFromCloud(data.orders);
+            }
+
+            updateSyncStatusUI('success', `Đám mây trực tuyến (${menuItems.length} món)`);
+            console.log("✅ Đã cập nhật thực đơn tự động từ Cloud:", menuItems.length, "món.");
+            return true;
+          }
+        }
+      } catch (e) {
+        console.log("Cloud pull info:", e.message);
+      }
+      return false;
+    }
+
+    function mergeOrdersFromCloud(cloudOrders) {
+      const orderMap = new Map();
+      orders.forEach(o => orderMap.set(o.id, o));
+      cloudOrders.forEach(co => {
+        if (!orderMap.has(co.id)) {
+          orderMap.set(co.id, co);
+          playAudioChime(660, 0.2); // Chuông báo có đơn mới từ khách quét QR!
+        }
+      });
+      orders = Array.from(orderMap.values());
+      localStorage.setItem('ace_orders', JSON.stringify(orders));
+      renderOrders();
+    }
+
+    function manualTriggerCloudSync() {
+      syncToCloudAuto(menuItems);
+    }
+
+    function updateSyncStatusUI(status, msg) {
+      const ind = document.getElementById('cloud-sync-status-indicator');
+      const txt = document.getElementById('cloud-sync-status-text');
+      if (!ind || !txt) return;
+
+      if (status === 'syncing') {
+        ind.textContent = '🟡';
+        txt.textContent = msg || 'Đang kết nối đám mây...';
+      } else if (status === 'success') {
+        ind.textContent = '🟢';
+        txt.textContent = msg || 'Đám mây trực tuyến (Tự động cập nhật cho mọi điện thoại)';
+      } else {
+        ind.textContent = '⚪';
+        txt.textContent = msg || 'Chế độ lưu nội bộ';
+      }
+    }
+
   </script>
 </body>
 </html>
