@@ -1248,7 +1248,7 @@
           <span>📱</span> Khách Gọi Món
         </button>
         <button class="mode-btn" id="btn-mode-pos" onclick="switchView('pos')">
-          <span>🖥️</span> Quầy POS
+          <span>🖥️</span> <span data-i18n="navModePos">Quầy POS</span>
         </button>
         <button class="mode-btn" id="btn-mode-backend" onclick="switchView('backend')">
           <span>⚙️</span> Quản Trị Backend
@@ -1319,28 +1319,28 @@
         <div class="stats-row">
           <div class="stat-card">
             <div>
-              <div class="stat-label">Tổng đơn hôm nay</div>
+              <div class="stat-label" data-i18n="statTotalOrders">Tổng đơn hôm nay</div>
               <div class="stat-val" id="stat-total-orders">0</div>
             </div>
             <div class="stat-icon stat-blue">📋</div>
           </div>
           <div class="stat-card">
             <div>
-              <div class="stat-label">Mới đặt (Chờ bếp)</div>
+              <div class="stat-label" data-i18n="statNewOrders">Mới đặt (Chờ bếp)</div>
               <div class="stat-val" id="stat-new-orders" style="color: var(--warning);">0</div>
             </div>
             <div class="stat-icon stat-orange">⏳</div>
           </div>
           <div class="stat-card">
             <div>
-              <div class="stat-label">Đang pha chế</div>
+              <div class="stat-label" data-i18n="statPrepOrders">Đang pha chế</div>
               <div class="stat-val" id="stat-prep-orders" style="color: var(--info);">0</div>
             </div>
             <div class="stat-icon stat-amber">☕</div>
           </div>
           <div class="stat-card">
             <div>
-              <div class="stat-label">Đã hoàn thành</div>
+              <div class="stat-label" data-i18n="statDoneOrders">Đã hoàn thành</div>
               <div class="stat-val" id="stat-done-orders" style="color: var(--success);">0</div>
             </div>
             <div class="stat-icon stat-green">✅</div>
@@ -1350,11 +1350,11 @@
 
         <div class="pos-toolbar">
           <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-            <input type="text" class="form-control" id="search-order-input" style="width: 200px;" placeholder="🔍 Tìm mã đơn/bàn/SĐT..." oninput="renderOrders()">
-            <button class="toolbar-btn" onclick="openQrGeneratorModal()">🔲 In Mã QR Bàn</button>
+            <input type="text" class="form-control" id="search-order-input" style="width: 200px;" placeholder="🔍 Tìm mã đơn/bàn/SĐT..." data-i18n-ph="posSearchPlaceholder" oninput="renderOrders()">
+            <button class="toolbar-btn" onclick="openQrGeneratorModal()"><span data-i18n="printTableQrBtn">🔲 In Mã QR Bàn</span></button>
           </div>
           <div>
-            <button class="toolbar-btn btn-primary" onclick="simulateNewIncomingOrder()">➕ Giả Lập Khách Đặt Bàn</button>
+            <button class="toolbar-btn btn-primary" onclick="simulateNewIncomingOrder()"><span data-i18n="simulateOrderBtn">➕ Giả Lập Khách Đặt Bàn</span></button>
           </div>
         </div>
 
@@ -1362,7 +1362,7 @@
         <div class="kanban-grid">
           <div class="kanban-col new">
             <div class="kanban-header">
-              <span style="font-weight: 700; font-size: 0.9rem;">🔔 Mới đặt (Chờ bếp)</span>
+              <span style="font-weight: 700; font-size: 0.9rem;"><span data-i18n="kanbanColNew">🔔 Mới đặt (Chờ bếp)</span></span>
               <span class="status-badge" id="badge-col-new" style="background:#FFE0B2;">0</span>
             </div>
             <div class="kanban-cards-wrapper" id="col-new-cards"></div>
@@ -1371,7 +1371,7 @@
 
           <div class="kanban-col prep">
             <div class="kanban-header">
-              <span style="font-weight: 700; font-size: 0.9rem;">🔥 Đang pha chế</span>
+              <span style="font-weight: 700; font-size: 0.9rem;"><span data-i18n="kanbanColPrep">🔥 Đang pha chế</span></span>
               <span class="status-badge" id="badge-col-prep" style="background:#B3E5FC;">0</span>
             </div>
             <div class="kanban-cards-wrapper" id="col-prep-cards"></div>
@@ -1380,7 +1380,7 @@
 
           <div class="kanban-col done">
             <div class="kanban-header">
-              <span style="font-weight: 700; font-size: 0.9rem;">✨ Đã hoàn thành</span>
+              <span style="font-weight: 700; font-size: 0.9rem;"><span data-i18n="kanbanColDone">✨ Đã hoàn thành</span></span>
               <span class="status-badge" id="badge-col-done" style="background:#C8E6C9;">0</span>
             </div>
             <div class="kanban-cards-wrapper" id="col-done-cards"></div>
@@ -1395,19 +1395,19 @@
       <div class="backend-layout">
         <div class="admin-subnav">
           <button class="admin-tab-btn active" onclick="switchAdminTab('tab-menu', this)">
-            ☕ Quản Lý Thực Đơn & Giá
+            <span data-i18n="adminTabMenu">☕ Quản Lý Thực Đơn & Giá</span>
           </button>
           <button class="admin-tab-btn" onclick="switchAdminTab('tab-tables', this)">
-            📍 Quản Lý Bàn & QR Code
+            <span data-i18n="adminTabTables">📍 Quản Lý Bàn & QR Code</span>
           </button>
           <button class="admin-tab-btn" onclick="switchAdminTab('tab-orders', this)">
-            📋 Quản Lý Đơn Hàng (Sửa / Hủy)
+            <span data-i18n="adminTabOrders">📋 Quản Lý Đơn Hàng (Sửa / Hủy)</span>
           </button>
           <button class="admin-tab-btn" onclick="switchAdminTab('tab-users', this)">
-            👥 Quản Lý & Cấp Quyền Nhân Viên
+            <span data-i18n="adminTabUsers">👥 Quản Lý & Cấp Quyền Nhân Viên</span>
           </button>
           <button class="admin-tab-btn" onclick="switchAdminTab('tab-settings', this)">
-            ⚙️ Cài Đặt Quán & Đồng Bộ
+            <span data-i18n="adminTabSettings">⚙️ Cài Đặt Quán & Đồng Bộ</span>
           </button>
         </div>
 
@@ -2008,14 +2008,14 @@
   <div class="modal-overlay" id="table-modal">
     <div class="modal-card" style="max-width: 440px;">
       <div class="modal-header">
-        <h3>📍 Chọn Bàn Đang Ngồi</h3>
+        <h3 data-i18n="tableModalTitle">📍 Chọn Bàn Đang Ngồi</h3>
         <button class="close-cart-btn" onclick="closeTableModal()">&times;</button>
       </div>
       <div class="modal-body">
         <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px;" id="table-picker-grid"></div>
       </div>
       <div class="modal-footer">
-        <button class="toolbar-btn btn-primary" onclick="closeTableModal()">Xác nhận</button>
+        <button class="toolbar-btn btn-primary" onclick="closeTableModal()" data-i18n="confirmBtnTable">Xác nhận</button>
       </div>
     </div>
   </div>
@@ -2109,15 +2109,15 @@
 
 
     const DEFAULT_TABLES = [
-      { id: "1", name: "Bàn 01 (Tầng trệt)" },
-      { id: "2", name: "Bàn 02 (Tầng trệt)" },
-      { id: "3", name: "Bàn 03 (Khu máy lạnh)" },
-      { id: "4", name: "Bàn 04 (Khu máy lạnh)" },
-      { id: "5", name: "Bàn 05 (Sân vườn)" },
-      { id: "6", name: "Bàn 06 (Sân vườn)" },
-      { id: "7", name: "Bàn 07 (Ban công)" },
-      { id: "8", name: "Bàn 08 (Ban công)" }
-    ];
+      { id: "1", name: "Bàn 01 (Tầng trệt)", name_en: "Table 01 (Ground Floor)" },
+      { id: "2", name: "Bàn 02 (Tầng trệt)", name_en: "Table 02 (Ground Floor)" },
+      { id: "3", name: "Bàn 03 (Khu máy lạnh)", name_en: "Table 03 (AC Room)" },
+      { id: "4", name: "Bàn 04 (Khu máy lạnh)", name_en: "Table 04 (AC Room)" },
+      { id: "5", name: "Bàn 05 (Sân vườn)", name_en: "Table 05 (Garden Patio)" },
+      { id: "6", name: "Bàn 06 (Sân vườn)", name_en: "Table 06 (Garden Patio)" },
+      { id: "7", name: "Bàn 07 (Ban công)", name_en: "Table 07 (Balcony)" },
+      { id: "8", name: "Bàn 08 (Ban công)", name_en: "Table 08 (Balcony)" }
+    ]
 
 
     const CATEGORIES = [
@@ -2199,20 +2199,42 @@
         backToMenuBtn: "☕ Hoàn Tất & Tiếp Tục Xem Menu",
         addBtn: "+ Thêm",
         soldOut: "Hết hàng",
-        sizeLabel: "Chọn kích cỡ:",
-        sweetLabel: "Độ ngọt (Đường):",
+        itemDetailTitle: "Chi Tiết Món Ăn",
         iceLabel: "Lượng đá:",
-        toppingLabel: "Topping thêm:",
-        itemNoteLabel: "Yêu cầu riêng cho món này:",
+        ice100: "100% Đá",
+        ice50: "50% Đá",
+        ice0: "Không đá",
+        iceHot: "☕ Nóng",
+        sweetLabel: "Độ ngọt:",
+        sweet100: "100% Ngọt",
+        sweet50: "50% Ngọt",
+        sweet0: "Không đường",
+        itemNoteLabel: "📝 Yêu cầu riêng cho món này:",
         itemNotePlaceholder: "Ví dụ: Nhiều sữa đặc, để riêng thạch, uống ly giấy...",
         qtyLabel: "Số lượng:",
         addToCartBtn: "🛒 Thêm Vào Giỏ",
         quickCheckoutBtn: "⚡ Thanh Toán",
-        catAll: "Tất cả",
-        catCoffee: "Cà phê",
-        catTea: "Trà & Trà sữa",
-        catBakery: "Bánh & Ăn nhẹ",
-        catSmoothie: "Sinh tố",
+        tableModalTitle: "📍 Chọn Bàn Đang Ngồi",
+        confirmBtnTable: "Xác nhận",
+        navModeCustomer: "Khách gọi món",
+        navModePos: "Quầy POS",
+        navModeBackend: "Quản trị",
+        logoutBtn: "Thoát",
+        statTotalOrders: "Tổng đơn hôm nay",
+        statNewOrders: "Mới đặt (Chờ bếp)",
+        statPrepOrders: "Đang pha chế",
+        statDoneOrders: "Đã hoàn thành",
+        posSearchPlaceholder: "🔍 Tìm mã đơn/bàn/SĐT...",
+        printTableQrBtn: "🔲 In Mã QR Bàn",
+        simulateOrderBtn: "➕ Giả Lập Khách Đặt Bàn",
+        kanbanColNew: "🔔 Mới đặt (Chờ bếp)",
+        kanbanColPrep: "🔥 Đang pha chế",
+        kanbanColDone: "✨ Đã hoàn thành",
+        adminTabMenu: "☕ Quản Lý Thực Đơn & Giá",
+        adminTabTables: "📍 Quản Lý Bàn & QR Code",
+        adminTabOrders: "📋 Quản Lý Đơn Hàng (Sửa / Hủy)",
+        adminTabUsers: "👥 Quản Lý & Cấp Quyền Nhân Viên",
+        adminTabSettings: "⚙️ Cài Đặt Quán & Đồng Bộ",
         copied: "Đã sao chép!",
         copiedAcc: "Đã sao chép số tài khoản!",
         copiedAmount: "Đã sao chép số tiền!",
@@ -2283,20 +2305,42 @@
         backToMenuBtn: "☕ Done & Return to Menu",
         addBtn: "+ Add",
         soldOut: "Sold Out",
-        sizeLabel: "Choose Size:",
-        sweetLabel: "Sweetness Level:",
+        itemDetailTitle: "Item Details",
         iceLabel: "Ice Level:",
-        toppingLabel: "Extra Toppings:",
-        itemNoteLabel: "Special request for this item:",
+        ice100: "100% Regular Ice",
+        ice50: "50% Less Ice",
+        ice0: "No Ice",
+        iceHot: "☕ Hot",
+        sweetLabel: "Sweetness Level:",
+        sweet100: "100% Standard Sweet",
+        sweet50: "50% Less Sweet",
+        sweet0: "0% Unsweetened",
+        itemNoteLabel: "📝 Special request for this item:",
         itemNotePlaceholder: "e.g. Extra milk, separate toppings, paper cup...",
         qtyLabel: "Quantity:",
         addToCartBtn: "🛒 Add to Cart",
         quickCheckoutBtn: "⚡ Checkout",
-        catAll: "All",
-        catCoffee: "Coffee",
-        catTea: "Tea & Milk Tea",
-        catBakery: "Bakery & Pastries",
-        catSmoothie: "Smoothie",
+        tableModalTitle: "📍 Select Your Table",
+        confirmBtnTable: "Confirm",
+        navModeCustomer: "Customer Menu",
+        navModePos: "Barista POS",
+        navModeBackend: "Admin Backend",
+        logoutBtn: "Log out",
+        statTotalOrders: "Today's Orders",
+        statNewOrders: "New (Kitchen Queue)",
+        statPrepOrders: "In Preparation",
+        statDoneOrders: "Completed Orders",
+        posSearchPlaceholder: "🔍 Search Order / Table / Phone...",
+        printTableQrBtn: "🔲 Print Table QRs",
+        simulateOrderBtn: "➕ Simulate New Order",
+        kanbanColNew: "🔔 New (Kitchen Queue)",
+        kanbanColPrep: "🔥 In Preparation",
+        kanbanColDone: "✨ Completed",
+        adminTabMenu: "☕ Menu & Price Management",
+        adminTabTables: "📍 Tables & QR Codes",
+        adminTabOrders: "📋 Order Management",
+        adminTabUsers: "👥 Staff Accounts & Roles",
+        adminTabSettings: "⚙️ Store Settings & Sync",
         copied: "Copied!",
         copiedAcc: "Bank account number copied!",
         copiedAmount: "Amount copied!",
@@ -2337,16 +2381,34 @@
 
       // Update Table badge display
       updateTableDisplay();
+      renderTablePickerGrid();
 
-      // Update options modal if open
+      // Update Detail Modal if open
       if (currentDetailItem) {
         document.getElementById('detail-modal-name').textContent = getItemDisplayName(currentDetailItem);
-        document.getElementById('detail-modal-desc').textContent = getItemDisplayDesc(currentDetailItem);
+        document.getElementById('detail-modal-desc').textContent = getItemDisplayDesc(currentDetailItem) || (currentLang === 'en' ? 'Crafted with premium ingredients at Ace Tropical Coffee.' : 'Hương vị tuyệt hảo tại Ace Tropical Wellness Coffee.');
+        document.getElementById('detail-modal-price').textContent = formatMoney(currentDetailItem.price);
+        updateDetailModalTotal();
         const badgeEl = document.getElementById('detail-modal-badge');
         if (badgeEl && currentDetailItem.badge) {
           badgeEl.textContent = getItemDisplayBadge(currentDetailItem);
         }
       }
+
+      // Update Payment Modal if open
+      if (document.getElementById('payment-checkout-modal') && document.getElementById('payment-checkout-modal').classList.contains('open')) {
+        selectPaymentMethod(selectedPaymentMethod || 'vietqr');
+        const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+        const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
+        const total = subtotal + vat;
+        document.getElementById('checkout-subtotal-display').textContent = formatMoney(subtotal);
+        document.getElementById('checkout-vat-display').textContent = formatMoney(vat);
+        document.getElementById('checkout-total-display').textContent = formatMoney(total);
+        document.getElementById('checkout-total-header').textContent = formatMoney(total);
+      }
+
+      // Re-render orders in POS
+      renderOrders();
     }
 
     function getItemDisplayName(item) {
@@ -2470,6 +2532,9 @@
 
 
     function formatMoney(amount) {
+      if (currentLang === 'en') {
+        return new Intl.NumberFormat('en-US').format(amount) + ' VND';
+      }
       return new Intl.NumberFormat('vi-VN').format(amount) + ' đ';
     }
 
@@ -2827,7 +2892,7 @@
 
     function updateTableDisplay() {
       if (currentTable) {
-        document.getElementById('current-table-label').textContent = currentTable.name;
+        document.getElementById('current-table-label').textContent = getTableDisplayName(currentTable);
       }
     }
 
@@ -3118,20 +3183,44 @@
     function getSelectedCustomizations() {
       const parts = [];
       const ice = document.querySelector('input[name="ice-option"]:checked');
-      if (ice && ice.value !== 'Đá bình thường (100%)') parts.push(ice.value);
-
+      if (ice) {
+        if (currentLang === 'en') {
+          const iceMap = {
+            'Đá bình thường (100%)': '100% Regular Ice',
+            '100% Đá': '100% Regular Ice',
+            'Ít đá (50%)': '50% Less Ice',
+            '50% Đá': '50% Less Ice',
+            'Không đá': 'No Ice',
+            'Uống nóng': 'Hot',
+            'Nóng': 'Hot'
+          };
+          parts.push(iceMap[ice.value] || ice.value);
+        } else {
+          parts.push(ice.value);
+        }
+      }
 
       const sugar = document.querySelector('input[name="sugar-option"]:checked');
-      if (sugar && sugar.value !== 'Ngọt bình thường (100%)') parts.push(sugar.value);
+      if (sugar) {
+        if (currentLang === 'en') {
+          const sugarMap = {
+            'Ngọt bình thường (100%)': '100% Standard Sweet',
+            '100% Ngọt': '100% Standard Sweet',
+            'Ít ngọt (50%)': '50% Less Sweet',
+            '50% Ngọt': '50% Less Sweet',
+            'Không đường': '0% Sugar'
+          };
+          parts.push(sugarMap[sugar.value] || sugar.value);
+        } else {
+          parts.push(sugar.value);
+        }
+      }
 
-
-      const note = document.getElementById('detail-custom-note').value.trim();
+      const note = document.getElementById('detail-custom-note') ? document.getElementById('detail-custom-note').value.trim() : '';
       if (note) parts.push(note);
 
-
-      return parts.join(', ');
+      return parts.join(' • ');
     }
-
 
     function addToCartFromDetailModal() {
       if (!currentDetailItem) return;
@@ -3560,20 +3649,20 @@
       let actionButtons = '';
       if (colType === 'new') {
         actionButtons = `
-          <button class="btn-act btn-prep" onclick="moveOrderStatus('${o.id}', 'prep')">Nhận làm ➔</button>
-          <button class="btn-act btn-edit" onclick="openEditOrderModal('${o.id}')">✏️ Sửa</button>
-          <button class="btn-act btn-cancel" onclick="cancelOrderPrompt('${o.id}')">❌ Hủy</button>
+          <button class="btn-act btn-prep" onclick="moveOrderStatus('${o.id}', 'prep')">${currentLang === 'en' ? 'Start Making ➔' : 'Nhận làm ➔'}</button>
+          <button class="btn-act btn-edit" onclick="openEditOrderModal('${o.id}')">${currentLang === 'en' ? '✏️ Edit' : '✏️ Sửa'}</button>
+          <button class="btn-act btn-cancel" onclick="cancelOrderPrompt('${o.id}')">${currentLang === 'en' ? '❌ Cancel' : '❌ Hủy'}</button>
         `;
       } else if (colType === 'prep') {
         actionButtons = `
-          <button class="btn-act btn-done" onclick="finishOrder('${o.id}')">Hoàn thành ✓</button>
-          <button class="btn-act btn-edit" onclick="openEditOrderModal('${o.id}')">✏️ Sửa</button>
-          <button class="btn-act btn-cancel" onclick="cancelOrderPrompt('${o.id}')">❌ Hủy</button>
+          <button class="btn-act btn-done" onclick="finishOrder('${o.id}')">${currentLang === 'en' ? 'Finish ✓' : 'Hoàn thành ✓'}</button>
+          <button class="btn-act btn-edit" onclick="openEditOrderModal('${o.id}')">${currentLang === 'en' ? '✏️ Edit' : '✏️ Sửa'}</button>
+          <button class="btn-act btn-cancel" onclick="cancelOrderPrompt('${o.id}')">${currentLang === 'en' ? '❌ Cancel' : '❌ Hủy'}</button>
         `;
       } else if (colType === 'done') {
         actionButtons = `
-          <button class="btn-act btn-print" onclick="printReceipt('${o.id}')">🖨️ In bill</button>
-          <button class="btn-act btn-edit" onclick="openEditOrderModal('${o.id}')">✏️ Xem lại</button>
+          <button class="btn-act btn-print" onclick="printReceipt('${o.id}')">${currentLang === 'en' ? '🖨️ Print Bill' : '🖨️ In bill'}</button>
+          <button class="btn-act btn-edit" onclick="openEditOrderModal('${o.id}')">${currentLang === 'en' ? '✏️ Review' : '✏️ Xem lại'}</button>
         `;
       }
 
@@ -3590,12 +3679,12 @@
           <!-- HUY HIỆU ĐÃ THANH TOÁN BẮT BUỘC 100% -->
           <div style="margin: 4px 0 6px 0;">
             <span class="paid-badge-pos">
-              ✅ ĐÃ THANH TOÁN (PAID) - ${o.paymentMethodName || 'Chuyển khoản'} ${o.paymentRef ? `[${o.paymentRef}]` : ''}
+              ✅ ${currentLang === 'en' ? '100% PREPAID' : 'ĐÃ THANH TOÁN (PAID)'} - ${o.paymentMethodName || 'Chuyển khoản'} ${o.paymentRef ? `[${o.paymentRef}]` : ''}
             </span>
           </div>
 
           <div style="font-size: 0.8rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
-            <span>📞 SĐT: <b>${o.phone}</b></span>
+            <span>📞 ${currentLang === 'en' ? 'Phone:' : 'SĐT:'} <b>${o.phone}</b></span>
             <span style="font-size: 0.82rem; font-weight: 700; color: #D32F2F;">${formatMoney(o.total)}</span>
           </div>
           <div class="order-items-list">
@@ -4637,15 +4726,15 @@
 
     function renderTablePickerGrid() {
       const grid = document.getElementById('table-picker-grid');
+      if (!grid) return;
       grid.innerHTML = tables.map(t => `
-        <div class="change-table-btn ${currentTable && t.id === currentTable.id ? 'active' : ''}" 
+        <div class="change-table-btn ${currentTable && t.id === t.id && currentTable.id === t.id ? 'active' : ''}" 
              style="text-align: center; padding: 10px 4px; ${currentTable && t.id === currentTable.id ? 'background:var(--primary); color:white;' : ''}"
              onclick="selectTable('${t.id}')">
-          📍 ${t.name}
+          📍 ${getTableDisplayName(t)}
         </div>
       `).join('');
     }
-
 
     function selectTable(tableId) {
       const table = tables.find(t => t.id === tableId);
@@ -5995,7 +6084,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
   <div class="modal-overlay" id="product-detail-modal">
     <div class="modal-card" style="max-width: 480px;">
       <div class="modal-header">
-        <h3 id="detail-modal-name">Chi Tiết Món Ăn</h3>
+        <h3 id="detail-modal-name" data-i18n="itemDetailTitle">Chi Tiết Món Ăn</h3>
         <button class="close-cart-btn" onclick="closeProductDetailModal()">&times;</button>
       </div>
       <div class="modal-body" style="padding: 16px;">
@@ -6006,69 +6095,63 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           <span id="detail-modal-badge" class="product-badge" style="top: 12px; left: 12px; display: none;"></span>
         </div>
 
-
         <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
           <div style="font-size: 1.25rem; font-weight: 800; color: var(--primary);" id="detail-modal-price">0 đ</div>
         </div>
 
-
         <p id="detail-modal-desc" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 14px;"></p>
-
 
         <!-- TÙY CHỈNH KHẨU VỊ -->
         <div style="background: #FDFBF8; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 14px;">
           <div style="font-weight: 700; font-size: 0.84rem; color: var(--primary-dark); margin-bottom: 8px;">
-            🧊 Lượng đá:
+            🧊 <span data-i18n="iceLabel">Lượng đá:</span>
           </div>
           <div class="pill-group">
             <label class="pill-option">
               <input type="radio" name="ice-option" value="Đá bình thường (100%)" checked>
-              <span class="pill-label">100% Đá</span>
+              <span class="pill-label" data-i18n="ice100">100% Đá</span>
             </label>
             <label class="pill-option">
               <input type="radio" name="ice-option" value="Ít đá (50%)">
-              <span class="pill-label">50% Đá</span>
+              <span class="pill-label" data-i18n="ice50">50% Đá</span>
             </label>
             <label class="pill-option">
               <input type="radio" name="ice-option" value="Không đá">
-              <span class="pill-label">Không đá</span>
+              <span class="pill-label" data-i18n="ice0">Không đá</span>
             </label>
             <label class="pill-option">
               <input type="radio" name="ice-option" value="Uống nóng">
-              <span class="pill-label">☕ Nóng</span>
+              <span class="pill-label" data-i18n="iceHot">☕ Nóng</span>
             </label>
           </div>
 
-
           <div style="font-weight: 700; font-size: 0.84rem; color: var(--primary-dark); margin: 12px 0 8px;">
-            🍬 Độ ngọt:
+            🍬 <span data-i18n="sweetLabel">Độ ngọt:</span>
           </div>
           <div class="pill-group">
             <label class="pill-option">
               <input type="radio" name="sugar-option" value="Ngọt bình thường (100%)" checked>
-              <span class="pill-label">100% Ngọt</span>
+              <span class="pill-label" data-i18n="sweet100">100% Ngọt</span>
             </label>
             <label class="pill-option">
               <input type="radio" name="sugar-option" value="Ít ngọt (50%)">
-              <span class="pill-label">50% Ngọt</span>
+              <span class="pill-label" data-i18n="sweet50">50% Ngọt</span>
             </label>
             <label class="pill-option">
               <input type="radio" name="sugar-option" value="Không đường">
-              <span class="pill-label">Không đường</span>
+              <span class="pill-label" data-i18n="sweet0">Không đường</span>
             </label>
           </div>
 
-
           <div style="margin-top: 12px;">
-            <label style="font-size: 0.8rem; font-weight: 700; color: var(--primary-dark); display: block; margin-bottom: 4px;">📝 Yêu cầu riêng cho món này:</label>
-            <textarea id="detail-custom-note" class="form-control" rows="2" placeholder="Ví dụ: Nhiều sữa đặc, để riêng thạch, uống ly giấy..."></textarea>
+            <label style="font-size: 0.8rem; font-weight: 700; color: var(--primary-dark); display: block; margin-bottom: 4px;" data-i18n="itemNoteLabel">📝 Yêu cầu riêng cho món này:</label>
+            <textarea id="detail-custom-note" class="form-control" rows="2" placeholder="Ví dụ: Nhiều sữa đặc, để riêng thạch, uống ly giấy..." data-i18n-ph="itemNotePlaceholder"></textarea>
           </div>
         </div>
 
-
         <!-- SỐ LƯỢNG & TỔNG TIỀN -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 4px;">
-          <span style="font-weight: 700; font-size: 0.88rem;">Số lượng:</span>
+          <span style="font-weight: 700; font-size: 0.88rem;" data-i18n="qtyLabel">Số lượng:</span>
           <div style="display: flex; align-items: center; gap: 8px;">
             <button class="cart-qty-btn" style="width: 32px; height: 32px; font-size: 1rem;" onclick="changeDetailQty(-1)">-</button>
             <span id="detail-qty-display" style="font-weight: 800; font-size: 1.1rem; min-width: 24px; text-align: center;">1</span>
@@ -6077,14 +6160,15 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         </div>
       </div>
       <div class="modal-footer" style="display: flex; gap: 8px;">
-        <button class="toolbar-btn" style="flex: 1; padding: 10px;" onclick="addToCartFromDetailModal()">🛒 Thêm Vào Giỏ</button>
+        <button class="toolbar-btn" style="flex: 1; padding: 10px;" onclick="addToCartFromDetailModal()">
+          <span data-i18n="addToCartBtn">🛒 Thêm Vào Giỏ</span>
+        </button>
         <button class="toolbar-btn btn-primary" style="flex: 1.3; padding: 10px; font-weight: 700;" onclick="quickCheckoutFromDetailModal()">
-          ⚡ Thanh Toán (<span id="detail-modal-total-btn">0 đ</span>)
+          <span data-i18n="quickCheckoutBtn">⚡ Thanh Toán</span> (<span id="detail-modal-total-btn">0 đ</span>)
         </button>
       </div>
     </div>
   </div>
-
 
   <!-- MODAL: THANH TOÁN & QUÉT MÃ QR (NGÂN HÀNG, MOMO, ZALOPAY) -->
   <div class="modal-overlay" id="payment-checkout-modal">
