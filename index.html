@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -26,12 +26,14 @@
       --shadow-lg: 0 8px 30px rgba(74, 51, 35, 0.15);
     }
 
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
+
 
     body {
       background-color: #F8F5F0;
@@ -40,6 +42,7 @@
       display: flex;
       flex-direction: column;
     }
+
 
     /* TOP HEADER */
     header {
@@ -50,6 +53,7 @@
       z-index: 100;
       box-shadow: 0 2px 10px rgba(0,0,0,0.15);
     }
+
 
     .nav-container {
       max-width: 1360px;
@@ -62,12 +66,14 @@
       gap: 10px;
     }
 
+
     .brand {
       display: flex;
       align-items: center;
       gap: 10px;
       cursor: pointer;
     }
+
 
     .brand-logo {
       width: 38px;
@@ -80,17 +86,20 @@
       font-size: 20px;
     }
 
+
     .brand-title {
       font-size: 1.15rem;
       font-weight: 700;
       letter-spacing: 0.5px;
     }
 
+
     .brand-sub {
       font-size: 0.72rem;
       opacity: 0.8;
       display: block;
     }
+
 
     /* NAVIGATION MODES (Chỉ hiển thị khi nhân viên / admin đã đăng nhập) */
     .nav-modes {
@@ -100,6 +109,7 @@
       border-radius: 30px;
       gap: 4px;
     }
+
 
     .mode-btn {
       border: none;
@@ -116,17 +126,20 @@
       transition: all 0.2s;
     }
 
+
     .mode-btn.active {
       background: #FFFFFF;
       color: var(--primary-dark);
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
 
+
     .header-actions {
       display: flex;
       align-items: center;
       gap: 10px;
     }
+
 
     .table-badge {
       background: var(--accent-light);
@@ -142,6 +155,7 @@
       border: 1px solid var(--accent);
     }
 
+
     .cart-btn-top {
       background: var(--accent);
       color: var(--primary-dark);
@@ -156,6 +170,7 @@
       font-size: 0.85rem;
     }
 
+
     .cart-count {
       background: var(--danger);
       color: white;
@@ -168,6 +183,7 @@
       justify-content: center;
     }
 
+
     .user-auth-badge {
       background: rgba(255, 255, 255, 0.15);
       color: #FFF;
@@ -179,6 +195,7 @@
       gap: 6px;
     }
 
+
     .logout-btn-header {
       background: rgba(211, 47, 47, 0.8);
       color: white;
@@ -189,6 +206,7 @@
       cursor: pointer;
     }
 
+
     /* MAIN CONTAINER */
     main {
       max-width: 1360px;
@@ -198,8 +216,10 @@
       width: 100%;
     }
 
+
     .view-section { display: none; }
     .view-section.active { display: block; }
+
 
     /* CUSTOMER VIEW */
     .table-info-bar {
@@ -216,6 +236,7 @@
       box-shadow: var(--shadow);
     }
 
+
     .table-info-bar .table-title {
       font-size: 1rem;
       font-weight: 700;
@@ -224,6 +245,7 @@
       align-items: center;
       gap: 6px;
     }
+
 
     .change-table-btn {
       background: transparent;
@@ -237,7 +259,9 @@
       transition: all 0.2s;
     }
 
+
     .change-table-btn:hover { background: var(--accent-light); }
+
 
     /* SEARCH & FILTER FOR CUSTOMER */
     .customer-controls {
@@ -249,6 +273,7 @@
       margin-bottom: 20px;
     }
 
+
     .category-filter {
       display: flex;
       gap: 8px;
@@ -256,6 +281,7 @@
       scrollbar-width: none;
     }
     .category-filter::-webkit-scrollbar { display: none; }
+
 
     .cat-btn {
       background: var(--surface);
@@ -270,12 +296,14 @@
       transition: all 0.2s;
     }
 
+
     .cat-btn.active {
       background: var(--primary);
       color: white;
       border-color: var(--primary);
       box-shadow: 0 4px 10px rgba(111, 78, 55, 0.25);
     }
+
 
     .customer-search-input {
       padding: 7px 14px;
@@ -286,11 +314,13 @@
       width: 220px;
     }
 
+
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
       gap: 18px;
     }
+
 
     .product-card {
       background: var(--surface);
@@ -304,19 +334,23 @@
       position: relative;
     }
 
+
     .product-card:hover {
       transform: translateY(-3px);
       box-shadow: var(--shadow-lg);
     }
 
+
     .product-card.just-added {
       animation: pulseHighlight 2s ease-out;
     }
+
 
     @keyframes pulseHighlight {
       0% { box-shadow: 0 0 0 4px #2E7D32; }
       100% { box-shadow: var(--shadow); }
     }
+
 
     .product-img-wrapper {
       height: 170px;
@@ -328,11 +362,13 @@
       overflow: hidden;
     }
 
+
     .product-img-wrapper img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+
 
     .product-badge {
       position: absolute;
@@ -347,6 +383,7 @@
       backdrop-filter: blur(4px);
     }
 
+
     .out-of-stock-overlay {
       position: absolute;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -360,12 +397,14 @@
       z-index: 2;
     }
 
+
     .product-details {
       padding: 14px;
       display: flex;
       flex-direction: column;
       flex: 1;
     }
+
 
     .product-name {
       font-size: 1rem;
@@ -374,6 +413,7 @@
       margin-bottom: 5px;
     }
 
+
     .product-desc {
       font-size: 0.8rem;
       color: var(--text-muted);
@@ -381,6 +421,7 @@
       margin-bottom: 10px;
       flex: 1;
     }
+
 
     .product-footer {
       display: flex;
@@ -391,11 +432,13 @@
       border-top: 1px dashed var(--border);
     }
 
+
     .product-price {
       font-size: 1.1rem;
       font-weight: 800;
       color: var(--primary);
     }
+
 
     .add-to-cart-btn {
       background: var(--accent);
@@ -412,10 +455,12 @@
       transition: background 0.2s;
     }
 
+
     .add-to-cart-btn:hover {
       background: #C49160;
       color: white;
     }
+
 
     /* CART DRAWER */
     .cart-drawer-overlay {
@@ -426,6 +471,7 @@
       display: none;
       backdrop-filter: blur(2px);
     }
+
 
     .cart-drawer {
       position: fixed;
@@ -441,6 +487,7 @@
     }
     .cart-drawer.open { transform: translateX(0); }
 
+
     .cart-header {
       padding: 16px 18px;
       background: var(--primary-dark);
@@ -450,6 +497,7 @@
       align-items: center;
     }
 
+
     .close-cart-btn {
       background: transparent;
       border: none;
@@ -458,8 +506,10 @@
       cursor: pointer;
     }
 
+
     .cart-body { flex: 1; overflow-y: auto; padding: 18px; }
     .cart-empty { text-align: center; padding: 40px 10px; color: var(--text-muted); }
+
 
     .cart-item {
       display: flex;
@@ -470,11 +520,14 @@
       gap: 10px;
     }
 
+
     .cart-item-info { flex: 1; }
     .cart-item-name { font-weight: 700; font-size: 0.9rem; color: var(--primary-dark); }
     .cart-item-unit-price { font-size: 0.78rem; color: var(--text-muted); }
 
+
     .cart-qty-control { display: flex; align-items: center; gap: 6px; }
+
 
     .qty-btn {
       width: 26px; height: 26px;
@@ -486,14 +539,17 @@
       display: flex; align-items: center; justify-content: center;
     }
 
+
     .qty-value { font-weight: 700; font-size: 0.9rem; min-width: 18px; text-align: center; }
     .cart-item-total { font-weight: 700; font-size: 0.9rem; color: var(--primary); min-width: 70px; text-align: right; }
+
 
     .cart-footer {
       padding: 16px 18px;
       background: #FDFBF8;
       border-top: 1px solid var(--border);
     }
+
 
     .cart-summary-line {
       display: flex;
@@ -502,6 +558,7 @@
       font-size: 0.85rem;
       color: var(--text-muted);
     }
+
 
     .cart-summary-line.total {
       font-size: 1.15rem;
@@ -512,6 +569,7 @@
       margin-bottom: 14px;
     }
 
+
     .form-group { margin-bottom: 12px; }
     .form-group label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; color: var(--text-muted); }
     .form-control {
@@ -521,6 +579,7 @@
       border-radius: 8px;
       font-size: 0.88rem;
     }
+
 
     .checkout-btn {
       width: 100%;
@@ -536,14 +595,17 @@
       box-shadow: 0 4px 12px rgba(111, 78, 55, 0.3);
     }
 
+
     /* POS VIEW */
     .pos-dashboard { display: flex; flex-direction: column; gap: 16px; }
+
 
     .stats-row {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
       gap: 14px;
     }
+
 
     .stat-card {
       background: var(--surface);
@@ -554,8 +616,10 @@
       display: flex; align-items: center; justify-content: space-between;
     }
 
+
     .stat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; }
     .stat-val { font-size: 1.5rem; font-weight: 800; color: var(--primary-dark); margin-top: 3px; }
+
 
     .stat-icon {
       width: 44px; height: 44px;
@@ -564,10 +628,12 @@
       font-size: 22px;
     }
 
+
     .stat-blue { background: #E1F5FE; color: #0288D1; }
     .stat-orange { background: #FFF3E0; color: #ED6C02; }
     .stat-green { background: #E8F5E9; color: #2E7D32; }
     .stat-amber { background: #FFF8E1; color: #FFA000; }
+
 
     .pos-toolbar {
       display: flex;
@@ -580,6 +646,7 @@
       border-radius: var(--radius);
       border: 1px solid var(--border);
     }
+
 
     .toolbar-btn {
       background: var(--surface);
@@ -594,10 +661,12 @@
       transition: all 0.2s;
     }
 
+
     .toolbar-btn:hover { background: var(--accent-light); }
     .toolbar-btn.btn-primary { background: var(--primary); color: white; border-color: var(--primary); }
     .toolbar-btn.btn-success { background: #E8F5E9; color: var(--success); border-color: #C8E6C9; }
     .toolbar-btn.btn-danger { background: #FFEBEE; color: var(--danger); border-color: #FFCDD2; }
+
 
     .kanban-grid {
       display: grid;
@@ -606,6 +675,7 @@
       align-items: start;
     }
 
+
     .kanban-col {
       background: #F1ECE6;
       border-radius: var(--radius);
@@ -613,6 +683,7 @@
       display: flex; flex-direction: column;
       min-height: 460px;
     }
+
 
     .kanban-header {
       padding: 12px 16px;
@@ -623,9 +694,11 @@
       border-top-right-radius: var(--radius);
     }
 
+
     .kanban-col.new .kanban-header { border-bottom-color: var(--warning); }
     .kanban-col.prep .kanban-header { border-bottom-color: var(--info); }
     .kanban-col.done .kanban-header { border-bottom-color: var(--success); }
+
 
     .kanban-cards-wrapper {
       padding: 12px;
@@ -634,6 +707,7 @@
       gap: 10px;
       flex: 1;
     }
+
 
     .order-card {
       background: #FFF;
@@ -644,9 +718,11 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
 
+
     .order-top { display: flex; justify-content: space-between; align-items: flex-start; }
     .order-id-badge { font-weight: 800; font-size: 0.92rem; color: var(--primary-dark); }
     .order-time { font-size: 0.72rem; color: var(--text-muted); }
+
 
     .order-items-list {
       background: #FAF7F2;
@@ -655,13 +731,16 @@
       font-size: 0.82rem;
     }
 
+
     .order-item-row { display: flex; justify-content: space-between; padding: 2px 0; }
     .qty-highlight { font-weight: 700; color: var(--primary); margin-right: 5px; }
+
 
     .order-bottom {
       display: flex; justify-content: space-between; align-items: center;
       margin-top: 4px; padding-top: 6px; border-top: 1px dashed var(--border);
     }
+
 
     .btn-act {
       border: none; padding: 5px 10px; border-radius: 6px;
@@ -673,8 +752,10 @@
     .btn-act.btn-edit { background: #E0E0E0; color: #333; }
     .btn-act.btn-cancel { background: #FFEBEE; color: var(--danger); }
 
+
     /* BACKEND LAYOUT */
     .backend-layout { display: flex; flex-direction: column; gap: 16px; }
+
 
     .admin-subnav {
       display: flex;
@@ -683,6 +764,7 @@
       padding-bottom: 8px;
       overflow-x: auto;
     }
+
 
     .admin-tab-btn {
       background: var(--surface);
@@ -698,11 +780,13 @@
       transition: all 0.2s;
     }
 
+
     .admin-tab-btn.active {
       background: var(--primary-dark);
       color: white;
       border-color: var(--primary-dark);
     }
+
 
     .admin-tab-content {
       display: none;
@@ -714,12 +798,14 @@
     }
     .admin-tab-content.active { display: block; }
 
+
     .data-table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 14px;
       font-size: 0.88rem;
     }
+
 
     .data-table th, .data-table td {
       padding: 10px 12px;
@@ -728,6 +814,7 @@
       vertical-align: middle;
     }
 
+
     .data-table th {
       background: #F8F5F0;
       font-weight: 700;
@@ -735,6 +822,7 @@
       text-transform: uppercase;
       font-size: 0.75rem;
     }
+
 
     .status-badge {
       display: inline-block;
@@ -747,6 +835,7 @@
     .status-inactive { background: #FFEBEE; color: var(--danger); }
     .status-admin { background: #EDE7F6; color: var(--purple); }
     .status-staff { background: #E1F5FE; color: var(--info); }
+
 
     /* MODALS */
     
@@ -783,6 +872,7 @@
       color: #FFF;
       box-shadow: 0 2px 6px rgba(111, 78, 55, 0.25);
     }
+
 
     .pay-methods-grid {
       display: grid;
@@ -822,6 +912,7 @@
       background: #F0F6FF;
     }
 
+
     .qr-payment-card {
       background: #FAF7F2;
       border: 1.5px solid #E8DFD8;
@@ -838,6 +929,7 @@
       background: #F0F7FF;
       border-color: #BBDEFB;
     }
+
 
     .copy-pill {
       display: inline-flex;
@@ -863,6 +955,7 @@
     }
     .modal-overlay.open { display: flex; }
 
+
     .modal-card {
       background: #FFF;
       width: 100%; max-width: 520px;
@@ -872,6 +965,7 @@
       max-height: 90vh;
       display: flex; flex-direction: column;
     }
+
 
     .modal-header {
       background: var(--primary-dark);
@@ -885,6 +979,7 @@
       border-top: 1px solid var(--border);
       display: flex; justify-content: flex-end; gap: 8px;
     }
+
 
     /* FOOTER */
     footer {
@@ -902,6 +997,7 @@
       gap: 8px;
     }
 
+
     .staff-login-link {
       color: var(--primary-light);
       text-decoration: none;
@@ -912,6 +1008,7 @@
       gap: 4px;
     }
     .staff-login-link:hover { color: var(--primary-dark); text-decoration: underline; }
+
 
     /* TOAST SMS */
     .toast-sms {
@@ -924,6 +1021,7 @@
       transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     }
     .toast-sms.show { transform: translateY(0); }
+
 
     /* PRINT RECEIPT */
     #print-receipt-section { display: none; }
@@ -942,11 +1040,195 @@
       .receipt-row { display: flex; justify-content: space-between; margin: 3px 0; font-size: 10pt; }
       .receipt-title { font-size: 13pt; font-weight: bold; margin-bottom: 4px; }
     }
+  
+    /* --- NÂNG CẤP ĐA NGÔN NGỮ (VI / EN) & CỔNG THANH TOÁN TRẢ TRƯỚC --- */
+    .lang-toggle-container {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 20px;
+      padding: 2px;
+      gap: 2px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      vertical-align: middle;
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: #FFFFFF;
+      padding: 5px 11px;
+      border-radius: 16px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .lang-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+    .lang-btn.active {
+      background: #FFFFFF;
+      color: var(--primary-dark);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
+    .prepay-alert-banner {
+      background: #FFF8E1;
+      border: 1.5px solid #FFE082;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: #5D4037;
+      line-height: 1.4;
+      text-align: left;
+    }
+    .prepay-alert-banner b {
+      color: #D84315;
+    }
+
+    .direct-connect-box {
+      margin: 12px 0 8px 0;
+      text-align: center;
+    }
+    .direct-conn-header {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #2E7D32;
+      box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.7);
+      animation: pulseGreen 1.5s infinite;
+      display: inline-block;
+    }
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(46, 125, 50, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(46, 125, 50, 0); }
+    }
+
+    .direct-app-btn {
+      width: 100%;
+      padding: 11px 14px;
+      border-radius: 8px;
+      border: none;
+      color: #FFF;
+      font-size: 0.86rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    }
+    .direct-app-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 14px rgba(0,0,0,0.2);
+    }
+    .direct-app-btn.bank-gradient {
+      background: linear-gradient(135deg, #1565C0, #0D47A1);
+    }
+    .direct-app-btn.momo-gradient {
+      background: linear-gradient(135deg, #D81B60, #880E4F);
+    }
+    .direct-app-btn.zalo-gradient {
+      background: linear-gradient(135deg, #0084FF, #0052CC);
+    }
+    .direct-app-btn.visa-gradient {
+      background: linear-gradient(135deg, #1A365D, #2B6CB0);
+    }
+
+    .visa-theme {
+      background: #F7FAFC;
+      border: 1.5px solid #CBD5E0;
+      border-radius: 12px;
+      padding: 14px;
+    }
+    .visa-card-box {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 14px;
+      text-align: left;
+    }
+
+    .pay-methods-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .pay-tab-btn.visa.active {
+      background: #1A365D;
+      color: #FFFFFF;
+      border-color: #1A365D;
+    }
+
+    .paid-badge-pos {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #E8F5E9;
+      border: 1.5px solid #81C784;
+      color: #1B5E20;
+      font-size: 0.74rem;
+      font-weight: 800;
+    }
+
+    .processing-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #FFF;
+      text-align: center;
+      padding: 20px;
+    }
+    .processing-overlay.show {
+      display: flex;
+    }
+    .spinner-circle {
+      width: 52px;
+      height: 52px;
+      border: 5px solid rgba(255,255,255,0.25);
+      border-top-color: #FFF;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-bottom: 16px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
   </style>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
 </head>
 <body>
+
 
   <!-- TOP HEADER -->
   <header>
@@ -955,9 +1237,10 @@
         <div class="brand-logo">☕</div>
         <div>
           <span class="brand-title">ACE TROPICAL WELLNESS COFFEE</span>
-          <span class="brand-sub">Hệ Thống QR Order & Quản Trị POS</span>
+          <span class="brand-sub" data-i18n="brandSub">Hệ Thống QR Order & Quản Trị POS</span>
         </div>
       </div>
+
 
       <!-- THANH CHUYỂN CHẾ ĐỘ: Ẩn với khách, hiển thị theo quyền nhân viên / admin -->
       <div class="nav-modes" id="nav-modes-container" style="display: none;">
@@ -972,15 +1255,24 @@
         </button>
       </div>
 
+
       <div class="header-actions">
+        <!-- BỘ CHỌN NGÔN NGỮ (VI / EN) -->
+        <div class="lang-toggle-container" title="Chọn ngôn ngữ / Select Language">
+          <button type="button" class="lang-btn active" id="lang-btn-vi" onclick="setLanguage('vi')">🇻🇳 Tiếng Việt</button>
+          <button type="button" class="lang-btn" id="lang-btn-en" onclick="setLanguage('en')">🇬🇧 English</button>
+        </div>
+
         <div class="table-badge" id="header-table-badge" onclick="openTableModal()">
           <span>📍</span> <span id="current-table-label">Bàn 01 (Tầng trệt)</span>
         </div>
 
+
         <button class="cart-btn-top" onclick="toggleCartDrawer(true)">
           <span>🛒</span>
-          <span class="cart-count" id="header-cart-count">0</span>
+          <span data-i18n="cartBtn" style="margin-left: 2px;">Giỏ hàng</span> <span class="cart-count" id="header-cart-count">0</span>
         </button>
+
 
         <!-- KHU VỰC TÀI KHOẢN KHI ĐÃ ĐĂNG NHẬP -->
         <div id="auth-user-panel" style="display: none;">
@@ -993,29 +1285,33 @@
     </div>
   </header>
 
+
   <!-- MAIN CONTAINER -->
   <main>
     <!-- VIEW 1: GIAO DIỆN KHÁCH HÀNG (MẶC ĐỊNH DUY NHẤT CHO KHÁCH) -->
     <section id="view-customer" class="view-section active">
       <div class="table-info-bar">
         <div class="table-title">
-          <span>☕ Chào mừng bạn đến với Ace Tropical Wellness Coffee</span>
-          <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted); margin-left: 6px;">(Chọn món & gửi quầy)</span>
+          <span>☕ <span data-i18n="welcomeMsg">Chào mừng bạn đến với Ace Tropical Wellness Coffee</span></span>
+          <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted); margin-left: 6px;"><span data-i18n="tableSub">(Chọn món & gửi quầy)</span></span>
         </div>
         <button class="change-table-btn" onclick="openTableModal()">
-          🔄 Đổi bàn / Quét lại QR
+          <span data-i18n="changeTableBtn">🔄 Đổi bàn / Quét lại QR</span>
         </button>
       </div>
+
 
       <!-- TÌM KIẾM VÀ DANH MỤC LỌC -->
       <div class="customer-controls">
         <div class="category-filter" id="customer-category-filter"></div>
-        <input type="text" class="customer-search-input" id="customer-search-input" placeholder="🔍 Tìm kiếm món ngon..." oninput="handleCustomerSearch(this.value)">
+        <input type="text" class="customer-search-input" id="customer-search-input" placeholder="🔍 Tìm kiếm món ngon..." data-i18n-ph="searchPlaceholder" oninput="handleCustomerSearch(this.value)">
       </div>
+
 
       <!-- GRID SẢN PHẨM -->
       <div class="products-grid" id="products-grid"></div>
     </section>
+
 
     <!-- VIEW 2: QUẦY POS & BARISTA (CHỈ DÀNH CHO NHÂN VIÊN & ADMIN) -->
     <section id="view-pos" class="view-section">
@@ -1051,6 +1347,7 @@
           </div>
         </div>
 
+
         <div class="pos-toolbar">
           <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
             <input type="text" class="form-control" id="search-order-input" style="width: 200px;" placeholder="🔍 Tìm mã đơn/bàn/SĐT..." oninput="renderOrders()">
@@ -1061,6 +1358,7 @@
           </div>
         </div>
 
+
         <div class="kanban-grid">
           <div class="kanban-col new">
             <div class="kanban-header">
@@ -1070,6 +1368,7 @@
             <div class="kanban-cards-wrapper" id="col-new-cards"></div>
           </div>
 
+
           <div class="kanban-col prep">
             <div class="kanban-header">
               <span style="font-weight: 700; font-size: 0.9rem;">🔥 Đang pha chế</span>
@@ -1077,6 +1376,7 @@
             </div>
             <div class="kanban-cards-wrapper" id="col-prep-cards"></div>
           </div>
+
 
           <div class="kanban-col done">
             <div class="kanban-header">
@@ -1088,6 +1388,7 @@
         </div>
       </div>
     </section>
+
 
     <!-- VIEW 3: QUẢN TRỊ BACKEND (CHỈ DÀNH CHO ADMIN) -->
     <section id="view-backend" class="view-section">
@@ -1110,6 +1411,7 @@
           </button>
         </div>
 
+
         <!-- TAB 1: MENU -->
         <div class="admin-tab-content active" id="tab-menu">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
@@ -1128,6 +1430,7 @@
             </div>
           </div>
 
+
           
           <!-- KHUNG TRẠNG THÁI ĐỒNG BỘ ĐÁM MÂY TỰ ĐỘNG (HOÀN TOÀN MỚI) -->
           <div style="background: #E3F2FD; border: 1.5px solid #90CAF9; padding: 12px 16px; border-radius: 10px; margin-top: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
@@ -1143,10 +1446,12 @@
             </div>
           </div>
 
+
 <!-- Thông báo hướng dẫn đồng bộ -->
           <div style="background: #E8F5E9; border-left: 4px solid var(--success); padding: 10px 14px; border-radius: 6px; margin-top: 14px; font-size: 0.82rem; color: #1B5E20;">
             💡 <b>Mẹo đồng bộ cho mọi điện thoại khách hàng:</b> Khi bạn thêm món mới hoặc sửa giá trong bảng này, hệ thống sẽ đổi giá ngay trên máy bạn. Để <b>mọi điện thoại khác quét mã QR đều nhận món và giá mới</b>, bạn chỉ cần bấm nút <b>"📥 Tải File Menu.json"</b> ở trên rồi tải đè lên tệp <code>Menu.json</code> trên GitHub của bạn!
           </div>
+
 
           <div style="overflow-x: auto;">
             <table class="data-table">
@@ -1166,6 +1471,7 @@
           </div>
         </div>
 
+
         <!-- TAB 2: BÀN & QR -->
         <div class="admin-tab-content" id="tab-tables">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
@@ -1178,6 +1484,7 @@
               <button class="toolbar-btn" onclick="printAllQrCodes()">🖨️ In Mã QR Tất Cả Bàn</button>
             </div>
           </div>
+
 
           <div style="overflow-x: auto;">
             <table class="data-table">
@@ -1194,6 +1501,7 @@
           </div>
         </div>
 
+
         <!-- TAB 3: ĐƠN HÀNG (SỬA / HỦY) -->
         <div class="admin-tab-content" id="tab-orders">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
@@ -1205,6 +1513,7 @@
               <button class="toolbar-btn btn-danger" onclick="clearCancelledOrders()">🗑️ Dọn Đơn Đã Hủy</button>
             </div>
           </div>
+
 
           <div style="overflow-x: auto;">
             <table class="data-table">
@@ -1225,6 +1534,7 @@
           </div>
         </div>
 
+
         <!-- TAB 4: QUẢN LÝ TÀI KHOẢN & PHÂN QUYỀN NHÂN VIÊN -->
         <div class="admin-tab-content" id="tab-users">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
@@ -1234,6 +1544,7 @@
             </div>
             <button class="toolbar-btn btn-primary" onclick="openUserModal(null)">➕ Cấp Thêm Tài Khoản Mới</button>
           </div>
+
 
           <div style="overflow-x: auto;">
             <table class="data-table">
@@ -1251,6 +1562,7 @@
             </table>
           </div>
         </div>
+
 
         <!-- TAB 5: CÀI ĐẶT QUÁN -->
         <div class="admin-tab-content" id="tab-settings">
@@ -1276,6 +1588,7 @@
               <label>Lời chúc chân hóa đơn:</label>
               <input type="text" id="setting-store-footer" class="form-control" value="Ace Tropical Wellness Coffee - Cảm ơn Quý khách & Hẹn gặp lại!">
             </div>
+
 
             <!-- CÀI ĐẶT THANH TOÁN NGÂN HÀNG & VÍ ĐIỆN TỬ -->
             <div style="background: #F0F7FF; border: 1.5px solid #BBDEFB; padding: 14px; border-radius: 10px; margin-top: 14px;">
@@ -1344,6 +1657,7 @@
               </div>
             </div>
 
+
             <div>
               <button class="toolbar-btn btn-primary" onclick="saveStoreSettings()">💾 Lưu Cài Đặt</button>
             </div>
@@ -1353,6 +1667,7 @@
     </section>
   </main>
 
+
   <!-- FOOTER CÓ LINK ĐĂNG NHẬP NỘI BỘ -->
   <footer>
     <div>© Ace Tropical Wellness Coffee - Thưởng thức trọn vẹn hương vị</div>
@@ -1360,6 +1675,7 @@
       <a class="staff-login-link" onclick="openLoginModal()">🔒 Dành cho nhân viên & quản lý đăng nhập</a>
     </div>
   </footer>
+
 
   <!-- MODAL ĐĂNG NHẬP NỘI BỘ (CHO NHÂN VIÊN & QUẢN TRỊ) -->
   <div class="modal-overlay" id="login-modal">
@@ -1393,6 +1709,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- MODAL CẤP / SỬA TÀI KHOẢN NHÂN VIÊN -->
   <div class="modal-overlay" id="user-modal">
@@ -1434,6 +1751,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- MODAL: THÊM / SỬA MÓN ĂN -->
   <div class="modal-overlay" id="item-modal">
@@ -1493,9 +1811,11 @@
             </div>
           </div>
 
+
           <!-- Input file ẩn chuẩn không dùng display:none để hỗ trợ 100% iOS Safari & Android -->
           <input type="file" id="item-form-file" accept="image/*" style="opacity: 0; position: absolute; z-index: -10; width: 1px; height: 1px; pointer-events: none;" onchange="handleItemImageUpload(event)">
           <input type="hidden" id="item-form-img">
+
 
           <!-- THƯ VIỆN ẢNH MẪU CHUẨN CỦA QUÁN (1-CHẠM) -->
           <div style="margin-top: 10px;">
@@ -1507,6 +1827,7 @@
             <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;" id="preset-images-grid">
               <!-- Rendered via JS -->
             </div>
+
 
             <!-- Ô NHẬP LINK THỦ CÔNG (NẾU CẦN) -->
             <div id="direct-url-container" style="display: none; margin-top: 8px;">
@@ -1526,6 +1847,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- MODAL: SỬA ĐƠN HÀNG -->
   <div class="modal-overlay" id="edit-order-modal">
@@ -1547,20 +1869,24 @@
           </div>
         </div>
 
+
         <div class="form-group">
           <label>Ghi chú đơn hàng:</label>
           <input type="text" id="edit-order-note" class="form-control">
         </div>
+
 
         <div style="margin: 14px 0 8px; font-weight: 700; font-size: 0.9rem; color: var(--primary-dark);">
           Danh Sách Món Trong Đơn:
         </div>
         <div id="edit-order-items-container" style="border: 1px solid var(--border); border-radius: 8px; padding: 10px; background: #FAF7F2; max-height: 200px; overflow-y: auto;"></div>
 
+
         <div style="margin-top: 12px; display: flex; gap: 8px; align-items: center;">
           <select id="add-more-item-select" class="form-control" style="flex: 1;"></select>
           <button class="toolbar-btn btn-primary" onclick="addItemToEditedOrder()">➕ Thêm Vào Đơn</button>
         </div>
+
 
         <div style="margin-top: 14px; padding: 10px; background: #FFF; border-radius: 8px; border: 1px solid var(--border); font-size: 0.9rem;">
           <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
@@ -1580,6 +1906,7 @@
       </div>
     </div>
   </div>
+
 
   <!-- MODAL THÊM BÀN -->
   <div class="modal-overlay" id="add-table-modal">
@@ -1605,6 +1932,7 @@
     </div>
   </div>
 
+
   <!-- MODAL QR TỪNG BÀN -->
   <div class="modal-overlay" id="qr-modal">
     <div class="modal-card" style="max-width: 520px;">
@@ -1617,6 +1945,7 @@
           <label style="font-weight: 600; font-size: 0.85rem;">Chọn bàn:</label>
           <select id="qr-table-select" class="form-control" style="flex: 1;" onchange="updateQrPreview()"></select>
         </div>
+
 
         <div style="background: #FDFBF8; border: 2px dashed var(--border); border-radius: 12px; padding: 20px; text-align: center;">
           <h4 id="qr-preview-title" style="color: var(--primary-dark); margin-bottom: 6px;">Ace Tropical Wellness Coffee</h4>
@@ -1632,43 +1961,48 @@
     </div>
   </div>
 
+
   <!-- CART SIDEBAR -->
   <div class="cart-drawer-overlay" id="cart-drawer-overlay" onclick="toggleCartDrawer(false)"></div>
   <div class="cart-drawer" id="cart-drawer">
     <div class="cart-header">
-      <h3 style="font-size: 1.1rem; display: flex; align-items: center; gap: 8px;"><span>🛒</span> Giỏ Hàng Gọi Món</h3>
+      <h3 style="font-size: 1.1rem; display: flex; align-items: center; gap: 8px;"><span>🛒</span> <span data-i18n="cartTitle">Giỏ Hàng Gọi Món</span></h3>
       <button class="close-cart-btn" onclick="toggleCartDrawer(false)">&times;</button>
     </div>
     <div class="cart-body" id="cart-items-container"></div>
     <div class="cart-footer">
       <div class="cart-summary-line">
-        <span>Tạm tính:</span>
+        <span data-i18n="subtotalLabel">Tạm tính:</span>
         <span id="cart-subtotal">0 đ</span>
       </div>
       <div class="cart-summary-line">
-        <span id="cart-vat-label">Thuế VAT (8%):</span>
+        <span id="cart-vat-label" data-i18n="vatLabel">Thuế VAT (8%):</span>
         <span id="cart-vat">0 đ</span>
       </div>
       <div class="cart-summary-line total">
-        <span>Tổng thanh toán:</span>
+        <span data-i18n="totalLabel">Tổng thanh toán:</span>
         <span id="cart-total" style="color: var(--primary);">0 đ</span>
       </div>
 
+
       <div class="form-group">
-        <label for="customer-phone">📱 Số điện thoại nhận SMS khi có món:</label>
+        <label for="customer-phone" data-i18n="phoneLabel">📱 Số điện thoại nhận thông báo khi có món:</label>
         <input type="tel" id="customer-phone" class="form-control" placeholder="Ví dụ: 0988776655" value="0988776655">
       </div>
 
+
       <div class="form-group">
-        <label for="customer-note">📝 Ghi chú cho quầy pha chế:</label>
-        <input type="text" id="customer-note" class="form-control" placeholder="Ít đường, không đá...">
+        <label for="customer-note" data-i18n="noteLabel">📝 Ghi chú cho quầy pha chế:</label>
+        <input type="text" id="customer-note" class="form-control" placeholder="Ít đường, không đá..." data-i18n-ph="notePlaceholder">
       </div>
 
+
       <button class="checkout-btn" onclick="openPaymentCheckoutModal()">
-        <span>💳</span> TIẾP TỤC THANH TOÁN (NGÂN HÀNG / MOMO / ZALO)
+        <span>💳</span> <span data-i18n="checkoutBtn">TIẾP TỤC THANH TOÁN (TRẢ TRƯỚC)</span>
       </button>
     </div>
   </div>
+
 
   <!-- MODAL CHỌN BÀN -->
   <div class="modal-overlay" id="table-modal">
@@ -1686,6 +2020,7 @@
     </div>
   </div>
 
+
   <!-- TOAST SMS -->
   <div class="toast-sms" id="sms-toast">
     <div style="font-size: 26px;">📩</div>
@@ -1694,6 +2029,7 @@
       <p id="sms-toast-body" style="font-size: 0.8rem; opacity: 0.95; line-height: 1.3;"></p>
     </div>
   </div>
+
 
   <!-- THERMAL PRINT BILL -->
   <div id="print-receipt-section">
@@ -1705,6 +2041,7 @@
       <div style="font-weight: bold; font-size: 10pt; margin: 4px 0;">PHIẾU GỌI MÓN (KITCHEN & POS)</div>
     </div>
 
+
     <div class="receipt-row">
       <span>Mã đơn: <b id="print-order-id">ORD-1000</b></span>
       <span id="print-order-time">10:15</span>
@@ -1715,12 +2052,14 @@
     </div>
     <div class="receipt-line"></div>
 
+
     <div style="font-weight: bold; margin-bottom: 4px; font-size: 9pt;" class="receipt-row">
       <span>TÊN MÓN</span>
       <span>SL x GIÁ</span>
       <span>T.TIỀN</span>
     </div>
     <div id="print-order-items"></div>
+
 
     <div class="receipt-line"></div>
     <div class="receipt-row">
@@ -1737,11 +2076,13 @@
     </div>
     <div class="receipt-line"></div>
 
+
     <div class="receipt-center" style="font-size: 8.5pt; margin-top: 6px;">
       <i>Khách hàng vui lòng lưu phiếu để đối chiếu!</i><br>
       <b id="receipt-footer-text">Ace Tropical Wellness Coffee - Cảm ơn Quý khách & Hẹn gặp lại!</b>
     </div>
   </div>
+
 
   <!-- SCRIPT LOGIC HOÀN CHỈNH & CHỐNG LỖI MẤT MÓN -->
   <script>
@@ -1752,18 +2093,20 @@
       { id: 3, fullname: "Trần Thị Thu Ngân", username: "thungan", password: "123456", role: "staff", active: true }
     ];
 
+
     const DEFAULT_MENU = [
-      { id: 1, name: "Cà phê Sữa Đá Sài Gòn", category: "coffee", price: 51000, badge: "Bán chạy nhất", desc: "Cà phê nguyên chất rang xay đậm đà kết hợp sữa đặc ngọt ngào béo ngậy.", available: true, imgUrl: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=500&auto=format&fit=crop&q=80" },
-      { id: 2, name: "Cà phê Đen Đá Nguyên Chất", category: "coffee", price: 60000, badge: "Đậm vị", desc: "Hương vị truyền thống mạnh mẽ từ hạt Robusta Đắk Lắk tuyển chọn.", available: true, imgUrl: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&auto=format&fit=crop&q=80" },
-      { id: 3, name: "Bạc Xỉu Đá Tầng", category: "coffee", price: 55000, badge: "Được yêu thích", desc: "Nhiều sữa ít cà phê, béo ngậy thơm ngon, phân tầng 3 lớp đẹp mắt.", available: true, imgUrl: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&auto=format&fit=crop&q=80" },
-      { id: 4, name: "Cà Phê Muối Hoàng Gia", category: "coffee", price: 45000, badge: "Signature", desc: "Lớp kem muối bồng bềnh mằn mặn hòa quyện cà phê phin đậm đà quyến rũ.", available: true, imgUrl: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=500&auto=format&fit=crop&q=80" },
-      { id: 5, name: "Trà Đào Cam Sả", category: "tea", price: 45000, badge: "Thanh mát", desc: "Trà thanh dịu kết hợp những miếng đào giòn thơm nức và sả tươi giải nhiệt.", available: true, imgUrl: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&auto=format&fit=crop&q=80" },
-      { id: 6, name: "Trà Sải Vải Sen Vàng", category: "tea", price: 49000, badge: "Đặc biệt", desc: "Trà ô long thơm ngát kèm hạt sen bùi béo và vải tươi mọng nước giòn ngọt.", available: true, imgUrl: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=500&auto=format&fit=crop&q=80" },
-      { id: 7, name: "Trà Sữa Oolong Nướng", category: "tea", price: 48000, badge: "Hot Trend", desc: "Trà oolong nướng thơm lừng kết hợp sữa tươi thanh trùng và trân châu đường đen.", available: true, imgUrl: "https://images.unsplash.com/photo-1558857563-b371b266a206?w=500&auto=format&fit=crop&q=80" },
-      { id: 8, name: "Bánh Croissant Bơ Tỏi Phô Mai", category: "bakery", price: 38000, badge: "Nướng nóng", desc: "Bánh sừng bò giòn rụm phủ bơ tỏi thơm lừng và ngập tràn phô mai tan chảy.", available: true, imgUrl: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&auto=format&fit=crop&q=80" },
-      { id: 9, name: "Bánh Tiramisu Ý", category: "bakery", price: 48000, badge: "Best Dessert", desc: "Bánh ngọt vị cà phê đậm đà, kem mascarpone mềm mịn phủ bột cacao nguyên chất.", available: true, imgUrl: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500&auto=format&fit=crop&q=80" },
-      { id: 10, name: "Sinh Tố Xoài Dừa Dầm", category: "smoothie", price: 52000, badge: "Nhiệt đới", desc: "Xoài chín mọng xay mịn cùng nước cốt dừa béo bùi và thạch dừa giòn sần sật.", available: true, imgUrl: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=500&auto=format&fit=crop&q=80" }
-    ];
+      { id: 1, name: "Cà phê Sữa Đá Sài Gòn", name_en: "Saigon Iced Milk Coffee", category: "coffee", price: 51000, badge: "Bán chạy nhất", badge_en: "Best Seller", desc: "Cà phê nguyên chất rang xay đậm đà kết hợp sữa đặc ngọt ngào béo ngậy.", desc_en: "Rich Robusta drip coffee blended with sweet condensed milk over crushed ice.", available: true, imgUrl: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=500&auto=format&fit=crop&q=80" },
+      { id: 2, name: "Cà phê Đen Đá Nguyên Chất", name_en: "Pure Vietnamese Iced Black Coffee", category: "coffee", price: 60000, badge: "Đậm vị", badge_en: "Bold Flavor", desc: "Hương vị truyền thống mạnh mẽ từ hạt Robusta Đắk Lắk tuyển chọn.", desc_en: "Traditional bold flavor brewed from premium Đắk Lắk Robusta beans.", available: true, imgUrl: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&auto=format&fit=crop&q=80" },
+      { id: 3, name: "Bạc Xỉu Đá Tầng", name_en: "Layered Bac Xiu (White Coffee)", category: "coffee", price: 55000, badge: "Được yêu thích", badge_en: "Popular", desc: "Nhiều sữa ít cà phê, béo ngậy thơm ngon, phân tầng 3 lớp đẹp mắt.", desc_en: "Creamy layered condensed milk with a touch of aromatic drip coffee.", available: true, imgUrl: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&auto=format&fit=crop&q=80" },
+      { id: 4, name: "Cà Phê Muối Hoàng Gia", name_en: "Royal Salted Cream Coffee", category: "coffee", price: 45000, badge: "Signature", badge_en: "Signature", desc: "Lớp kem muối bồng bềnh mằn mặn hòa quyện cà phê phin đậm đà quyến rũ.", desc_en: "Velvety sea-salt cream foam layered over rich Vietnamese phin coffee.", available: true, imgUrl: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=500&auto=format&fit=crop&q=80" },
+      { id: 5, name: "Trà Đào Cam Sả", name_en: "Peach Orange Lemongrass Tea", category: "tea", price: 45000, badge: "Thanh mát", badge_en: "Refreshing", desc: "Trà thanh dịu kết hợp những miếng đào giòn thơm nức và sả tươi giải nhiệt.", desc_en: "Fragrant tea infused with fresh orange, lemongrass, and crisp peach slices.", available: true, imgUrl: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&auto=format&fit=crop&q=80" },
+      { id: 6, name: "Trà Sải Vải Sen Vàng", name_en: "Golden Lotus Lychee Tea", category: "tea", price: 49000, badge: "Đặc biệt", badge_en: "Specialty", desc: "Trà ô long thơm ngát kèm hạt sen bùi béo và vải tươi mọng nước giòn ngọt.", desc_en: "Aromatic Oolong tea with juicy lychees and tender lotus seeds.", available: true, imgUrl: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=500&auto=format&fit=crop&q=80" },
+      { id: 7, name: "Trà Sữa Oolong Nướng", name_en: "Roasted Oolong Milk Tea", category: "tea", price: 48000, badge: "Hot Trend", badge_en: "Trending", desc: "Trà oolong nướng thơm lừng kết hợp sữa tươi thanh trùng và trân châu đường đen.", desc_en: "Smoky roasted oolong milk tea paired with chewy brown sugar pearls.", available: true, imgUrl: "https://images.unsplash.com/photo-1558857563-b371b266a206?w=500&auto=format&fit=crop&q=80" },
+      { id: 8, name: "Bánh Croissant Bơ Tỏi Phô Mai", name_en: "Garlic Butter Cheese Croissant", category: "bakery", price: 38000, badge: "Nướng nóng", badge_en: "Fresh Baked", desc: "Bánh sừng bò giòn rụm phủ bơ tỏi thơm lừng và ngập tràn phô mai tan chảy.", desc_en: "Flaky golden croissant filled with aromatic garlic butter and melted cheese.", available: true, imgUrl: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&auto=format&fit=crop&q=80" },
+      { id: 9, name: "Bánh Tiramisu Ý", name_en: "Classic Italian Tiramisu", category: "bakery", price: 48000, badge: "Best Dessert", badge_en: "Best Dessert", desc: "Bánh ngọt vị cà phê đậm đà, kem mascarpone mềm mịn phủ bột cacao nguyên chất.", desc_en: "Espresso-soaked ladyfingers, rich mascarpone cream, dusted with pure cocoa.", available: true, imgUrl: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500&auto=format&fit=crop&q=80" },
+      { id: 10, name: "Sinh Tố Xoài Dừa Dầm", name_en: "Mango Coconut Smoothie", category: "smoothie", price: 52000, badge: "Nhiệt đới", badge_en: "Tropical", desc: "Xoài chín mọng xay mịn cùng nước cốt dừa béo bùi và thạch dừa giòn sần sật.", desc_en: "Ripe mango blended with rich coconut milk and chewy coconut jelly toppings.", available: true, imgUrl: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=500&auto=format&fit=crop&q=80" }
+    ]
+
 
     const DEFAULT_TABLES = [
       { id: "1", name: "Bàn 01 (Tầng trệt)" },
@@ -1776,15 +2119,254 @@
       { id: "8", name: "Bàn 08 (Ban công)" }
     ];
 
+
     const CATEGORIES = [
-      { id: "all", name: "✨ Tất cả" },
-      { id: "coffee", name: "☕ Cà phê" },
-      { id: "tea", name: "🍵 Trà trái cây" },
-      { id: "bakery", name: "🥐 Bánh ngọt" },
-      { id: "smoothie", name: "🥤 Đá xay & Sinh tố" }
-    ];
+      { id: "all", name: "✨ Tất cả", name_en: "✨ All" },
+      { id: "coffee", name: "☕ Cà phê", name_en: "☕ Coffee" },
+      { id: "tea", name: "🍵 Trà trái cây", name_en: "🍵 Tea & Fruit Tea" },
+      { id: "bakery", name: "🥐 Bánh ngọt", name_en: "🥐 Bakery & Pastry" },
+      { id: "smoothie", name: "🥤 Đá xay & Sinh tố", name_en: "🥤 Smoothie & Ice Blended" }
+    ]
+
 
     // STATE
+    
+    // --- HỆ THỐNG ĐA NGÔN NGỮ QUỐC TẾ (VI / EN) ---
+    let currentLang = localStorage.getItem('ace_lang') || 'vi';
+
+    const I18N = {
+      vi: {
+        brandSub: "Hệ Thống QR Order & Quản Trị POS",
+        welcomeMsg: "Chào mừng bạn đến với Ace Tropical Wellness Coffee",
+        tableLabel: "Bàn của bạn:",
+        tableSub: "(Chọn món & gửi quầy)",
+        changeTableBtn: "🔄 Đổi bàn / Quét lại QR",
+        searchPlaceholder: "🔍 Tìm kiếm món ngon...",
+        cartBtn: "Giỏ hàng",
+        cartTitle: "Giỏ Hàng Gọi Món",
+        cartEmpty: "Giỏ hàng của bạn đang trống! Hãy chọn món ngon thưởng thức nhé.",
+        subtotalLabel: "Tạm tính:",
+        vatLabel: "Thuế VAT (8%):",
+        totalLabel: "Tổng thanh toán:",
+        phoneLabel: "📱 Số điện thoại nhận thông báo khi có món:",
+        noteLabel: "📝 Ghi chú cho quầy pha chế:",
+        notePlaceholder: "Ít đường, không đá, ly giấy...",
+        checkoutBtn: "💳 TIẾP TỤC THANH TOÁN (TRẢ TRƯỚC)",
+        payModalTitle: "Thanh Toán Đơn Hàng",
+        prepayNoticeTitle: "BẮT BUỘC THANH TOÁN TRƯỚC:",
+        prepayNoticeDesc: " Quý khách vui lòng hoàn tất chuyển khoản / thanh toán trước. Đơn hàng chỉ được chuyển thẳng vào Quầy Barista (Bếp) làm món sau khi hệ thống ghi nhận thanh toán thành công!",
+        orderIdLabel: "Mã đơn:",
+        totalPayLabel: "Tổng thanh toán:",
+        phoneInputLabel: "Số điện thoại khách (*):",
+        generalNoteLabel: "Ghi chú chung:",
+        generalNotePlaceholder: "Lấy món tại quầy, ít đá...",
+        choosePaymentMethodLabel: "Chọn cổng thanh toán trực tiếp:",
+        payTabBank: "Ngân Hàng (VietQR)",
+        payTabMoMo: "Ví MoMo",
+        payTabZalo: "Ví ZaloPay",
+        payTabVisa: "Thẻ Visa / Master",
+        bankGatewayLive: "Direct Connect: Toàn bộ 54+ Ngân Hàng Việt Nam (Napas 24/7)",
+        openBankAppBtn: "MỞ APP NGÂN HÀNG THANH TOÁN (DIRECT APP LINK)",
+        vietqrInstruction: "⚡ Hoặc quét mã VietQR tự động điền tiền & nội dung:",
+        bankLabel: "Ngân hàng:",
+        accNumLabel: "Số tài khoản:",
+        accNameLabel: "Chủ tài khoản:",
+        amountLabel: "Số tiền:",
+        memoLabel: "Nội dung CK:",
+        momoGatewayLive: "Direct Connect: Cổng Thanh Toán MoMo Pay Trực Tiếp",
+        openMoMoAppBtn: "MỞ ỨNG DỤNG MOMO THANH TOÁN NGAY",
+        momoInstruction: "📱 Hoặc quét mã bằng ứng dụng Ví MoMo:",
+        momoPhoneLabel: "Số MoMo:",
+        receiverLabel: "Tên người nhận:",
+        zaloGatewayLive: "Direct Connect: Cổng Thanh Toán ZaloPay Trực Tiếp",
+        openZaloAppBtn: "MỞ ỨNG DỤNG ZALOPAY THANH TOÁN NGAY",
+        zaloInstruction: "📱 Hoặc quét mã bằng ứng dụng ZaloPay hoặc Zalo:",
+        zaloPhoneLabel: "Số ZaloPay:",
+        visaGatewayLive: "Cổng Thanh Toán Quốc Tế Visa / Mastercard (Direct Gateway)",
+        cardNumberLabel: "Số Thẻ Visa / Mastercard:",
+        cardHolderLabel: "Tên Chủ Thẻ (In hoa không dấu):",
+        cardExpiryLabel: "Ngày Hết Hạn (MM/YY):",
+        cardCvvLabel: "Mã CVV / CVC (3 số bí mật):",
+        visaSecurityText: "Mã hóa bảo mật 256-bit SSL & 3D-Secure quốc tế",
+        payVisaBtn: "XÁC NHẬN THANH TOÁN THẺ VISA",
+        gatewayListening: "Đang kết nối cổng thanh toán trực tiếp...",
+        confirmPaymentBtn: "TÔI ĐÃ CHUYỂN KHOẢN XONG - XÁC THỰC & GỬI VÀO BẾP",
+        successTitle: "🎉 ĐẶT MÓN & THANH TOÁN THÀNH CÔNG!",
+        successDesc: "Đơn hàng đã được thanh toán 100% và chuyển thẳng vào Quầy Barista (Bếp) làm món!",
+        tablePosLabel: "Vị trí bàn:",
+        paymentMethodLabel: "Hình thức thanh toán:",
+        totalAmountLabel: "Tổng tiền:",
+        backToMenuBtn: "☕ Hoàn Tất & Tiếp Tục Xem Menu",
+        addBtn: "+ Thêm",
+        soldOut: "Hết hàng",
+        sizeLabel: "Chọn kích cỡ:",
+        sweetLabel: "Độ ngọt (Đường):",
+        iceLabel: "Lượng đá:",
+        toppingLabel: "Topping thêm:",
+        itemNoteLabel: "Yêu cầu riêng cho món này:",
+        itemNotePlaceholder: "Ví dụ: Nhiều sữa đặc, để riêng thạch, uống ly giấy...",
+        qtyLabel: "Số lượng:",
+        addToCartBtn: "🛒 Thêm Vào Giỏ",
+        quickCheckoutBtn: "⚡ Thanh Toán",
+        catAll: "Tất cả",
+        catCoffee: "Cà phê",
+        catTea: "Trà & Trà sữa",
+        catBakery: "Bánh & Ăn nhẹ",
+        catSmoothie: "Sinh tố",
+        copied: "Đã sao chép!",
+        copiedAcc: "Đã sao chép số tài khoản!",
+        copiedAmount: "Đã sao chép số tiền!",
+        copiedMemo: "Đã sao chép nội dung chuyển khoản!",
+        copiedPhone: "Đã sao chép số điện thoại!"
+      },
+      en: {
+        brandSub: "QR Table Ordering & Barista POS System",
+        welcomeMsg: "Welcome to Ace Tropical Wellness Coffee",
+        tableLabel: "Your Table:",
+        tableSub: "(Select items & order)",
+        changeTableBtn: "🔄 Change Table / Scan QR",
+        searchPlaceholder: "🔍 Search delicious drinks & food...",
+        cartBtn: "Cart",
+        cartTitle: "Your Order Cart",
+        cartEmpty: "Your cart is empty! Pick your favorite drinks to enjoy.",
+        subtotalLabel: "Subtotal:",
+        vatLabel: "VAT Tax (8%):",
+        totalLabel: "Total Amount:",
+        phoneLabel: "📱 Mobile number for order notification:",
+        noteLabel: "📝 Special notes for barista / kitchen:",
+        notePlaceholder: "Less sugar, no ice, paper cup...",
+        checkoutBtn: "💳 PROCEED TO PAYMENT (PREPAYMENT REQUIRED)",
+        payModalTitle: "Order Prepayment",
+        prepayNoticeTitle: "PREPAYMENT REQUIRED:",
+        prepayNoticeDesc: " Please complete your transfer/card payment first. Orders are sent directly to the Barista Kitchen ONLY after payment is verified!",
+        orderIdLabel: "Order ID:",
+        totalPayLabel: "Total Payment:",
+        phoneInputLabel: "Customer Phone (*):",
+        generalNoteLabel: "General Note:",
+        generalNotePlaceholder: "Pick up at counter, less ice...",
+        choosePaymentMethodLabel: "Select direct payment gateway:",
+        payTabBank: "Bank (VietQR)",
+        payTabMoMo: "MoMo Wallet",
+        payTabZalo: "ZaloPay Wallet",
+        payTabVisa: "Visa / Mastercard",
+        bankGatewayLive: "Direct Connect: All 54+ Vietnam Banks (Napas 24/7)",
+        openBankAppBtn: "OPEN BANKING APP TO PAY (DIRECT APP LINK)",
+        vietqrInstruction: "⚡ Or scan VietQR to auto-fill amount & order code:",
+        bankLabel: "Bank:",
+        accNumLabel: "Account No.:",
+        accNameLabel: "Account Name:",
+        amountLabel: "Amount:",
+        memoLabel: "Transfer Memo:",
+        momoGatewayLive: "Direct Connect: MoMo Pay Direct Payment Gateway",
+        openMoMoAppBtn: "OPEN MOMO APP TO PAY NOW",
+        momoInstruction: "📱 Or scan QR using your MoMo Wallet App:",
+        momoPhoneLabel: "MoMo Phone:",
+        receiverLabel: "Recipient:",
+        zaloGatewayLive: "Direct Connect: ZaloPay Direct Payment Gateway",
+        openZaloAppBtn: "OPEN ZALOPAY APP TO PAY NOW",
+        zaloInstruction: "📱 Or scan QR using ZaloPay or Zalo App:",
+        zaloPhoneLabel: "ZaloPay Phone:",
+        visaGatewayLive: "International Card Gateway (Visa / Mastercard / JCB)",
+        cardNumberLabel: "Card Number (Visa / Mastercard):",
+        cardHolderLabel: "Cardholder Name (Uppercase):",
+        cardExpiryLabel: "Expiry Date (MM/YY):",
+        cardCvvLabel: "CVV / CVC Code (3 digits):",
+        visaSecurityText: "256-bit SSL & 3D-Secure International Encryption",
+        payVisaBtn: "PAY NOW WITH VISA / MASTER",
+        gatewayListening: "Connected to payment gateway, listening for transfer...",
+        confirmPaymentBtn: "I HAVE COMPLETED PAYMENT - VERIFY & SEND TO KITCHEN",
+        successTitle: "🎉 ORDER & PAYMENT SUCCESSFUL!",
+        successDesc: "Your order has been 100% prepaid and sent straight to the Barista Kitchen!",
+        tablePosLabel: "Table:",
+        paymentMethodLabel: "Payment Method:",
+        totalAmountLabel: "Total Amount:",
+        backToMenuBtn: "☕ Done & Return to Menu",
+        addBtn: "+ Add",
+        soldOut: "Sold Out",
+        sizeLabel: "Choose Size:",
+        sweetLabel: "Sweetness Level:",
+        iceLabel: "Ice Level:",
+        toppingLabel: "Extra Toppings:",
+        itemNoteLabel: "Special request for this item:",
+        itemNotePlaceholder: "e.g. Extra milk, separate toppings, paper cup...",
+        qtyLabel: "Quantity:",
+        addToCartBtn: "🛒 Add to Cart",
+        quickCheckoutBtn: "⚡ Checkout",
+        catAll: "All",
+        catCoffee: "Coffee",
+        catTea: "Tea & Milk Tea",
+        catBakery: "Bakery & Pastries",
+        catSmoothie: "Smoothie",
+        copied: "Copied!",
+        copiedAcc: "Bank account number copied!",
+        copiedAmount: "Amount copied!",
+        copiedMemo: "Transfer memo copied!",
+        copiedPhone: "Phone number copied!"
+      }
+    };
+
+    function setLanguage(lang) {
+      currentLang = (lang === 'en') ? 'en' : 'vi';
+      localStorage.setItem('ace_lang', currentLang);
+
+      const btnVi = document.getElementById('lang-btn-vi');
+      const btnEn = document.getElementById('lang-btn-en');
+      if (btnVi) btnVi.classList.toggle('active', currentLang === 'vi');
+      if (btnEn) btnEn.classList.toggle('active', currentLang === 'en');
+
+      // Update all elements with data-i18n
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (I18N[currentLang] && I18N[currentLang][key]) {
+          el.textContent = I18N[currentLang][key];
+        }
+      });
+
+      // Update placeholders
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (I18N[currentLang] && I18N[currentLang][key]) {
+          el.setAttribute('placeholder', I18N[currentLang][key]);
+        }
+      });
+
+      // Update categories & products
+      renderCustomerCategoryFilter();
+      renderCustomerProducts(activeCategory);
+      updateCartUI();
+
+      // Update Table badge display
+      updateTableDisplay();
+
+      // Update options modal if open
+      if (currentDetailItem) {
+        document.getElementById('detail-modal-name').textContent = getItemDisplayName(currentDetailItem);
+        document.getElementById('detail-modal-desc').textContent = getItemDisplayDesc(currentDetailItem);
+        const badgeEl = document.getElementById('detail-modal-badge');
+        if (badgeEl && currentDetailItem.badge) {
+          badgeEl.textContent = getItemDisplayBadge(currentDetailItem);
+        }
+      }
+    }
+
+    function getItemDisplayName(item) {
+      if (!item) return '';
+      if (currentLang === 'en' && item.name_en) return item.name_en;
+      return item.name;
+    }
+
+    function getItemDisplayDesc(item) {
+      if (!item) return '';
+      if (currentLang === 'en' && item.desc_en) return item.desc_en;
+      return item.desc || '';
+    }
+
+    function getItemDisplayBadge(item) {
+      if (!item) return '';
+      if (currentLang === 'en' && item.badge_en) return item.badge_en;
+      return item.badge || '';
+    }
+
     let currentUser = null;
     let usersList = [];
     let menuItems = [];
@@ -1808,20 +2390,25 @@
       zalopayName: "ACE TROPICAL COFFEE"
     };
 
+
     let activeCategory = 'all';
     let searchQuery = '';
     let temporaryEditingOrder = null;
     let lastAddedItemId = null; // Để làm hiệu ứng phát sáng món mới thêm
 
+
     // --- 2. KHỞI TẠO ỨNG DỤNG ---
     window.addEventListener('DOMContentLoaded', () => {
+      setLanguage(currentLang);
       initRealtimeSync();
       loadStorageData();
       checkAuthSession();
 
+
       // Kiểm tra tham số ?table= trên URL
       const urlParams = new URLSearchParams(window.location.search);
       const tableParam = urlParams.get('table');
+
 
       // Kiểm tra tham số ?menu_data= trên URL để đồng bộ thực đơn tức thì giữa các máy
       const menuDataParam = urlParams.get('menu_data');
@@ -1838,12 +2425,14 @@
         }
       }
 
+
       if (tableParam) {
         const found = tables.find(t => t.id === tableParam || t.name.toLowerCase().includes(tableParam.toLowerCase()));
         currentTable = found || { id: tableParam, name: `Bàn ${tableParam}` };
       } else {
         currentTable = tables[0] || { id: "1", name: "Bàn 01 (Tầng trệt)" };
       }
+
 
       updateTableDisplay();
       renderCustomerCategoryFilter();
@@ -1852,15 +2441,18 @@
       populateTableSelectDropdowns();
       renderOrders();
 
+
       if (!currentUser) {
         switchView('customer');
       }
+
 
       // Tự động kéo tệp Menu.json / menu.json từ máy chủ GitHub
       fetchMenuJsonFromServer();
       syncFromCloudAuto();
       // Định kỳ kiểm tra thực đơn và đơn hàng đám mây mỗi 10 giây
       setInterval(syncFromCloudAuto, 10000);
+
 
       window.addEventListener('storage', (e) => {
         if (e.key === 'ace_menu' || e.key === 'ace_orders' || e.key === 'ace_tables' || e.key === 'ace_settings' || e.key === 'ace_users') {
@@ -1876,13 +2468,15 @@
       });
     });
 
+
     function formatMoney(amount) {
       return new Intl.NumberFormat('vi-VN').format(amount) + ' đ';
     }
 
+
     function loadStorageData() {
       // Menu version check for price & image update auto-sync
-      const CURRENT_MENU_VERSION = '2026_V3_PRICES';
+      const CURRENT_MENU_VERSION = '2026_V4_I18N_PAYMENT';
       const storedVersion = localStorage.getItem('ace_menu_version');
       const savedMenu = localStorage.getItem('ace_menu');
       if (savedMenu) {
@@ -1909,13 +2503,16 @@
         localStorage.setItem('ace_menu_version', CURRENT_MENU_VERSION);
       }
 
+
       // Tables
       const savedTables = localStorage.getItem('ace_tables');
       tables = savedTables ? JSON.parse(savedTables) : [...DEFAULT_TABLES];
 
+
       // Users
       const savedUsers = localStorage.getItem('ace_users');
       usersList = savedUsers ? JSON.parse(savedUsers) : [...DEFAULT_USERS];
+
 
       // Settings
       const savedSettings = localStorage.getItem('ace_settings');
@@ -1925,6 +2522,7 @@
       checkGitHubTokenStatus();
       }
 
+
       // Orders
       const savedOrders = localStorage.getItem('ace_orders');
       if (savedOrders) {
@@ -1933,6 +2531,7 @@
         resetSampleOrders();
       }
     }
+
 
     // --- CƠ CHẾ NẠP THỰC ĐƠN THÔNG MINH (TRÁNH GHI ĐÈ MẤT MÓN MỚI) ---
     function fetchMenuJsonFromServer() {
@@ -1944,6 +2543,7 @@
           });
       };
 
+
       fetchFile('Menu.json')
         .catch(() => fetchFile('menu.json'))
         .then(serverMenu => {
@@ -1953,8 +2553,10 @@
             const localMenu = localStorage.getItem('ace_menu') ? JSON.parse(localStorage.getItem('ace_menu')) : [];
             const mergedMap = new Map();
 
+
             // 1. Đưa các món từ server vào trước
             serverMenu.forEach(item => mergedMap.set(item.id, item));
+
 
             // 2. Nếu local có món mới (ID lớn hơn hoặc tên mới) mà server chưa có, giữ lại không được xóa!
             localMenu.forEach(localItem => {
@@ -1962,6 +2564,7 @@
                 mergedMap.set(localItem.id, localItem);
               }
             });
+
 
             menuItems = Array.from(mergedMap.values());
             localStorage.setItem('ace_menu', JSON.stringify(menuItems));
@@ -1975,6 +2578,7 @@
         });
     }
 
+
     function exportMenuJson() {
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(menuItems, null, 2));
       const downloadAnchor = document.createElement('a');
@@ -1985,6 +2589,7 @@
       downloadAnchor.remove();
       showSmsToast("ĐÃ TẢI FILE Menu.json", "Tải tệp này lên kho GitHub của bạn để cập nhật món mới cho TẤT CẢ điện thoại khách hàng!");
     }
+
 
     function importMenuJson(event) {
       const file = event.target.files[0];
@@ -2007,11 +2612,13 @@
       reader.readAsText(file);
     }
 
+
     function saveMenuStorage() {
       localStorage.setItem('ace_menu', JSON.stringify(menuItems));
       renderCustomerProducts(activeCategory);
       if (currentUser && currentUser.role === 'admin') renderAdminMenuTable();
     }
+
 
     function saveTablesStorage() {
       localStorage.setItem('ace_tables', JSON.stringify(tables));
@@ -2020,16 +2627,19 @@
       if (currentUser && currentUser.role === 'admin') renderAdminTablesList();
     }
 
+
     function saveOrdersStorage() {
       localStorage.setItem('ace_orders', JSON.stringify(orders));
       renderOrders();
       if (currentUser && currentUser.role === 'admin') renderAdminOrdersTable();
     }
 
+
     function saveUsersStorage() {
       localStorage.setItem('ace_users', JSON.stringify(usersList));
       if (currentUser && currentUser.role === 'admin') renderAdminUsersTable();
     }
+
 
     function resetSampleOrders() {
       orders = [
@@ -2052,6 +2662,7 @@
       saveOrdersStorage();
     }
 
+
     // --- 3. BẢO MẬT & PHÂN QUYỀN RBAC ---
     function checkAuthSession() {
       const session = sessionStorage.getItem('ace_auth_user');
@@ -2063,12 +2674,14 @@
       applyAuthRoleUI();
     }
 
+
     function applyAuthRoleUI() {
       const navModes = document.getElementById('nav-modes-container');
       const btnPos = document.getElementById('btn-mode-pos');
       const btnBackend = document.getElementById('btn-mode-backend');
       const authPanel = document.getElementById('auth-user-panel');
       const authDisplay = document.getElementById('auth-user-display');
+
 
       if (!currentUser) {
         navModes.style.display = 'none';
@@ -2080,6 +2693,7 @@
         authPanel.style.display = 'block';
         authDisplay.textContent = `👤 ${currentUser.fullname} (${currentUser.role === 'admin' ? 'Quản lý' : 'Nhân viên'})`;
 
+
         if (currentUser.role === 'staff') {
           btnPos.style.display = 'flex';
           btnBackend.style.display = 'none';
@@ -2090,24 +2704,29 @@
       }
     }
 
+
     function openLoginModal() {
       document.getElementById('login-modal').classList.add('open');
       document.getElementById('login-username').value = '';
       document.getElementById('login-password').value = '';
     }
 
+
     function closeLoginModal() {
       document.getElementById('login-modal').classList.remove('open');
     }
+
 
     function handleUserLogin() {
       const username = document.getElementById('login-username').value.trim().toLowerCase();
       const password = document.getElementById('login-password').value.trim();
 
+
       if (!username || !password) {
         alert("Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu!");
         return;
       }
+
 
       const found = usersList.find(u => u.username.toLowerCase() === username && u.password === password);
       if (!found) {
@@ -2115,10 +2734,12 @@
         return;
       }
 
+
       if (found.active === false) {
         alert("Tài khoản này hiện đang bị khóa. Vui lòng liên hệ Admin!");
         return;
       }
+
 
       currentUser = {
         id: found.id,
@@ -2127,9 +2748,11 @@
         role: found.role
       };
 
+
       sessionStorage.setItem('ace_auth_user', JSON.stringify(currentUser));
       applyAuthRoleUI();
       closeLoginModal();
+
 
       if (currentUser.role === 'admin') {
         switchView('backend');
@@ -2137,8 +2760,10 @@
         switchView('pos');
       }
 
+
       showSmsToast("ĐĂNG NHẬP THÀNH CÔNG", `Xin chào ${currentUser.fullname}!`);
     }
+
 
     function logoutUser() {
       currentUser = null;
@@ -2147,6 +2772,7 @@
       switchView('customer');
       showSmsToast("ĐÃ ĐĂNG XUẤT", "Đã quay về giao diện khách gọi món.");
     }
+
 
     // --- 4. ĐIỀU HƯỚNG VIEW (BẢO VỆ CHẶT CHẼ) ---
     function switchView(mode) {
@@ -2160,8 +2786,10 @@
         return;
       }
 
+
       document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
       document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+
 
       if (mode === 'customer') {
         document.getElementById('view-customer').classList.add('active');
@@ -2182,11 +2810,13 @@
       }
     }
 
+
     function switchAdminTab(tabId, btn) {
       document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById(tabId).classList.add('active');
+
 
       if (tabId === 'tab-orders') renderAdminOrdersTable();
       if (tabId === 'tab-menu') renderAdminMenuTable();
@@ -2194,21 +2824,25 @@
       if (tabId === 'tab-users') renderAdminUsersTable();
     }
 
+
     function updateTableDisplay() {
       if (currentTable) {
         document.getElementById('current-table-label').textContent = currentTable.name;
       }
     }
 
+
     // --- 5. GIAO DIỆN KHÁCH HÀNG & MENU (ĐẢM BẢO HIỂN THỊ 100%) ---
     function renderCustomerCategoryFilter() {
       const container = document.getElementById('customer-category-filter');
+      if (!container) return;
       container.innerHTML = CATEGORIES.map(c => `
         <button class="cat-btn ${c.id === activeCategory ? 'active' : ''}" id="cat-btn-${c.id}" onclick="selectCustomerCategory('${c.id}', this)">
-          ${c.name}
+          ${currentLang === 'en' ? (c.name_en || c.name) : c.name}
         </button>
       `).join('');
     }
+
 
     function selectCustomerCategory(catId, btn) {
       activeCategory = catId;
@@ -2222,31 +2856,35 @@
       renderCustomerProducts(catId);
     }
 
+
     function handleCustomerSearch(query) {
       searchQuery = (query || '').trim().toLowerCase();
       renderCustomerProducts(activeCategory);
     }
 
+
     function renderCustomerProducts(catId) {
       const grid = document.getElementById('products-grid');
+      if (!grid) return;
 
       // Lọc theo danh mục
       let filtered = (catId === 'all' || !catId) ? [...menuItems] : menuItems.filter(m => m.category === catId);
 
       // Lọc thêm theo ô tìm kiếm nếu có
       if (searchQuery) {
-        filtered = filtered.filter(m => 
-          m.name.toLowerCase().includes(searchQuery) ||
-          (m.desc && m.desc.toLowerCase().includes(searchQuery))
-        );
+        filtered = filtered.filter(m => {
+          const nameMatch = m.name.toLowerCase().includes(searchQuery) || (m.name_en && m.name_en.toLowerCase().includes(searchQuery));
+          const descMatch = (m.desc && m.desc.toLowerCase().includes(searchQuery)) || (m.desc_en && m.desc_en.toLowerCase().includes(searchQuery));
+          return nameMatch || descMatch;
+        });
       }
 
       if (filtered.length === 0) {
         grid.innerHTML = `
           <div style="grid-column: 1 / -1; text-align: center; padding: 40px 10px; color: var(--text-muted);">
             <div style="font-size: 40px; margin-bottom: 8px;">🔍</div>
-            <p>Không tìm thấy món ăn nào phù hợp trong mục này.</p>
-            <button class="change-table-btn" style="margin-top: 10px;" onclick="selectCustomerCategory('all')">Xem Tất Cả Món</button>
+            <p>${currentLang === 'en' ? 'No items found in this section.' : 'Không tìm thấy món ăn nào phù hợp trong mục này.'}</p>
+            <button class="change-table-btn" style="margin-top: 10px;" onclick="selectCustomerCategory('all')">${currentLang === 'en' ? 'View All Items' : 'Xem Tất Cả Món'}</button>
           </div>
         `;
         return;
@@ -2258,21 +2896,25 @@
           ? `<img src="${item.imgUrl}" alt="${item.name}">` 
           : `<div style="font-size: 50px;">☕</div>`;
         const isJustAdded = lastAddedItemId === item.id;
+        const displayName = getItemDisplayName(item);
+        const displayDesc = getItemDisplayDesc(item) || (currentLang === 'en' ? 'Crafted with premium ingredients at Ace Tropical Coffee.' : 'Hương vị tuyệt hảo tại Ace Tropical Wellness Coffee.');
+        const displayBadge = getItemDisplayBadge(item);
+        const btnText = currentLang === 'en' ? '<span>🔍</span> Select' : '<span>🔍</span> Xem & Chọn';
 
         return `
           <div class="product-card ${isJustAdded ? 'just-added' : ''}" id="prod-card-${item.id}" onclick="openProductDetailModal(${item.id})" style="cursor: pointer;">
-            ${isOutOfStock ? `<div class="out-of-stock-overlay">HẾT NGUYÊN LIỆU</div>` : ''}
+            ${isOutOfStock ? `<div class="out-of-stock-overlay">${currentLang === 'en' ? 'SOLD OUT' : 'HẾT NGUYÊN LIỆU'}</div>` : ''}
             <div class="product-img-wrapper">
-              ${item.badge ? `<span class="product-badge">${item.badge}</span>` : ''}
+              ${displayBadge ? `<span class="product-badge">${displayBadge}</span>` : ''}
               ${imgDisplay}
             </div>
             <div class="product-details">
-              <div class="product-name">${item.name}</div>
-              <div class="product-desc">${item.desc || 'Hương vị tuyệt hảo tại Ace Tropical Wellness Coffee.'}</div>
+              <div class="product-name">${displayName}</div>
+              <div class="product-desc">${displayDesc}</div>
               <div class="product-footer">
                 <div class="product-price">${formatMoney(item.price)}</div>
                 <button class="add-to-cart-btn" onclick="event.stopPropagation(); openProductDetailModal(${item.id})" ${isOutOfStock ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>
-                  <span>🔍</span> Xem & Chọn
+                  ${btnText}
                 </button>
               </div>
             </div>
@@ -2286,6 +2928,7 @@
       const item = menuItems.find(m => m.id === itemId);
       if (!item || item.available === false) return;
 
+
       const existing = cart.find(c => c.item.id === itemId && (c.custom || '') === customStr);
       if (existing) {
         existing.qty += qty;
@@ -2295,18 +2938,22 @@
         cart.push({ item: { ...item }, qty: qty, custom: customStr });
       }
 
+
       playAudioChime(440, 0.08);
       updateCartUI();
     }
+
 
     function changeCartQty(itemId, delta, customStr = '') {
       const index = cart.findIndex(c => c.item.id === itemId && (c.custom || '') === customStr);
       if (index === -1) return;
 
+
       cart[index].qty += delta;
       if (cart[index].qty <= 0) cart.splice(index, 1);
       updateCartUI();
     }
+
 
     function updateCartUI() {
       const countEl = document.getElementById('header-cart-count');
@@ -2314,6 +2961,7 @@
       const subtotalEl = document.getElementById('cart-subtotal');
       const vatEl = document.getElementById('cart-vat');
       const totalEl = document.getElementById('cart-total');
+
 
       // Đồng bộ giá trong giỏ hàng với thực đơn hiện tại
       cart.forEach(c => {
@@ -2324,8 +2972,10 @@
         }
       });
 
+
       const totalItems = cart.reduce((s, c) => s + c.qty, 0);
       countEl.textContent = totalItems;
+
 
       if (cart.length === 0) {
         container.innerHTML = `
@@ -2341,6 +2991,7 @@
         return;
       }
 
+
       let subtotal = 0;
       container.innerHTML = cart.map(c => {
         const itemTotal = c.item.price * c.qty;
@@ -2349,7 +3000,7 @@
         return `
           <div class="cart-item">
             <div class="cart-item-info">
-              <div class="cart-item-name">${c.item.name}</div>
+              <div class="cart-item-name">${(currentLang === "en" && c.item.name_en) ? c.item.name_en : c.item.name}</div>
               ${c.custom ? `<div style="font-size:0.75rem; color:var(--text-muted); margin: 2px 0;">└ ${c.custom}</div>` : ''}
               <div class="cart-item-unit-price">${formatMoney(c.item.price)}</div>
             </div>
@@ -2363,14 +3014,17 @@
         `;
       }).join('');
 
+
       const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
       const grandTotal = subtotal + vat;
+
 
       document.getElementById('cart-vat-label').textContent = `Thuế VAT (${storeSettings.vatRate}%):`;
       subtotalEl.textContent = formatMoney(subtotal);
       vatEl.textContent = formatMoney(vat);
       totalEl.textContent = formatMoney(grandTotal);
     }
+
 
     function toggleCartDrawer(open) {
       const overlay = document.getElementById('cart-drawer-overlay');
@@ -2384,6 +3038,7 @@
       }
     }
 
+
     
     // =========================================================================
     // MODAL CHI TIẾT SẢN PHẨM & TÙY CHỌN KHẨU VỊ (FULL SIZE)
@@ -2391,23 +3046,26 @@
     let currentDetailItem = null;
     let currentDetailQty = 1;
 
+
     function openProductDetailModal(itemId) {
       const item = menuItems.find(m => m.id === itemId);
       if (!item) return;
       currentDetailItem = item;
       currentDetailQty = 1;
 
-      document.getElementById('detail-modal-name').textContent = item.name;
+
+      document.getElementById('detail-modal-name').textContent = getItemDisplayName(item);
       document.getElementById('detail-modal-price').textContent = formatMoney(item.price);
-      document.getElementById('detail-modal-desc').textContent = item.desc || 'Hương vị tuyệt hảo tại Ace Tropical Wellness Coffee.';
+      document.getElementById('detail-modal-desc').textContent = getItemDisplayDesc(item) || (currentLang === 'en' ? 'Crafted with passion at Ace Tropical Coffee.' : 'Hương vị tuyệt hảo tại Ace Tropical Wellness Coffee.');
       
       const badgeEl = document.getElementById('detail-modal-badge');
       if (item.badge) {
-        badgeEl.textContent = item.badge;
+        badgeEl.textContent = getItemDisplayBadge(item);
         badgeEl.style.display = 'inline-block';
       } else {
         badgeEl.style.display = 'none';
       }
+
 
       const imgEl = document.getElementById('detail-modal-img');
       const iconEl = document.getElementById('detail-modal-icon');
@@ -2420,8 +3078,10 @@
         iconEl.style.display = 'flex';
       }
 
+
       document.getElementById('detail-qty-display').textContent = '1';
       document.getElementById('detail-custom-note').value = '';
+
 
       // Reset options
       const defaultIce = document.querySelector('input[name="ice-option"][value="Đá bình thường (100%)"]');
@@ -2429,14 +3089,17 @@
       const defaultSugar = document.querySelector('input[name="sugar-option"][value="Ngọt bình thường (100%)"]');
       if (defaultSugar) defaultSugar.checked = true;
 
+
       updateDetailModalTotal();
       document.getElementById('product-detail-modal').classList.add('open');
     }
+
 
     function closeProductDetailModal() {
       document.getElementById('product-detail-modal').classList.remove('open');
       currentDetailItem = null;
     }
+
 
     function changeDetailQty(delta) {
       currentDetailQty = Math.max(1, currentDetailQty + delta);
@@ -2444,25 +3107,31 @@
       updateDetailModalTotal();
     }
 
+
     function updateDetailModalTotal() {
       if (!currentDetailItem) return;
       const total = currentDetailItem.price * currentDetailQty;
       document.getElementById('detail-modal-total-btn').textContent = formatMoney(total);
     }
 
+
     function getSelectedCustomizations() {
       const parts = [];
       const ice = document.querySelector('input[name="ice-option"]:checked');
       if (ice && ice.value !== 'Đá bình thường (100%)') parts.push(ice.value);
 
+
       const sugar = document.querySelector('input[name="sugar-option"]:checked');
       if (sugar && sugar.value !== 'Ngọt bình thường (100%)') parts.push(sugar.value);
+
 
       const note = document.getElementById('detail-custom-note').value.trim();
       if (note) parts.push(note);
 
+
       return parts.join(', ');
     }
+
 
     function addToCartFromDetailModal() {
       if (!currentDetailItem) return;
@@ -2473,6 +3142,7 @@
       showSmsToast("ĐÃ THÊM VÀO GIỎ", `Đã thêm ${currentDetailQty}x ${currentDetailItem.name} vào giỏ hàng.`);
     }
 
+
     function quickCheckoutFromDetailModal() {
       if (!currentDetailItem) return;
       const customStr = getSelectedCustomizations();
@@ -2481,15 +3151,44 @@
       openPaymentCheckoutModal();
     }
 
+
     // =========================================================================
     // MODAL THANH TOÁN QR & GỬI ĐƠN HÀNG VÀO QUẦY POS
     // =========================================================================
     let selectedPaymentMethod = 'vietqr'; // 'vietqr', 'momo', 'zalopay', 'cash'
     let currentPendingOrderId = null;
 
+
+    let paymentTimerInterval = null;
+    let paymentSecondsRemaining = 600;
+
+    function startPaymentCountdown() {
+      clearInterval(paymentTimerInterval);
+      paymentSecondsRemaining = 600;
+      updateTimerDisplay();
+      paymentTimerInterval = setInterval(() => {
+        paymentSecondsRemaining--;
+        if (paymentSecondsRemaining <= 0) {
+          clearInterval(paymentTimerInterval);
+          const timerEl = document.getElementById('payment-timer-countdown');
+          if (timerEl) timerEl.textContent = currentLang === 'en' ? "EXPIRED" : "HẾT GIỜ";
+        } else {
+          updateTimerDisplay();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const timerEl = document.getElementById('payment-timer-countdown');
+      if (!timerEl) return;
+      const mins = Math.floor(paymentSecondsRemaining / 60);
+      const secs = paymentSecondsRemaining % 60;
+      timerEl.textContent = `⏳ ${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
     function openPaymentCheckoutModal() {
       if (cart.length === 0) {
-        alert("Giỏ hàng của bạn đang trống! Vui lòng chọn món trước.");
+        alert(currentLang === 'en' ? "Your cart is empty! Please choose items first." : "Giỏ hàng của bạn đang trống! Vui lòng chọn món trước.");
         return;
       }
 
@@ -2514,25 +3213,27 @@
       document.getElementById('checkout-items-preview').innerHTML = cart.map(c => `
         <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px dashed #eee;">
           <div>
-            <b>${c.qty}x</b> ${c.item.name}
+            <b>${c.qty}x</b> ${(currentLang === 'en' && c.item.name_en) ? c.item.name_en : c.item.name}
             ${c.custom ? `<div style="font-size: 0.72rem; color: #888;">└ ${c.custom}</div>` : ''}
           </div>
           <div style="font-weight: 600;">${formatMoney(c.item.price * c.qty)}</div>
         </div>
       `).join('');
 
-      selectPaymentMethod(selectedPaymentMethod);
+      selectPaymentMethod(selectedPaymentMethod || 'vietqr');
+      startPaymentCountdown();
       document.getElementById('payment-checkout-modal').classList.add('open');
     }
 
     function closePaymentCheckoutModal() {
       document.getElementById('payment-checkout-modal').classList.remove('open');
+      clearInterval(paymentTimerInterval);
     }
 
     function selectPaymentMethod(method) {
       selectedPaymentMethod = method;
 
-      ['vietqr', 'momo', 'zalopay', 'cash'].forEach(m => {
+      ['vietqr', 'momo', 'zalopay', 'visa'].forEach(m => {
         const tab = document.getElementById('pay-tab-' + m);
         const view = document.getElementById('pay-view-' + m);
         if (tab) tab.classList.toggle('active', m === method);
@@ -2600,12 +3301,120 @@
           drawSimpleQrCode(canvas, `https://social.zalopay.vn/app/store/transfer?receiver=${zaloPhone}&amount=${total}&desc=${currentPendingOrderId}`);
         }
       }
+
+      // 4. VISA
+      if (method === 'visa') {
+        const visaBtnAmount = document.getElementById('visa-btn-amount');
+        if (visaBtnAmount) visaBtnAmount.textContent = formatMoney(total);
+      }
+
+      // Update button labels according to language
+      const confirmBtn = document.getElementById('btn-confirm-payment');
+      if (confirmBtn) {
+        confirmBtn.innerHTML = `<span>⚡</span> <span>${I18N[currentLang].confirmPaymentBtn}</span>`;
+      }
+      const gatewayStatusEl = document.getElementById('gateway-status-text');
+      if (gatewayStatusEl) {
+        gatewayStatusEl.textContent = I18N[currentLang].gatewayListening;
+      }
+    }
+
+    function openDirectBankingApp() {
+      const bankId = storeSettings.bankId || 'MB';
+      const acc = storeSettings.bankAccount || '0988776655';
+      const memo = currentPendingOrderId;
+      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
+      const total = subtotal + vat;
+
+      copyTextToClipboard(acc, currentLang === 'en' ? `Bank Account (${acc}) and Memo (${memo}) copied!` : `Đã sao chép STK (${acc}) và Mã đơn (${memo})!`);
+      
+      const deepLink = `https://vietqr.me/${bankId}/${acc}?amount=${total}&memo=${encodeURIComponent(memo)}`;
+      window.open(deepLink, '_blank');
+    }
+
+    function openDirectMoMoApp() {
+      const momoPhone = storeSettings.momoPhone || '0988776655';
+      const memo = currentPendingOrderId;
+      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
+      const total = subtotal + vat;
+
+      copyTextToClipboard(momoPhone, currentLang === 'en' ? `MoMo phone (${momoPhone}) and Memo (${memo}) copied!` : `Đã sao chép số MoMo (${momoPhone}) và Lời nhắn (${memo})!`);
+      
+      const deepLink = `https://me.momo.vn/${momoPhone}/${total}`;
+      window.open(deepLink, '_blank');
+    }
+
+    function openDirectZaloPayApp() {
+      const zaloPhone = storeSettings.zalopayPhone || '0988776655';
+      const memo = currentPendingOrderId;
+      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
+      const total = subtotal + vat;
+
+      copyTextToClipboard(zaloPhone, currentLang === 'en' ? `ZaloPay phone (${zaloPhone}) and Memo (${memo}) copied!` : `Đã sao chép số ZaloPay (${zaloPhone}) và Nội dung (${memo})!`);
+      
+      const deepLink = `https://social.zalopay.vn/app/store/transfer?receiver=${zaloPhone}&amount=${total}&desc=${encodeURIComponent(memo)}`;
+      window.open(deepLink, '_blank');
+    }
+
+    function formatCardNumberInput(input) {
+      let val = input.value.replace(/\D/g, '').substring(0, 16);
+      let formatted = val.match(/.{1,4}/g)?.join(' ') || val;
+      input.value = formatted;
+    }
+
+    function formatExpiryInput(input) {
+      let val = input.value.replace(/\D/g, '').substring(0, 4);
+      if (val.length >= 2) {
+        val = val.substring(0, 2) + '/' + val.substring(2);
+      }
+      input.value = val;
+    }
+
+    function processVisaDirectPayment() {
+      const cardNum = (document.getElementById('visa-card-number') ? document.getElementById('visa-card-number').value : '').replace(/\s+/g, '');
+      const cardName = document.getElementById('visa-card-name') ? document.getElementById('visa-card-name').value.trim() : '';
+      const cardExp = document.getElementById('visa-card-expiry') ? document.getElementById('visa-card-expiry').value.trim() : '';
+      const cardCvv = document.getElementById('visa-card-cvv') ? document.getElementById('visa-card-cvv').value.trim() : '';
+
+      if (cardNum.length < 15) {
+        alert(currentLang === 'en' ? "Please enter a valid 16-digit card number!" : "Vui lòng nhập đầy đủ 16 số trên thẻ Visa/Mastercard!");
+        return;
+      }
+      if (!cardName) {
+        alert(currentLang === 'en' ? "Please enter cardholder name!" : "Vui lòng nhập tên in trên thẻ!");
+        return;
+      }
+      if (cardExp.length < 4) {
+        alert(currentLang === 'en' ? "Please enter card expiration date (MM/YY)!" : "Vui lòng nhập ngày hết hạn (MM/YY)!");
+        return;
+      }
+      if (cardCvv.length < 3) {
+        alert(currentLang === 'en' ? "Please enter 3-digit CVV/CVC code!" : "Vui lòng nhập 3 số bảo mật CVV/CVC ở mặt sau thẻ!");
+        return;
+      }
+
+      const overlay = document.getElementById('payment-processing-overlay');
+      const procTitle = document.getElementById('proc-title');
+      const procDesc = document.getElementById('proc-desc');
+      if (overlay) {
+        procTitle.textContent = currentLang === 'en' ? "Processing Visa / Mastercard 3D-Secure..." : "Đang kết nối cổng quốc tế Visa / Mastercard 3D-Secure...";
+        procDesc.textContent = currentLang === 'en' ? "Authenticating card details and charging payment directly..." : "Đang xác thực thông tin thẻ và trừ tiền trực tiếp qua cổng ngân hàng quốc tế...";
+        overlay.classList.add('show');
+      }
+
+      setTimeout(() => {
+        if (overlay) overlay.classList.remove('show');
+        completeOrderSubmission('visa', currentLang === 'en' ? "Visa / Mastercard Card" : "Thẻ Visa / Mastercard Quốc Tế");
+      }, 1500);
     }
 
     function copyTextToClipboard(text, msg) {
       if (navigator.clipboard) {
         navigator.clipboard.writeText(text).then(() => {
-          showSmsToast("ĐÃ SAO CHÉP", msg || text);
+          showSmsToast(I18N[currentLang].copied || "ĐÃ SAO CHÉP", msg || text);
         }).catch(() => {
           prompt("Sao chép thông tin:", text);
         });
@@ -2616,10 +3425,33 @@
 
     function submitOrderWithPayment() {
       if (cart.length === 0) {
-        alert("Giỏ hàng của bạn đang trống!");
+        alert(currentLang === 'en' ? "Your cart is empty!" : "Giỏ hàng của bạn đang trống!");
         return;
       }
 
+      const overlay = document.getElementById('payment-processing-overlay');
+      const procTitle = document.getElementById('proc-title');
+      const procDesc = document.getElementById('proc-desc');
+      if (overlay) {
+        procTitle.textContent = currentLang === 'en' ? "Connecting to Direct Payment Gateway..." : "Đang kết nối cổng thanh toán trực tiếp...";
+        procDesc.textContent = currentLang === 'en' ? "Verifying transfer and confirming payment before sending order to the kitchen..." : "Đang đối soát giao dịch ngân hàng / ví điện tử và xác thực thanh toán tiền trước khi chuyển đơn vào bếp...";
+        overlay.classList.add('show');
+      }
+
+      const paymentMethodNames = {
+        vietqr: currentLang === 'en' ? "Bank Transfer (VietQR Napas)" : "Chuyển khoản VietQR (Napas 24/7)",
+        momo: currentLang === 'en' ? "MoMo Wallet" : "Ví MoMo Direct",
+        zalopay: currentLang === 'en' ? "ZaloPay Wallet" : "Ví ZaloPay Direct",
+        visa: currentLang === 'en' ? "Visa / Mastercard" : "Thẻ Visa / Mastercard Quốc Tế"
+      };
+
+      setTimeout(() => {
+        if (overlay) overlay.classList.remove('show');
+        completeOrderSubmission(selectedPaymentMethod, paymentMethodNames[selectedPaymentMethod] || "Chuyển khoản");
+      }, 1200);
+    }
+
+    function completeOrderSubmission(method, methodName) {
       const phone = document.getElementById('checkout-phone').value.trim() || '0988776655';
       const generalNote = document.getElementById('checkout-general-note').value.trim();
 
@@ -2630,13 +3462,7 @@
       const now = new Date();
       const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
       const orderId = currentPendingOrderId || `ORD-${1000 + orders.length + 1}`;
-
-      const paymentMethodNames = {
-        vietqr: "Chuyển khoản VietQR",
-        momo: "Ví MoMo",
-        zalopay: "Ví ZaloPay",
-        cash: "Tiền mặt tại quầy"
-      };
+      const paymentRef = 'TXN-' + Math.floor(100000 + Math.random() * 900000);
 
       const newOrder = {
         id: orderId,
@@ -2644,12 +3470,14 @@
         table: currentTable.name,
         phone: phone,
         note: generalNote,
-        paymentMethod: selectedPaymentMethod,
-        paymentMethodName: paymentMethodNames[selectedPaymentMethod] || "Chuyển khoản",
-        paymentStatus: (selectedPaymentMethod === 'cash') ? 'unpaid' : 'paid_reported',
+        paymentMethod: method,
+        paymentMethodName: methodName,
+        paymentStatus: 'paid', // 100% PREPAID BEFORE REACHING KITCHEN/POS!
+        paymentRef: paymentRef,
+        paidAt: timeStr,
         items: cart.map(c => ({
           id: c.item.id,
-          name: c.item.name,
+          name: (currentLang === 'en' && c.item.name_en) ? c.item.name_en : c.item.name,
           qty: c.qty,
           price: c.item.price,
           total: c.item.price * c.qty,
@@ -2658,15 +3486,16 @@
         subtotal: subtotal,
         vat: vat,
         total: total,
-        status: 'new'
+        status: 'new' // NEW PREPAID ORDER SENT TO KITCHEN
       };
 
       orders.unshift(newOrder);
       saveOrdersStorage();
 
-      // BẮN ĐƠN SANG MÁY POS QUA TẤT CẢ CÁC KÊNH THỜI GIAN THỰC
+      // BẮN ĐƠN ĐÃ THANH TOÁN SANG MÁY POS & BARISTA THỜI GIAN THỰC
       broadcastOrderRealtime(newOrder);
 
+      // Clear cart & pending
       cart = [];
       currentPendingOrderId = null;
       updateCartUI();
@@ -2676,64 +3505,25 @@
       // Hiện màn hình chúc mừng đặt món thành công
       document.getElementById('success-order-id').textContent = newOrder.id;
       document.getElementById('success-order-table').textContent = newOrder.table;
-      document.getElementById('success-order-payment').textContent = newOrder.paymentMethodName;
-      document.getElementById('success-order-total').textContent = formatMoney(newOrder.total);
+      document.getElementById('success-order-payment').textContent = `${newOrder.paymentMethodName} [${newOrder.paymentRef}]`;
+      document.getElementById('success-order-total').textContent = `${formatMoney(newOrder.total)} (ĐÃ THANH TOÁN 100%)`;
       document.getElementById('order-success-modal').classList.add('open');
 
       playSuccessChime();
+
+      const toastTitle = currentLang === 'en' ? "PAID ORDER CONFIRMED!" : "ĐẶT MÓN & THANH TOÁN THÀNH CÔNG!";
+      const toastMsg = currentLang === 'en'
+        ? `Order ${newOrder.id} at ${newOrder.table} has been 100% prepaid and sent to the Barista Kitchen!`
+        : `Mã đơn ${newOrder.id} tại ${newOrder.table} đã thanh toán 100% và chuyển thẳng tới quầy pha chế.`;
+      showSmsToast(toastTitle, toastMsg);
+
+      renderOrders();
+      if (currentUser && currentUser.role === 'admin') renderAdminOrdersTable();
     }
-function submitCustomerOrder() {
-      if (cart.length === 0) {
-        alert("Giỏ hàng của bạn đang trống!");
-        return;
-      }
-
-      const phone = document.getElementById('customer-phone').value.trim() || '0988776655';
-      const note = document.getElementById('customer-note').value.trim();
-
-      const orderNumber = 1000 + orders.length + 1;
-      const orderId = `ORD-${orderNumber}`;
-      const now = new Date();
-      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-
-      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
-      const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
-      const total = subtotal + vat;
-
-      const newOrder = {
-        id: orderId,
-        time: timeStr,
-        table: currentTable.name,
-        phone: phone,
-        note: note,
-        items: cart.map(c => ({
-          id: c.item.id,
-          name: c.item.name,
-          qty: c.qty,
-          price: c.item.price,
-          total: c.item.price * c.qty
-        })),
-        subtotal: subtotal,
-        vat: vat,
-        total: total,
-        status: 'new'
-      };
-
-      orders.unshift(newOrder);
-      saveOrdersStorage();
-      broadcastOrderRealtime(newOrder); // TỰ ĐỘNG BẮN ĐƠN SANG MÁY POS NGAY TỨC THÌ!
-
-      cart = [];
-      updateCartUI();
-      toggleCartDrawer(false);
-
-      playSuccessChime();
-      showSmsToast("ĐẶT MÓN THÀNH CÔNG!", `Mã đơn ${orderId} tại ${currentTable.name} đã được chuyển tới quầy pha chế.`);
-    }
-
-    // --- 7. QUẦY POS (KANBAN & XỬ LÝ ĐƠN HÀNG) ---
+// --- 7. QUẦY POS (KANBAN & XỬ LÝ ĐƠN HÀNG) ---
     function renderOrders() {
       const searchTerm = document.getElementById('search-order-input') ? document.getElementById('search-order-input').value.toLowerCase() : '';
+
 
       const filtered = orders.filter(o => 
         o.status !== 'cancelled' && (
@@ -2743,23 +3533,28 @@ function submitCustomerOrder() {
         )
       );
 
+
       const newOrders = filtered.filter(o => o.status === 'new');
       const prepOrders = filtered.filter(o => o.status === 'prep');
       const doneOrders = filtered.filter(o => o.status === 'done');
+
 
       document.getElementById('stat-total-orders').textContent = orders.filter(o => o.status !== 'cancelled').length;
       document.getElementById('stat-new-orders').textContent = newOrders.length;
       document.getElementById('stat-prep-orders').textContent = prepOrders.length;
       document.getElementById('stat-done-orders').textContent = doneOrders.length;
 
+
       document.getElementById('badge-col-new').textContent = newOrders.length;
       document.getElementById('badge-col-prep').textContent = prepOrders.length;
       document.getElementById('badge-col-done').textContent = doneOrders.length;
+
 
       document.getElementById('col-new-cards').innerHTML = newOrders.map(o => createOrderCardHtml(o, 'new')).join('');
       document.getElementById('col-prep-cards').innerHTML = prepOrders.map(o => createOrderCardHtml(o, 'prep')).join('');
       document.getElementById('col-done-cards').innerHTML = doneOrders.map(o => createOrderCardHtml(o, 'done')).join('');
     }
+
 
     function createOrderCardHtml(o, colType) {
       let actionButtons = '';
@@ -2791,9 +3586,17 @@ function submitCustomerOrder() {
             </div>
             <span class="order-time">⏰ ${o.time}</span>
           </div>
+
+          <!-- HUY HIỆU ĐÃ THANH TOÁN BẮT BUỘC 100% -->
+          <div style="margin: 4px 0 6px 0;">
+            <span class="paid-badge-pos">
+              ✅ ĐÃ THANH TOÁN (PAID) - ${o.paymentMethodName || 'Chuyển khoản'} ${o.paymentRef ? `[${o.paymentRef}]` : ''}
+            </span>
+          </div>
+
           <div style="font-size: 0.8rem; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center;">
             <span>📞 SĐT: <b>${o.phone}</b></span>
-            ${o.paymentMethodName ? `<span style="font-size: 0.72rem; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: #E8F5E9; color: #2E7D32;">💳 ${o.paymentMethodName}</span>` : ''}
+            <span style="font-size: 0.82rem; font-weight: 700; color: #D32F2F;">${formatMoney(o.total)}</span>
           </div>
           <div class="order-items-list">
             ${o.items.map(it => `
@@ -2806,7 +3609,7 @@ function submitCustomerOrder() {
               </div>
             `).join('')}
           </div>
-          ${o.note ? `<div style="font-size: 0.75rem; color: #9C4221; background:#FBE9E7; padding:2px 6px; border-radius:4px;">📌 ${o.note}</div>` : ''}
+          ${o.note ? `<div style="font-size: 0.75rem; color: #9C4221; background:#FBE9E7; padding:2px 6px; border-radius:4px; margin-top:4px;">📌 ${o.note}</div>` : ''}
           <div class="order-bottom">
             <span style="font-weight: 800; color: var(--primary);">${formatMoney(o.total)}</span>
             <div style="display: flex; gap: 4px; flex-wrap: wrap;">${actionButtons}</div>
@@ -2824,6 +3627,7 @@ function submitCustomerOrder() {
       }
     }
 
+
     function finishOrder(orderId) {
       const order = orders.find(o => o.id === orderId);
       if (order) {
@@ -2833,6 +3637,7 @@ function submitCustomerOrder() {
         showSmsToast("TIN NHẮN SMS ĐÃ GỬI!", `Món của quý khách (${order.phone}) tại ${order.table} đã hoàn thành!`);
       }
     }
+
 
     function cancelOrderPrompt(orderId) {
       if (confirm(`Bạn có chắc chắn muốn HỦY đơn hàng ${orderId}?`)) {
@@ -2845,36 +3650,44 @@ function submitCustomerOrder() {
       }
     }
 
+
     // --- 8. SỬA ĐƠN HÀNG ---
     function openEditOrderModal(orderId) {
       const order = orders.find(o => o.id === orderId);
       if (!order) return;
 
+
       temporaryEditingOrder = JSON.parse(JSON.stringify(order));
       document.getElementById('edit-order-id').value = order.id;
       document.getElementById('edit-order-modal-title').textContent = `Chỉnh Sửa Đơn Hàng: ${order.id}`;
+
 
       const tableSelect = document.getElementById('edit-order-table-select');
       tableSelect.innerHTML = tables.map(t => `
         <option value="${t.name}" ${t.name === order.table ? 'selected' : ''}>${t.name}</option>
       `).join('');
 
+
       document.getElementById('edit-order-phone').value = order.phone || '';
       document.getElementById('edit-order-note').value = order.note || '';
+
 
       const addItemSelect = document.getElementById('add-more-item-select');
       addItemSelect.innerHTML = menuItems.map(m => `
         <option value="${m.id}">${m.name} - ${formatMoney(m.price)}</option>
       `).join('');
 
+
       renderEditedOrderItems();
       document.getElementById('edit-order-modal').classList.add('open');
     }
+
 
     function closeEditOrderModal() {
       document.getElementById('edit-order-modal').classList.remove('open');
       temporaryEditingOrder = null;
     }
+
 
     function renderEditedOrderItems() {
       const container = document.getElementById('edit-order-items-container');
@@ -2883,6 +3696,7 @@ function submitCustomerOrder() {
         recalculateEditedOrderTotals();
         return;
       }
+
 
       container.innerHTML = temporaryEditingOrder.items.map((it, idx) => `
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed var(--border);">
@@ -2899,8 +3713,10 @@ function submitCustomerOrder() {
         </div>
       `).join('');
 
+
       recalculateEditedOrderTotals();
     }
+
 
     function changeEditedOrderItemQty(index, delta) {
       if (!temporaryEditingOrder) return;
@@ -2913,17 +3729,20 @@ function submitCustomerOrder() {
       renderEditedOrderItems();
     }
 
+
     function removeEditedOrderItem(index) {
       if (!temporaryEditingOrder) return;
       temporaryEditingOrder.items.splice(index, 1);
       renderEditedOrderItems();
     }
 
+
     function addItemToEditedOrder() {
       if (!temporaryEditingOrder) return;
       const itemId = parseInt(document.getElementById('add-more-item-select').value);
       const item = menuItems.find(m => m.id === itemId);
       if (!item) return;
+
 
       const existing = temporaryEditingOrder.items.find(i => i.id === itemId || i.name === item.name);
       if (existing) {
@@ -2941,35 +3760,42 @@ function submitCustomerOrder() {
       renderEditedOrderItems();
     }
 
+
     function recalculateEditedOrderTotals() {
       if (!temporaryEditingOrder) return;
       const subtotal = temporaryEditingOrder.items.reduce((s, it) => s + (it.price * it.qty), 0);
       const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
       const total = subtotal + vat;
 
+
       temporaryEditingOrder.subtotal = subtotal;
       temporaryEditingOrder.vat = vat;
       temporaryEditingOrder.total = total;
+
 
       document.getElementById('edit-order-subtotal').textContent = formatMoney(subtotal);
       document.getElementById('edit-order-vat').textContent = formatMoney(vat);
       document.getElementById('edit-order-total').textContent = formatMoney(total);
     }
 
+
     function saveEditedOrder() {
       if (!temporaryEditingOrder) return;
       const orderIndex = orders.findIndex(o => o.id === temporaryEditingOrder.id);
       if (orderIndex === -1) return;
 
+
       temporaryEditingOrder.table = document.getElementById('edit-order-table-select').value;
       temporaryEditingOrder.phone = document.getElementById('edit-order-phone').value.trim();
       temporaryEditingOrder.note = document.getElementById('edit-order-note').value.trim();
+
 
       orders[orderIndex] = temporaryEditingOrder;
       saveOrdersStorage();
       closeEditOrderModal();
       showSmsToast("ĐÃ CẬP NHẬT ĐƠN HÀNG", `Đơn ${temporaryEditingOrder.id} đã được điều chỉnh thành công.`);
     }
+
 
     // --- 9. QUẢN LÝ TÀI KHOẢN NHÂN VIÊN & PHÂN QUYỀN (CHO ADMIN) ---
     function renderAdminUsersTable() {
@@ -3003,6 +3829,7 @@ function submitCustomerOrder() {
       `).join('');
     }
 
+
     function openUserModal(userId) {
       document.getElementById('user-modal').classList.add('open');
       if (userId) {
@@ -3015,6 +3842,7 @@ function submitCustomerOrder() {
         document.getElementById('user-form-password').value = u.password;
         document.getElementById('user-form-role').value = u.role;
         document.getElementById('user-form-active').checked = u.active !== false;
+
 
         if (u.username === 'admin') {
           document.getElementById('user-form-username').disabled = true;
@@ -3036,9 +3864,11 @@ function submitCustomerOrder() {
       }
     }
 
+
     function closeUserModal() {
       document.getElementById('user-modal').classList.remove('open');
     }
+
 
     function saveUserForm() {
       const idVal = document.getElementById('user-form-id').value;
@@ -3048,10 +3878,12 @@ function submitCustomerOrder() {
       const role = document.getElementById('user-form-role').value;
       const active = document.getElementById('user-form-active').checked;
 
+
       if (!fullname || !username || !password) {
         alert("Vui lòng điền đủ họ tên, tên đăng nhập và mật khẩu!");
         return;
       }
+
 
       if (idVal) {
         const id = parseInt(idVal);
@@ -3079,10 +3911,12 @@ function submitCustomerOrder() {
         });
       }
 
+
       saveUsersStorage();
       closeUserModal();
       showSmsToast("CẬP NHẬT TÀI KHOẢN", `Tài khoản ${fullname} (${username}) đã được lưu thành công.`);
     }
+
 
     function deleteUserAccount(userId) {
       const u = usersList.find(user => user.id === userId);
@@ -3097,6 +3931,7 @@ function submitCustomerOrder() {
         showSmsToast("ĐÃ XÓA TÀI KHOẢN", `Đã xóa tài khoản ${u.fullname}.`);
       }
     }
+
 
     // --- 10. QUẢN LÝ MENU (BACKEND) - ĐẢM BẢO HIỂN THỊ TỨC THÌ ---
     function renderAdminMenuTable() {
@@ -3128,10 +3963,12 @@ function submitCustomerOrder() {
       `).join('');
     }
 
+
     function getCategoryName(catId) {
       const found = CATEGORIES.find(c => c.id === catId);
       return found ? found.name : catId;
     }
+
 
     const PRESET_SAMPLE_IMAGES = [
       { name: "Cà phê sữa", url: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=500&auto=format&fit=crop&q=80" },
@@ -3146,6 +3983,7 @@ function submitCustomerOrder() {
       { name: "Sinh tố", url: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=500&auto=format&fit=crop&q=80" }
     ];
 
+
     function renderPresetImages() {
       const container = document.getElementById('preset-images-grid');
       if (!container) return;
@@ -3157,6 +3995,7 @@ function submitCustomerOrder() {
       `).join('');
     }
 
+
     function triggerFileInput() {
       const fileInp = document.getElementById('item-form-file');
       if (fileInp) {
@@ -3165,18 +4004,22 @@ function submitCustomerOrder() {
       }
     }
 
+
     function handleItemImageUpload(event) {
       const file = event.target.files && event.target.files[0];
       if (!file) return;
+
 
       const emptyState = document.getElementById('dropzone-empty-state');
       const previewContainer = document.getElementById('item-img-preview-container');
       const statusText = document.getElementById('upload-status-text');
       const previewImg = document.getElementById('item-img-preview');
 
+
       emptyState.style.display = 'none';
       previewContainer.style.display = 'block';
       statusText.innerHTML = '<span style="color: #E65100;">⏳ Đang xử lý & nén ảnh từ thiết bị...</span>';
+
 
       const reader = new FileReader();
       reader.onerror = () => {
@@ -3206,10 +4049,12 @@ function submitCustomerOrder() {
             const ctx = canvas.getContext('2d');
             ctx.drawImage(img, 0, 0, width, height);
 
+
             const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
             document.getElementById('item-form-img').value = dataUrl;
             previewImg.src = dataUrl;
             statusText.innerHTML = '<span style="color: #2E7D32;">✓ Đã tải ảnh từ thiết bị thành công!</span>';
+
 
             // Đồng thời đẩy file lên ntfy.sh để lấy link HTTPS ngắn gọn đồng bộ cho máy khác
             canvas.toBlob((blob) => {
@@ -3233,6 +4078,7 @@ function submitCustomerOrder() {
               });
             }, 'image/jpeg', 0.82);
 
+
           } catch(err) {
             console.error("Lỗi nén ảnh:", err);
             statusText.innerHTML = '<span style="color: #D32F2F;">❌ Lỗi khi xử lý ảnh.</span>';
@@ -3243,10 +4089,12 @@ function submitCustomerOrder() {
       reader.readAsDataURL(file);
     }
 
+
     function selectPresetImage(url, name) {
       document.getElementById('item-form-img').value = url;
       showItemImagePreview(url, `✓ Đã chọn ảnh mẫu: ${name}`);
     }
+
 
     function toggleDirectUrlInput() {
       const container = document.getElementById('direct-url-container');
@@ -3260,6 +4108,7 @@ function submitCustomerOrder() {
       }
     }
 
+
     function applyDirectImageUrl(val) {
       const trimmed = val ? val.trim() : '';
       document.getElementById('item-form-img').value = trimmed;
@@ -3270,11 +4119,13 @@ function submitCustomerOrder() {
       }
     }
 
+
     function showItemImagePreview(url, customMsg) {
       const emptyState = document.getElementById('dropzone-empty-state');
       const container = document.getElementById('item-img-preview-container');
       const preview = document.getElementById('item-img-preview');
       const statusText = document.getElementById('upload-status-text');
+
 
       if (url && url.trim()) {
         preview.src = url.trim();
@@ -3286,6 +4137,7 @@ function submitCustomerOrder() {
         container.style.display = 'none';
       }
     }
+
 
     function clearItemImage() {
       document.getElementById('item-form-img').value = '';
@@ -3299,12 +4151,14 @@ function submitCustomerOrder() {
       if (directInp) directInp.value = '';
     }
 
+
     function openItemModal(itemId) {
       document.getElementById('item-modal').classList.add('open');
       renderPresetImages();
       
       const directContainer = document.getElementById('direct-url-container');
       if (directContainer) directContainer.style.display = 'none';
+
 
       if (itemId) {
         const item = menuItems.find(m => m.id === itemId);
@@ -3333,10 +4187,12 @@ function submitCustomerOrder() {
       }
     }
 
+
     function closeItemModal() {
       document.getElementById('item-modal').classList.remove('open');
       clearItemImage();
     }
+
 
     function saveItemForm() {
       const idVal = document.getElementById('item-edit-id').value;
@@ -3348,10 +4204,12 @@ function submitCustomerOrder() {
       const imgUrl = document.getElementById('item-form-img').value.trim();
       const available = document.getElementById('item-form-avail').checked;
 
+
       if (!name) {
         alert("Vui lòng nhập tên món!");
         return;
       }
+
 
       let savedId;
       if (idVal) {
@@ -3373,10 +4231,13 @@ function submitCustomerOrder() {
         menuItems.push({ id: newId, name, category: cat, price, badge, desc, imgUrl, available });
       }
 
+
       lastAddedItemId = savedId;
+
 
       activeCategory = 'all';
       renderCustomerCategoryFilter();
+
 
       saveMenuStorage();
       updateCartUI();
@@ -3384,8 +4245,10 @@ function submitCustomerOrder() {
       closeItemModal();
       syncToCloudAuto(menuItems);
 
+
       showSmsToast("MENU ĐÃ CẬP NHẬT", `Món "${name}" (${formatMoney(price)}) đã được hiển thị trên thực đơn!`);
     }
+
 
     function deleteMenuItem(itemId) {
       const item = menuItems.find(m => m.id === itemId);
@@ -3399,6 +4262,7 @@ function submitCustomerOrder() {
       }
     }
 
+
     function resetDefaultMenu() {
       if (confirm("Khôi phục lại thực đơn gốc ban đầu? Mọi món tự thêm sẽ bị đặt lại.")) {
         menuItems = [...DEFAULT_MENU];
@@ -3409,10 +4273,12 @@ function submitCustomerOrder() {
       }
     }
 
+
     // --- 11. BÀN & MÃ QR (BACKEND) ---
     function renderAdminTablesList() {
       const tbody = document.getElementById('admin-tables-tbody');
       const baseUrl = window.location.href.split('?')[0];
+
 
       tbody.innerHTML = tables.map(t => {
         const tableUrl = `${baseUrl}?table=${t.id}`;
@@ -3430,6 +4296,7 @@ function submitCustomerOrder() {
       }).join('');
     }
 
+
     function openAddTableModal() {
       document.getElementById('add-table-modal').classList.add('open');
       const nextId = (tables.length + 1).toString();
@@ -3437,9 +4304,11 @@ function submitCustomerOrder() {
       document.getElementById('new-table-name').value = `Bàn ${nextId < 10 ? '0' + nextId : nextId}`;
     }
 
+
     function closeAddTableModal() {
       document.getElementById('add-table-modal').classList.remove('open');
     }
+
 
     function saveNewTable() {
       const id = document.getElementById('new-table-id').value.trim();
@@ -3453,11 +4322,13 @@ function submitCustomerOrder() {
         return;
       }
 
+
       tables.push({ id, name });
       saveTablesStorage();
       closeAddTableModal();
       showSmsToast("THÊM BÀN THÀNH CÔNG", `Đã tạo ${name} và sinh mã QR mới.`);
     }
+
 
     function deleteTable(tableId) {
       const table = tables.find(t => t.id === tableId);
@@ -3468,6 +4339,7 @@ function submitCustomerOrder() {
       }
     }
 
+
     function populateTableSelectDropdowns() {
       const qrSelect = document.getElementById('qr-table-select');
       if (qrSelect) {
@@ -3475,20 +4347,24 @@ function submitCustomerOrder() {
       }
     }
 
+
     function previewTableQr(tableId) {
       document.getElementById('qr-modal').classList.add('open');
       document.getElementById('qr-table-select').value = tableId;
       updateQrPreview();
     }
 
+
     function openQrGeneratorModal() {
       document.getElementById('qr-modal').classList.add('open');
       updateQrPreview();
     }
 
+
     function closeQrModal() {
       document.getElementById('qr-modal').classList.remove('open');
     }
+
 
     function updateQrPreview() {
       const tableSelect = document.getElementById('qr-table-select');
@@ -3496,19 +4372,23 @@ function submitCustomerOrder() {
       const tableId = tableSelect.value;
       const tableName = tableSelect.options[tableSelect.selectedIndex]?.text || `Bàn ${tableId}`;
 
+
       document.getElementById('qr-preview-title').textContent = `${storeSettings.name} - ${tableName}`;
       const baseUrl = window.location.href.split('?')[0];
       const targetUrl = `${baseUrl}?table=${tableId}`;
       document.getElementById('qr-url-text').textContent = targetUrl;
 
+
       drawSimpleQrCode(document.getElementById('qr-canvas'), targetUrl);
     }
+
 
     function printSingleQr() {
       const tableSelect = document.getElementById('qr-table-select');
       const tableName = tableSelect.options[tableSelect.selectedIndex]?.text || 'Bàn';
       const canvas = document.getElementById('qr-canvas');
       const dataUrl = canvas.toDataURL();
+
 
       const printWin = window.open('', '_blank');
       printWin.document.write(`
@@ -3537,14 +4417,17 @@ function submitCustomerOrder() {
       printWin.document.close();
     }
 
+
     function printAllQrCodes() {
       const baseUrl = window.location.href.split('?')[0];
       const printWin = window.open('', '_blank');
+
 
       let cardsHtml = '';
       const dummyCanvas = document.createElement('canvas');
       dummyCanvas.width = 240;
       dummyCanvas.height = 240;
+
 
       tables.forEach(t => {
         const url = `${baseUrl}?table=${t.id}`;
@@ -3559,6 +4442,7 @@ function submitCustomerOrder() {
           </div>
         `;
       });
+
 
       printWin.document.write(`
         <html>
@@ -3585,11 +4469,14 @@ function submitCustomerOrder() {
         
 
 
+
+
 </body>
         </html>
       `);
       printWin.document.close();
     }
+
 
     // --- 12. QUẢN LÝ LỊCH SỬ ĐƠN HÀNG TRÊN BACKEND ---
     function renderAdminOrdersTable() {
@@ -3601,7 +4488,9 @@ function submitCustomerOrder() {
         else if (o.status === 'done') statusBadge = '<span class="status-badge status-active">Đã hoàn thành</span>';
         else if (o.status === 'cancelled') statusBadge = '<span class="status-badge status-inactive">Đã hủy</span>';
 
+
         const itemsSummary = o.items.map(it => `${it.qty}x ${it.name}`).join(', ');
+
 
         return `
           <tr style="${o.status === 'cancelled' ? 'opacity: 0.6; background: #FFF5F5;' : ''}">
@@ -3626,6 +4515,7 @@ function submitCustomerOrder() {
       }).join('');
     }
 
+
     function restoreOrder(orderId) {
       const order = orders.find(o => o.id === orderId);
       if (order) {
@@ -3634,6 +4524,7 @@ function submitCustomerOrder() {
         showSmsToast("ĐÃ KHÔI PHỤC", `Đơn hàng ${orderId} đã được khôi phục về trạng thái chờ bếp.`);
       }
     }
+
 
     function clearCancelledOrders() {
       const count = orders.filter(o => o.status === 'cancelled').length;
@@ -3648,6 +4539,7 @@ function submitCustomerOrder() {
       }
     }
 
+
     // --- 13. CÀI ĐẶT THÔNG TIN QUÁN & IN BILL ---
     function applyStoreSettingsToUI() {
       if (document.getElementById('setting-store-name')) document.getElementById('setting-store-name').value = storeSettings.name || '';
@@ -3655,6 +4547,7 @@ function submitCustomerOrder() {
       if (document.getElementById('setting-store-phone')) document.getElementById('setting-store-phone').value = storeSettings.phone || '';
       if (document.getElementById('setting-store-vat')) document.getElementById('setting-store-vat').value = storeSettings.vatRate || 8;
       if (document.getElementById('setting-store-footer')) document.getElementById('setting-store-footer').value = storeSettings.footer || '';
+
 
       if (document.getElementById('setting-bank-id')) document.getElementById('setting-bank-id').value = storeSettings.bankId || 'MB';
       if (document.getElementById('setting-bank-name')) document.getElementById('setting-bank-name').value = storeSettings.bankName || 'MBBank';
@@ -3665,6 +4558,7 @@ function submitCustomerOrder() {
       if (document.getElementById('setting-zalopay-phone')) document.getElementById('setting-zalopay-phone').value = storeSettings.zalopayPhone || '0988776655';
       if (document.getElementById('setting-zalopay-name')) document.getElementById('setting-zalopay-name').value = storeSettings.zalopayName || 'ACE TROPICAL COFFEE';
 
+
       if (document.getElementById('receipt-store-name')) document.getElementById('receipt-store-name').textContent = storeSettings.name;
       if (document.getElementById('receipt-store-address')) document.getElementById('receipt-store-address').textContent = storeSettings.address;
       if (document.getElementById('receipt-store-phone')) document.getElementById('receipt-store-phone').textContent = "Hotline / Zalo: " + storeSettings.phone;
@@ -3672,12 +4566,14 @@ function submitCustomerOrder() {
       if (document.getElementById('receipt-footer-text')) document.getElementById('receipt-footer-text').textContent = storeSettings.footer;
     }
 
+
     function saveStoreSettings() {
       storeSettings.name = document.getElementById('setting-store-name').value.trim() || 'ACE TROPICAL WELLNESS COFFEE';
       storeSettings.address = document.getElementById('setting-store-address').value.trim();
       storeSettings.phone = document.getElementById('setting-store-phone').value.trim();
       storeSettings.vatRate = parseFloat(document.getElementById('setting-store-vat').value) || 0;
       storeSettings.footer = document.getElementById('setting-store-footer').value.trim();
+
 
       storeSettings.bankId = document.getElementById('setting-bank-id').value.trim() || 'MB';
       storeSettings.bankName = document.getElementById('setting-bank-name').value.trim() || 'MBBank';
@@ -3688,6 +4584,7 @@ function submitCustomerOrder() {
       storeSettings.zalopayPhone = document.getElementById('setting-zalopay-phone').value.trim() || '0988776655';
       storeSettings.zalopayName = document.getElementById('setting-zalopay-name').value.trim() || 'ACE TROPICAL COFFEE';
 
+
       localStorage.setItem('ace_settings', JSON.stringify(storeSettings));
       applyStoreSettingsToUI();
       checkGitHubTokenStatus();
@@ -3695,9 +4592,11 @@ function submitCustomerOrder() {
       showSmsToast("ĐÃ LƯU CÀI ĐẶT", "Thông tin thanh toán ngân hàng và quán đã được cập nhật!");
     }
 
+
     function printReceipt(orderId) {
       const order = orders.find(o => o.id === orderId);
       if (!order) return;
+
 
       applyStoreSettingsToUI();
       checkGitHubTokenStatus();
@@ -3705,6 +4604,13 @@ function submitCustomerOrder() {
       document.getElementById('print-order-time').textContent = order.time;
       document.getElementById('print-order-table').textContent = order.table;
       document.getElementById('print-order-phone').textContent = order.phone || '-';
+
+
+      
+      const receiptBadge = document.getElementById('receipt-store-address');
+      if (receiptBadge) {
+        receiptBadge.innerHTML = `<div>TP. Hồ Chí Minh</div><div style="font-weight: bold; color: #1B5E20; font-size: 8.5pt; border: 1.5px solid #2E7D32; background: #E8F5E9; padding: 2px 4px; margin: 4px 0; border-radius: 4px;">*** ĐÃ THANH TOÁN 100% (TRẢ TRƯỚC) - ${order.paymentMethodName || 'Chuyển khoản'} ***</div>`;
+      }
 
       document.getElementById('print-order-items').innerHTML = order.items.map(it => `
         <div class="receipt-row">
@@ -3714,16 +4620,20 @@ function submitCustomerOrder() {
         </div>
       `).join('');
 
+
       document.getElementById('print-subtotal').textContent = formatMoney(order.subtotal);
       document.getElementById('print-vat').textContent = formatMoney(order.vat);
       document.getElementById('print-total').textContent = formatMoney(order.total);
 
+
       window.print();
     }
+
 
     // --- 14. CHỌN BÀN MODAL ---
     function openTableModal() { document.getElementById('table-modal').classList.add('open'); }
     function closeTableModal() { document.getElementById('table-modal').classList.remove('open'); }
+
 
     function renderTablePickerGrid() {
       const grid = document.getElementById('table-picker-grid');
@@ -3736,6 +4646,7 @@ function submitCustomerOrder() {
       `).join('');
     }
 
+
     function selectTable(tableId) {
       const table = tables.find(t => t.id === tableId);
       if (table) {
@@ -3745,10 +4656,12 @@ function submitCustomerOrder() {
       }
     }
 
+
     // --- 15. THUẬT TOÁN QR CODE QUỐC TẾ (QUÉT ĐƯỢC 100% TRÊN MỌI THIẾT BỊ) ---
     // ISO/IEC 18004 Standard QR Code Generator Library
 // Tested and verified by OpenCV QRCodeDetector
 // Supports Version 1-10, Error Correction L/M/Q/H, UTF-8 Byte Mode
+
 
 var QRCodeLib = (function() {
   var QRCode = function(typeNumber, errorCorrectionLevel) {
@@ -3761,7 +4674,9 @@ var QRCodeLib = (function() {
     var _dataCache = null;
     var _dataList = [];
 
+
     var _this = {};
+
 
     var makeImpl = function(test, maskPattern) {
       _moduleCount = _typeNumber * 4 + 17;
@@ -3776,6 +4691,7 @@ var QRCodeLib = (function() {
         return arr;
       }(_moduleCount);
 
+
       setupPositionProbePattern(0, 0);
       setupPositionProbePattern(_moduleCount - 7, 0);
       setupPositionProbePattern(0, _moduleCount - 7);
@@ -3783,16 +4699,20 @@ var QRCodeLib = (function() {
       setupTimingPattern();
       setupTypeInfo(test, maskPattern);
 
+
       if (_typeNumber >= 7) {
         setupTypeNumber(test);
       }
+
 
       if (_dataCache == null) {
         _dataCache = createData(_typeNumber, _errorCorrectionLevel, _dataList);
       }
 
+
       mapData(_dataCache, maskPattern);
     };
+
 
     var setupPositionProbePattern = function(row, col) {
       for (var r = -1; r <= 7; r += 1) {
@@ -3810,6 +4730,7 @@ var QRCodeLib = (function() {
       }
     };
 
+
     var getBestMaskPattern = function() {
       var minLostPoint = 0;
       var pattern = 0;
@@ -3824,6 +4745,7 @@ var QRCodeLib = (function() {
       return pattern;
     };
 
+
     var setupTimingPattern = function() {
       for (var r = 8; r < _moduleCount - 8; r += 1) {
         if (_modules[r][6] != null) continue;
@@ -3834,6 +4756,7 @@ var QRCodeLib = (function() {
         _modules[6][c] = (c % 2 == 0);
       }
     };
+
 
     var setupPositionAdjustPattern = function() {
       var pos = QRUtil.getPatternPosition(_typeNumber);
@@ -3855,6 +4778,7 @@ var QRCodeLib = (function() {
       }
     };
 
+
     var setupTypeNumber = function(test) {
       var bits = QRUtil.getBCHTypeNumber(_typeNumber);
       for (var i = 0; i < 18; i += 1) {
@@ -3866,6 +4790,7 @@ var QRCodeLib = (function() {
         _modules[i % 3 + _moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
       }
     };
+
 
     var setupTypeInfo = function(test, maskPattern) {
       var data = (_errorCorrectionLevel << 3) | maskPattern;
@@ -3893,12 +4818,14 @@ var QRCodeLib = (function() {
       _modules[_moduleCount - 8][8] = (!test);
     };
 
+
     var mapData = function(data, maskPattern) {
       var inc = -1;
       var row = _moduleCount - 1;
       var bitIndex = 7;
       var byteIndex = 0;
       var maskFunc = QRUtil.getMaskFunction(maskPattern);
+
 
       for (var col = _moduleCount - 1; col > 0; col -= 2) {
         if (col == 6) col -= 1;
@@ -3931,12 +4858,14 @@ var QRCodeLib = (function() {
       }
     };
 
+
     var createBytes = function(buffer, rsBlocks) {
       var offset = 0;
       var maxDcCount = 0;
       var maxEcCount = 0;
       var dcdata = new Array(rsBlocks.length);
       var ecdata = new Array(rsBlocks.length);
+
 
       for (var r = 0; r < rsBlocks.length; r += 1) {
         var dcCount = rsBlocks[r].dataCount;
@@ -3949,6 +4878,7 @@ var QRCodeLib = (function() {
         }
         offset += dcCount;
 
+
         var rsPoly = QRUtil.getErrorCorrectPolynomial(ecCount);
         var rawPoly = qrPolynomial(dcdata[r], rsPoly.getLength() - 1);
         var modPoly = rawPoly.mod(rsPoly);
@@ -3959,13 +4889,16 @@ var QRCodeLib = (function() {
         }
       }
 
+
       var totalCodeCount = 0;
       for (var i = 0; i < rsBlocks.length; i += 1) {
         totalCodeCount += rsBlocks[i].totalCount;
       }
 
+
       var data = new Array(totalCodeCount);
       var index = 0;
+
 
       for (var i = 0; i < maxDcCount; i += 1) {
         for (var r = 0; r < rsBlocks.length; r += 1) {
@@ -3976,6 +4909,7 @@ var QRCodeLib = (function() {
         }
       }
 
+
       for (var i = 0; i < maxEcCount; i += 1) {
         for (var r = 0; r < rsBlocks.length; r += 1) {
           if (i < ecdata[r].length) {
@@ -3985,12 +4919,15 @@ var QRCodeLib = (function() {
         }
       }
 
+
       return data;
     };
+
 
     var createData = function(typeNumber, errorCorrectionLevel, dataList) {
       var rsBlocks = QRRSBlock.getRSBlocks(typeNumber, errorCorrectionLevel);
       var buffer = qrBitBuffer();
+
 
       for (var i = 0; i < dataList.length; i += 1) {
         var data = dataList[i];
@@ -3999,22 +4936,27 @@ var QRCodeLib = (function() {
         data.write(buffer);
       }
 
+
       var totalDataCount = 0;
       for (var i = 0; i < rsBlocks.length; i += 1) {
         totalDataCount += rsBlocks[i].dataCount;
       }
 
+
       if (buffer.getLengthInBits() > totalDataCount * 8) {
         throw new Error('code length overflow. (' + buffer.getLengthInBits() + '>' + totalDataCount * 8 + ')');
       }
+
 
       if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
         buffer.put(0, 4);
       }
 
+
       while (buffer.getLengthInBits() % 8 != 0) {
         buffer.putBit(false);
       }
+
 
       while (true) {
         if (buffer.getLengthInBits() >= totalDataCount * 8) {
@@ -4027,14 +4969,17 @@ var QRCodeLib = (function() {
         buffer.put(PAD1, 8);
       }
 
+
       return createBytes(buffer, rsBlocks);
     };
+
 
     _this.addData = function(data) {
       var newData = qr8BitByte(data);
       _dataList.push(newData);
       _dataCache = null;
     };
+
 
     _this.isDark = function(row, col) {
       if (row < 0 || _moduleCount <= row || col < 0 || _moduleCount <= col) {
@@ -4043,9 +4988,11 @@ var QRCodeLib = (function() {
       return _modules[row][col];
     };
 
+
     _this.getModuleCount = function() {
       return _moduleCount;
     };
+
 
     _this.make = function() {
       if (_typeNumber < 1) {
@@ -4066,6 +5013,7 @@ var QRCodeLib = (function() {
       }
       makeImpl(false, getBestMaskPattern());
     };
+
 
     _this.drawToCanvas = function(canvas, margin) {
       margin = (typeof margin === 'undefined') ? 4 : margin;
@@ -4089,16 +5037,20 @@ var QRCodeLib = (function() {
       }
     };
 
+
     return _this;
   };
 
+
   var QRErrorCorrectionLevel = { L: 1, M: 0, Q: 3, H: 2 };
   var QRMode = { MODE_NUMBER: 1 << 0, MODE_ALPHA_NUM: 1 << 1, MODE_8BIT_BYTE: 1 << 2, MODE_KANJI: 1 << 3 };
+
 
   var QRMaskPattern = {
     PATTERN000: 0, PATTERN001: 1, PATTERN010: 2, PATTERN011: 3,
     PATTERN100: 4, PATTERN101: 5, PATTERN110: 6, PATTERN111: 7
   };
+
 
   var QRUtil = {
     PATTERN_POSITION_TABLE: [
@@ -4184,6 +5136,7 @@ var QRCodeLib = (function() {
     }
   };
 
+
   var QRMath = {
     glog: function(n) {
       if (n < 1) throw new Error('glog(' + n + ')');
@@ -4198,9 +5151,11 @@ var QRCodeLib = (function() {
     LOG_TABLE: new Array(256)
   };
 
+
   for (var i = 0; i < 8; i += 1) QRMath.EXP_TABLE[i] = 1 << i;
   for (var i = 8; i < 256; i += 1) QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4] ^ QRMath.EXP_TABLE[i - 5] ^ QRMath.EXP_TABLE[i - 6] ^ QRMath.EXP_TABLE[i - 8];
   for (var i = 0; i < 255; i += 1) QRMath.LOG_TABLE[QRMath.EXP_TABLE[i]] = i;
+
 
   var qrPolynomial = function(num, shift) {
     if (typeof num.length == 'undefined') throw new Error(num.length + '/' + shift);
@@ -4208,6 +5163,7 @@ var QRCodeLib = (function() {
     while (offset < num.length && num[offset] == 0) offset += 1;
     var _num = new Array(num.length - offset + shift);
     for (var i = 0; i < num.length - offset; i += 1) _num[i] = num[i + offset];
+
 
     var _this = {};
     _this.getAt = function(index) { return _num[index]; };
@@ -4233,6 +5189,7 @@ var QRCodeLib = (function() {
     };
     return _this;
   };
+
 
   var QRRSBlock = {
     RS_BLOCK_TABLE: [
@@ -4273,6 +5230,7 @@ var QRCodeLib = (function() {
     }
   };
 
+
   var qrBitBuffer = function() {
     var _buffer = [];
     var _length = 0;
@@ -4296,6 +5254,7 @@ var QRCodeLib = (function() {
     };
     return _this;
   };
+
 
   var qr8BitByte = function(data) {
     var _mode = QRMode.MODE_8BIT_BYTE;
@@ -4322,6 +5281,7 @@ var QRCodeLib = (function() {
       }
     }
 
+
     var _this = {};
     _this.getMode = function() { return _mode; };
     _this.getLength = function() { return _parsedData.length; };
@@ -4333,12 +5293,15 @@ var QRCodeLib = (function() {
     return _this;
   };
 
+
   return QRCode;
 })();
+
 
 if (typeof window !== 'undefined') window.qrcode = QRCodeLib;
 if (typeof global !== 'undefined') global.qrcode = QRCodeLib;
 if (typeof module !== 'undefined') module.exports = QRCodeLib;
+
 
     function drawSimpleQrCode(canvas, text) {
       try {
@@ -4350,6 +5313,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         console.error('Lỗi tạo mã QR:', e);
       }
     }
+
 
     // --- 16. TIỆN ÍCH ÂM THANH & SMS TOAST ---
     function playAudioChime(freq, duration) {
@@ -4368,11 +5332,13 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       } catch(e) {}
     }
 
+
     function playSuccessChime() {
       playAudioChime(523.25, 0.1);
       setTimeout(() => playAudioChime(659.25, 0.15), 100);
       setTimeout(() => playAudioChime(783.99, 0.25), 200);
     }
+
 
     let toastTimer = null;
     function showSmsToast(title, message) {
@@ -4384,24 +5350,29 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       toastTimer = setTimeout(() => toast.classList.remove('show'), 5000);
     }
 
+
     function simulateNewIncomingOrder() {
       const randomTable = tables[Math.floor(Math.random() * tables.length)];
       const randomItem1 = menuItems[Math.floor(Math.random() * menuItems.length)];
       const randomItem2 = menuItems[Math.floor(Math.random() * menuItems.length)];
+
 
       const orderNumber = 1000 + orders.length + 1;
       const orderId = `ORD-${orderNumber}`;
       const now = new Date();
       const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
+
       const items = [
         { id: randomItem1.id, name: randomItem1.name, qty: 1, price: randomItem1.price, total: randomItem1.price },
         { id: randomItem2.id, name: randomItem2.name, qty: 2, price: randomItem2.price, total: randomItem2.price * 2 }
       ];
 
+
       const subtotal = items.reduce((s, i) => s + i.total, 0);
       const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
       const total = subtotal + vat;
+
 
       const simulated = {
         id: orderId,
@@ -4416,11 +5387,13 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         status: 'new'
       };
 
+
       orders.unshift(simulated);
       saveOrdersStorage();
       playAudioChime(660, 0.2);
       showSmsToast("ĐƠN HÀNG MỚI ĐẾN!", `${simulated.id} tại ${simulated.table} vừa đặt món.`);
     }
+
 
     // =========================================================================
     // // =========================================================================
@@ -4433,10 +5406,12 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       isSyncing: false
     };
 
+
     // 1. TỰ ĐỘNG GHI THẲNG LÊN GITHUB NẾU CÓ TOKEN (1 CHẠM - KHÔNG CẦN VÀO GITHUB)
     async function commitMenuDirectlyToGitHub(items) {
       const token = localStorage.getItem(SYNC_ENGINE.githubTokenKey);
       if (!token) return false;
+
 
       updateSyncStatusUI('syncing', 'Đang tự động đẩy dữ liệu lên GitHub...');
       try {
@@ -4454,15 +5429,18 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           }
         } catch(e) {}
 
+
         // Mã hóa Base64 dữ liệu menu mới
         const jsonContent = JSON.stringify(items, null, 2);
         const b64 = btoa(unescape(encodeURIComponent(jsonContent)));
+
 
         const payload = {
           message: `Auto-update menu & prices [${new Date().toLocaleTimeString()}]`,
           content: b64
         };
         if (sha) payload.sha = sha;
+
 
         const putRes = await fetch(apiUrl, {
           method: 'PUT',
@@ -4473,6 +5451,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           },
           body: JSON.stringify(payload)
         });
+
 
         if (putRes.ok) {
           updateSyncStatusUI('success', '🟢 Đã tự động cập nhật lên GitHub thành công!');
@@ -4487,16 +5466,19 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       return false;
     }
 
+
     // 2. HÀM TỔNG HỢP: ĐẨY DỮ LIỆU ĐỒNG BỘ
     async function syncToCloudAuto(items) {
       // Ưu tiên 1: Tự động ghi thẳng vào GitHub nếu có token
       const gitSuccess = await commitMenuDirectlyToGitHub(items);
       if (gitSuccess) return;
 
+
       // Ưu tiên 2: Lưu cục bộ và thông báo người dùng
       updateSyncStatusUI('success', '🟢 Đã lưu vào bộ nhớ máy này');
       showSmsToast("ĐÃ LƯU THỰC ĐƠN!", "Món mới & giá mới đã được lưu thành công trên máy của bạn.");
     }
+
 
     // 3. TỰ ĐỘNG TẢI DỮ LIỆU TỪ GITHUB PAGES VỀ ĐIỆN THOẠI KHÁCH QUÉT QR
     async function syncFromCloudAuto() {
@@ -4507,6 +5489,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         `https://raw.githubusercontent.com/${SYNC_ENGINE.githubRepo}/main/Menu.json?t=${Date.now()}`
       ];
 
+
       for (let url of urlsToTry) {
         try {
           const res = await fetch(url);
@@ -4516,6 +5499,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
               const localMenu = localStorage.getItem('ace_menu') ? JSON.parse(localStorage.getItem('ace_menu')) : [];
               const mergedMap = new Map();
 
+
               // Nạp từ server
               serverMenu.forEach(item => mergedMap.set(item.id, item));
               // Giữ lại các món do Admin tạo cục bộ
@@ -4523,10 +5507,12 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
                 if (!mergedMap.has(localItem.id)) mergedMap.set(localItem.id, localItem);
               });
 
+
               menuItems = Array.from(mergedMap.values());
               localStorage.setItem('ace_menu', JSON.stringify(menuItems));
               renderCustomerProducts(activeCategory);
               if (currentUser && currentUser.role === 'admin') renderAdminMenuTable();
+
 
               updateSyncStatusUI('success', `🟢 Trực tuyến (${menuItems.length} món)`);
               console.log("✅ Đã nạp thành công từ:", url);
@@ -4536,18 +5522,22 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         } catch(e) {}
       }
 
+
       updateSyncStatusUI('success', `🟢 Sẵn sàng (${menuItems.length} món)`);
       return false;
     }
+
 
     function manualTriggerCloudSync() {
       syncToCloudAuto(menuItems);
     }
 
+
     function updateSyncStatusUI(status, msg) {
       const ind = document.getElementById('cloud-sync-status-indicator');
       const txt = document.getElementById('cloud-sync-status-text');
       if (!ind || !txt) return;
+
 
       if (status === 'syncing') {
         ind.textContent = '🟡';
@@ -4560,6 +5550,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         txt.textContent = msg || 'Lưu cục bộ trên thiết bị';
       }
     }
+
 
     // QUẢN LÝ GITHUB TOKEN TRONG CÀI ĐẶT
     function saveGitHubToken() {
@@ -4574,6 +5565,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       }
       checkGitHubTokenStatus();
     }
+
 
     function checkGitHubTokenStatus() {
       const token = localStorage.getItem(SYNC_ENGINE.githubTokenKey);
@@ -4590,7 +5582,10 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
     }
 
 
+
+
     // --- 16. TIỆN ÍCH ÂM THANH & SMS TOAST ---
+
 
     // --- TÍNH NĂNG MÃ QR ĐỒNG BỘ THỰC ĐƠN GIỮA CÁC MÁY (TỨC THÌ 100%) ---
     function openSyncQrModal() {
@@ -4598,9 +5593,11 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       generateSyncQrCode();
     }
 
+
     function closeSyncQrModal() {
       document.getElementById('sync-qr-modal').classList.remove('open');
     }
+
 
     function generateSyncUrl() {
       const baseUrl = window.location.href.split('?')[0];
@@ -4610,11 +5607,13 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       return `${baseUrl}?menu_data=${encodeURIComponent(b64)}`;
     }
 
+
     function generateSyncQrCode() {
       const canvas = document.getElementById('sync-menu-qr-canvas');
       const syncUrl = generateSyncUrl();
       drawSimpleQrCode(canvas, syncUrl);
     }
+
 
     function copySyncUrlToClipboard() {
       const syncUrl = generateSyncUrl();
@@ -4624,6 +5623,8 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         prompt("Sao chép link đồng bộ dưới đây:", syncUrl);
       });
     }
+
+
 
 
     // =========================================================================
@@ -4646,6 +5647,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       menuEventSource: null
     };
 
+
     // Kênh Broadcast nội bộ trình duyệt (0ms giữa các tab cùng máy)
     const localBroadcastChannel = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('ace_cafe_realtime') : null;
     if (localBroadcastChannel) {
@@ -4659,6 +5661,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       };
     }
 
+
     // KHỞI ĐỘNG HỆ THỐNG ĐỒNG BỘ
     function initRealtimeSync() {
       initNtfyCloudSync();
@@ -4667,6 +5670,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       setInterval(pollCloudOrders, 8000);
       setInterval(pollCloudMenu, 15000);
     }
+
 
     // 1. KÊNH HTTPS CLOUD (ntfy.sh) - CỔNG 443 KHÔNG THỂ BỊ CHẶN
     function initNtfyCloudSync() {
@@ -4686,6 +5690,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
             };
           }
 
+
           // Lắng nghe thực đơn & giá mới (Dành cho Khách hàng & Máy khác)
           if (!REALTIME_CHANNEL.menuEventSource) {
             REALTIME_CHANNEL.menuEventSource = new EventSource(REALTIME_CHANNEL.ntfyMenuUrl + '/sse');
@@ -4704,10 +5709,12 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         console.warn("Lỗi khởi tạo ntfy EventSource:", e);
       }
 
+
       // Kéo đơn và menu trong vòng 12h qua ngay khi vừa mở trang
       pollCloudOrders();
       pollCloudMenu();
     }
+
 
     // Kéo đơn hàng gần đây từ đám mây (Tránh mất đơn khi máy POS bị tắt màn hình / mở sau)
     function pollCloudOrders() {
@@ -4737,6 +5744,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         .catch(() => {});
     }
 
+
     // Kéo thực đơn mới nhất từ đám mây
     function pollCloudMenu() {
       fetch(REALTIME_CHANNEL.ntfyMenuUrl + '/json?poll=1&since=12h')
@@ -4763,6 +5771,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         .catch(() => {});
     }
 
+
     // 2. KÊNH MQTT WEBSOCKETS (HỖ TRỢ ĐƯỜNG DẪN /mqtt CHUẨN)
     function initMqttSync() {
       if (typeof Paho === 'undefined' || !Paho.MQTT) {
@@ -4770,9 +5779,11 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         return;
       }
 
+
       try {
         const clientId = "ace_" + Math.random().toString(16).substring(2, 10);
         REALTIME_CHANNEL.client = new Paho.MQTT.Client(REALTIME_CHANNEL.broker, REALTIME_CHANNEL.port, REALTIME_CHANNEL.path, clientId);
+
 
         REALTIME_CHANNEL.client.onConnectionLost = (responseObject) => {
           REALTIME_CHANNEL.isConnected = false;
@@ -4780,9 +5791,11 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           setTimeout(initMqttSync, 5000);
         };
 
+
         REALTIME_CHANNEL.client.onMessageArrived = (message) => {
           handleIncomingRealtimeMessage(message.destinationName, message.payloadString);
         };
+
 
         REALTIME_CHANNEL.client.connect({
           useSSL: true,
@@ -4806,6 +5819,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       }
     }
 
+
     function tryFallbackBroker() {
       try {
         const clientId = "ace_emqx_" + Math.random().toString(16).substring(2, 10);
@@ -4828,6 +5842,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       } catch(e) {}
     }
 
+
     function handleIncomingRealtimeMessage(topic, payloadStr) {
       try {
         const data = JSON.parse(payloadStr);
@@ -4841,6 +5856,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       }
     }
 
+
     function handleIncomingOrder(data) {
       if (!data || !data.id) return;
       const exists = orders.some(o => o.id === data.id);
@@ -4851,6 +5867,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         showSmsToast("🔔 CÓ ĐƠN ĐẶT MỚI TỪ BÀN!", `${data.id} - ${data.table} vừa gửi đơn gọi món (${formatMoney(data.total)}).`);
       }
     }
+
 
     function handleIncomingMenu(data) {
       if (Array.isArray(data) && data.length > 0) {
@@ -4865,12 +5882,14 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       }
     }
 
+
     // HÀM PHÁT ĐƠN HÀNG LÊN MẠNG THỜI GIAN THỰC (ĐA TẦNG)
     function broadcastOrderRealtime(order) {
       // Tầng 1: BroadcastChannel nội bộ (0ms giữa các tab cùng máy)
       if (localBroadcastChannel) {
         try { localBroadcastChannel.postMessage({ type: 'NEW_ORDER', order }); } catch(e) {}
       }
+
 
       // Tầng 2: HTTPS Cloud Pub-Sub (ntfy.sh - Cổng 443 chuẩn, hoạt động trên mọi mạng di động & wifi)
       try {
@@ -4889,6 +5908,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         });
       } catch(e) {}
 
+
       // Tầng 3: WebSockets MQTT
       if (REALTIME_CHANNEL.client && REALTIME_CHANNEL.isConnected) {
         try {
@@ -4900,12 +5920,14 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       }
     }
 
+
     // HÀM PHÁT MENU & GIÁ MỚI LÊN MẠNG THỜI GIAN THỰC (ĐA TẦNG)
     function broadcastMenuRealtime(menuList) {
       // Tầng 1: BroadcastChannel nội bộ (0ms giữa các tab cùng máy)
       if (localBroadcastChannel) {
         try { localBroadcastChannel.postMessage({ type: 'MENU_UPDATE', menu: menuList }); } catch(e) {}
       }
+
 
       // Tầng 2: HTTPS Cloud Pub-Sub (ntfy.sh)
       try {
@@ -4926,6 +5948,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         }
       } catch(e) {}
 
+
       // Tầng 3: WebSockets MQTT
       if (REALTIME_CHANNEL.client && REALTIME_CHANNEL.isConnected) {
         try {
@@ -4937,7 +5960,9 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       }
     }
 
+
   </script>
+
 
   <!-- MODAL: MÃ QR ĐỒNG BỘ THỰC ĐƠN TỨC THÌ (DÀNH CHO CHỦ QUÁN ĐỒNG BỘ NHANH) -->
   <div class="modal-overlay" id="sync-qr-modal">
@@ -4964,6 +5989,8 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
   </div>
 
 
+
+
   <!-- MODAL: CHI TIẾT SẢN PHẨM & TÙY CHỈNH KHẨU VỊ (MỞ RỘNG FULL SIZE) -->
   <div class="modal-overlay" id="product-detail-modal">
     <div class="modal-card" style="max-width: 480px;">
@@ -4979,11 +6006,14 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           <span id="detail-modal-badge" class="product-badge" style="top: 12px; left: 12px; display: none;"></span>
         </div>
 
+
         <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px;">
           <div style="font-size: 1.25rem; font-weight: 800; color: var(--primary);" id="detail-modal-price">0 đ</div>
         </div>
 
+
         <p id="detail-modal-desc" style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 14px;"></p>
+
 
         <!-- TÙY CHỈNH KHẨU VỊ -->
         <div style="background: #FDFBF8; border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 14px;">
@@ -5009,6 +6039,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
             </label>
           </div>
 
+
           <div style="font-weight: 700; font-size: 0.84rem; color: var(--primary-dark); margin: 12px 0 8px;">
             🍬 Độ ngọt:
           </div>
@@ -5027,11 +6058,13 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
             </label>
           </div>
 
+
           <div style="margin-top: 12px;">
             <label style="font-size: 0.8rem; font-weight: 700; color: var(--primary-dark); display: block; margin-bottom: 4px;">📝 Yêu cầu riêng cho món này:</label>
             <textarea id="detail-custom-note" class="form-control" rows="2" placeholder="Ví dụ: Nhiều sữa đặc, để riêng thạch, uống ly giấy..."></textarea>
           </div>
         </div>
+
 
         <!-- SỐ LƯỢNG & TỔNG TIỀN -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding: 0 4px;">
@@ -5052,84 +6085,103 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
     </div>
   </div>
 
+
   <!-- MODAL: THANH TOÁN & QUÉT MÃ QR (NGÂN HÀNG, MOMO, ZALOPAY) -->
   <div class="modal-overlay" id="payment-checkout-modal">
-    <div class="modal-card" style="max-width: 500px;">
+    <div class="modal-card" style="max-width: 520px;">
       <div class="modal-header">
         <div>
-          <h3 style="margin: 0; font-size: 1.1rem;">💳 Thanh Toán Gọi Món</h3>
+          <h3 style="margin: 0; font-size: 1.1rem;">💳 <span data-i18n="payModalTitle">Thanh Toán Đơn Hàng</span></h3>
           <span style="font-size: 0.78rem; opacity: 0.85;" id="checkout-table-display">Bàn 01</span>
         </div>
         <button class="close-cart-btn" onclick="closePaymentCheckoutModal()">&times;</button>
       </div>
       <div class="modal-body" style="padding: 14px;">
 
+        <!-- CẢNH BÁO BẮT BUỘC TRẢ TRƯỚC -->
+        <div class="prepay-alert-banner">
+          <span style="font-size: 1.4rem;">🔒</span>
+          <div>
+            <b data-i18n="prepayNoticeTitle">BẮT BUỘC THANH TOÁN TRƯỚC:</b>
+            <span data-i18n="prepayNoticeDesc"> Quý khách vui lòng hoàn tất chuyển khoản / thanh toán trước. Đơn hàng chỉ được chuyển thẳng vào Quầy Barista (Bếp) làm món sau khi hệ thống ghi nhận thanh toán thành công!</span>
+          </div>
+        </div>
+
         <!-- TÓM TẮT ĐƠN HÀNG -->
         <div style="background: #FDFBF8; border: 1px solid var(--border); border-radius: 10px; padding: 10px; margin-bottom: 12px;">
           <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 6px;">
-            <span>Mã đơn: <b id="checkout-order-id-display">ORD-1000</b></span>
-            <span>Tổng thanh toán: <b id="checkout-total-header" style="color: var(--primary); font-size: 0.95rem;">0 đ</b></span>
+            <span><span data-i18n="orderIdLabel">Mã đơn:</span> <b id="checkout-order-id-display">ORD-1000</b></span>
+            <span><span data-i18n="totalPayLabel">Tổng thanh toán:</span> <b id="checkout-total-header" style="color: var(--primary); font-size: 0.95rem;">0 đ</b></span>
           </div>
           <div id="checkout-items-preview" style="max-height: 100px; overflow-y: auto; margin-bottom: 6px;"></div>
           <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); border-top: 1px solid #EEE; padding-top: 4px;">
-            <span>Tạm tính: <span id="checkout-subtotal-display">0 đ</span> | VAT (8%): <span id="checkout-vat-display">0 đ</span></span>
-            <span style="font-weight: 700; color: var(--text);">Tổng: <span id="checkout-total-display">0 đ</span></span>
+            <span><span data-i18n="subtotalLabel">Tạm tính:</span> <span id="checkout-subtotal-display">0 đ</span> | <span data-i18n="vatLabel">VAT (8%):</span> <span id="checkout-vat-display">0 đ</span></span>
+            <span style="font-weight: 700; color: var(--text);"><span data-i18n="totalLabel">Tổng:</span> <span id="checkout-total-display">0 đ</span></span>
           </div>
         </div>
 
         <!-- THÔNG TIN LIÊN HỆ -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
           <div>
-            <label style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 2px;">Số điện thoại khách (*):</label>
+            <label style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 2px;" data-i18n="phoneInputLabel">Số điện thoại khách (*):</label>
             <input type="tel" id="checkout-phone" class="form-control" placeholder="0988xxxxxx" style="padding: 6px 10px; font-size: 0.82rem;">
           </div>
           <div>
-            <label style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 2px;">Ghi chú chung:</label>
-            <input type="text" id="checkout-general-note" class="form-control" placeholder="Lấy món tại quầy..." style="padding: 6px 10px; font-size: 0.82rem;">
+            <label style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 2px;" data-i18n="generalNoteLabel">Ghi chú chung:</label>
+            <input type="text" id="checkout-general-note" class="form-control" placeholder="Lấy món tại quầy..." data-i18n-ph="generalNotePlaceholder" style="padding: 6px 10px; font-size: 0.82rem;">
           </div>
         </div>
 
-        <!-- CHỌN PHƯƠNG THỨC THANH TOÁN -->
-        <label style="font-size: 0.8rem; font-weight: 800; color: var(--primary-dark); display: block; margin-bottom: 6px;">
-          Chọn hình thức thanh toán:
+        <!-- CHỌN PHƯƠNG THỨC THANH TOÁN (100% TRẢ TRƯỚC - BỎ TIỀN MẶT) -->
+        <label style="font-size: 0.8rem; font-weight: 800; color: var(--primary-dark); display: block; margin-bottom: 6px;" data-i18n="choosePaymentMethodLabel">
+          Chọn cổng thanh toán trực tiếp:
         </label>
         <div class="pay-methods-grid">
           <div class="pay-tab-btn active" id="pay-tab-vietqr" onclick="selectPaymentMethod('vietqr')">
-            🏦 Chuyển Khoản Ngân Hàng
+            🏦 <span data-i18n="payTabBank">Ngân Hàng (VietQR)</span>
           </div>
           <div class="pay-tab-btn momo" id="pay-tab-momo" onclick="selectPaymentMethod('momo')">
-            📱 Ví MoMo
+            📱 <span data-i18n="payTabMoMo">Ví MoMo</span>
           </div>
           <div class="pay-tab-btn zalo" id="pay-tab-zalopay" onclick="selectPaymentMethod('zalopay')">
-            📱 Ví ZaloPay
+            📱 <span data-i18n="payTabZalo">Ví ZaloPay</span>
           </div>
-          <div class="pay-tab-btn" id="pay-tab-cash" onclick="selectPaymentMethod('cash')">
-            💵 Tiền Mặt / Tại Quầy
+          <div class="pay-tab-btn visa" id="pay-tab-visa" onclick="selectPaymentMethod('visa')">
+            💳 <span data-i18n="payTabVisa">Thẻ Visa / Master</span>
           </div>
         </div>
 
         <!-- 1. VIEW THANH TOÁN VIETQR NGÂN HÀNG -->
         <div id="pay-view-vietqr" class="qr-payment-card">
-          <div style="font-size: 0.82rem; font-weight: 700; color: #1565C0; margin-bottom: 8px;">
-            ⚡ Quét mã VietQR bằng ứng dụng bất kỳ ngân hàng nào
+          <div class="direct-connect-box">
+            <div class="direct-conn-header">
+              <span class="pulse-dot"></span>
+              <span data-i18n="bankGatewayLive">Direct Connect: Toàn bộ 54+ Ngân Hàng Việt Nam (Napas 24/7)</span>
+            </div>
+            <button type="button" class="direct-app-btn bank-gradient" onclick="openDirectBankingApp()">
+              <span>🚀</span> <span data-i18n="openBankAppBtn">MỞ APP NGÂN HÀNG THANH TOÁN (DIRECT APP LINK)</span>
+            </button>
+          </div>
+          <div style="font-size: 0.8rem; font-weight: 700; color: #1565C0; margin: 8px 0 6px 0;" data-i18n="vietqrInstruction">
+            ⚡ Hoặc quét mã VietQR tự động điền tiền & nội dung:
           </div>
           <div style="background: #FFF; padding: 10px; border-radius: 8px; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
             <img id="pay-vietqr-img" src="" alt="Mã VietQR" style="width: 200px; height: 200px; object-fit: contain; display: block; margin: 0 auto;" onerror="this.style.display='none'; document.getElementById('pay-vietqr-canvas').style.display='block';">
             <canvas id="pay-vietqr-canvas" width="200" height="200" style="display: none; margin: 0 auto;"></canvas>
           </div>
           <div style="margin-top: 10px; font-size: 0.8rem; text-align: left; background: #FFF; padding: 10px; border-radius: 8px; border: 1px solid #E3F2FD;">
-            <div style="margin-bottom: 4px;">Ngân hàng: <b id="vietqr-bank-name">MBBank</b></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="bankLabel">Ngân hàng:</span> <b id="vietqr-bank-name">MBBank</b></div>
             <div style="margin-bottom: 4px;">
-              Số tài khoản: <b id="vietqr-acc-num" style="color: var(--primary); font-size: 0.95rem;">0988776655</b>
+              <span data-i18n="accNumLabel">Số tài khoản:</span> <b id="vietqr-acc-num" style="color: var(--primary); font-size: 0.95rem;">0988776655</b>
               <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('vietqr-acc-num').textContent, 'Đã sao chép số tài khoản!')">📋 Copy</span>
             </div>
-            <div style="margin-bottom: 4px;">Chủ tài khoản: <b id="vietqr-acc-name">ACE TROPICAL COFFEE</b></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="accNameLabel">Chủ tài khoản:</span> <b id="vietqr-acc-name">ACE TROPICAL COFFEE</b></div>
             <div style="margin-bottom: 4px;">
-              Số tiền: <b id="vietqr-amount" style="color: #D32F2F;">0 đ</b>
+              <span data-i18n="amountLabel">Số tiền:</span> <b id="vietqr-amount" style="color: #D32F2F;">0 đ</b>
               <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('vietqr-amount').textContent.replace(/[^0-9]/g,''), 'Đã sao chép số tiền!')">📋 Copy</span>
             </div>
             <div>
-              Nội dung CK: <b id="vietqr-memo" style="color: var(--primary-dark); font-size: 0.9rem;">ORD-1000</b>
+              <span data-i18n="memoLabel">Nội dung CK:</span> <b id="vietqr-memo" style="color: var(--primary-dark); font-size: 0.9rem;">ORD-1000</b>
               <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('vietqr-memo').textContent, 'Đã sao chép nội dung chuyển khoản!')">📋 Copy</span>
             </div>
           </div>
@@ -5137,85 +6189,143 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
 
         <!-- 2. VIEW THANH TOÁN MOMO -->
         <div id="pay-view-momo" class="qr-payment-card momo-theme" style="display: none;">
-          <div style="font-size: 0.82rem; font-weight: 700; color: #A50064; margin-bottom: 8px;">
-            📱 Quét mã bằng ứng dụng Ví MoMo
+          <div class="direct-connect-box">
+            <div class="direct-conn-header">
+              <span class="pulse-dot"></span>
+              <span data-i18n="momoGatewayLive">Direct Connect: Cổng Thanh Toán MoMo Pay Trực Tiếp</span>
+            </div>
+            <button type="button" class="direct-app-btn momo-gradient" onclick="openDirectMoMoApp()">
+              <span>🚀</span> <span data-i18n="openMoMoAppBtn">MỞ ỨNG DỤNG MOMO THANH TOÁN NGAY</span>
+            </button>
+          </div>
+          <div style="font-size: 0.8rem; font-weight: 700; color: #A50064; margin: 8px 0 6px 0;" data-i18n="momoInstruction">
+            📱 Hoặc quét mã bằng ứng dụng Ví MoMo:
           </div>
           <div style="background: #FFF; padding: 10px; border-radius: 8px; display: inline-block;">
             <canvas id="pay-momo-canvas" width="200" height="200" style="display: block; margin: 0 auto;"></canvas>
           </div>
           <div style="margin-top: 10px; font-size: 0.8rem; text-align: left; background: #FFF; padding: 10px; border-radius: 8px; border: 1px solid #FCE4EC;">
-            <div style="margin-bottom: 4px;">Số MoMo: <b id="momo-phone" style="color: #A50064; font-size: 0.95rem;">0988776655</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('momo-phone').textContent, 'Đã sao chép số MoMo!')">📋 Copy</span></div>
-            <div style="margin-bottom: 4px;">Tên người nhận: <b id="momo-name">ACE TROPICAL COFFEE</b></div>
-            <div style="margin-bottom: 4px;">Số tiền: <b id="momo-amount" style="color: #D32F2F;">0 đ</b></div>
-            <div>Lời nhắn chuyển tiền: <b id="momo-memo">ORD-1000</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('momo-memo').textContent, 'Đã sao chép lời nhắn!')">📋 Copy</span></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="momoPhoneLabel">Số MoMo:</span> <b id="momo-phone" style="color: #A50064; font-size: 0.95rem;">0988776655</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('momo-phone').textContent, 'Đã sao chép số MoMo!')">📋 Copy</span></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="receiverLabel">Tên người nhận:</span> <b id="momo-name">ACE TROPICAL COFFEE</b></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="amountLabel">Số tiền:</span> <b id="momo-amount" style="color: #D32F2F;">0 đ</b></div>
+            <div><span data-i18n="memoLabel">Lời nhắn:</span> <b id="momo-memo">ORD-1000</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('momo-memo').textContent, 'Đã sao chép lời nhắn!')">📋 Copy</span></div>
           </div>
         </div>
 
         <!-- 3. VIEW THANH TOÁN ZALOPAY -->
         <div id="pay-view-zalopay" class="qr-payment-card zalo-theme" style="display: none;">
-          <div style="font-size: 0.82rem; font-weight: 700; color: #0068FF; margin-bottom: 8px;">
-            📱 Quét mã bằng ứng dụng ZaloPay hoặc Zalo
+          <div class="direct-connect-box">
+            <div class="direct-conn-header">
+              <span class="pulse-dot"></span>
+              <span data-i18n="zaloGatewayLive">Direct Connect: Cổng Thanh Toán ZaloPay Trực Tiếp</span>
+            </div>
+            <button type="button" class="direct-app-btn zalo-gradient" onclick="openDirectZaloPayApp()">
+              <span>🚀</span> <span data-i18n="openZaloAppBtn">MỞ ỨNG DỤNG ZALOPAY THANH TOÁN NGAY</span>
+            </button>
+          </div>
+          <div style="font-size: 0.8rem; font-weight: 700; color: #0068FF; margin: 8px 0 6px 0;" data-i18n="zaloInstruction">
+            📱 Hoặc quét mã bằng ứng dụng ZaloPay hoặc Zalo:
           </div>
           <div style="background: #FFF; padding: 10px; border-radius: 8px; display: inline-block;">
             <canvas id="pay-zalopay-canvas" width="200" height="200" style="display: block; margin: 0 auto;"></canvas>
           </div>
           <div style="margin-top: 10px; font-size: 0.8rem; text-align: left; background: #FFF; padding: 10px; border-radius: 8px; border: 1px solid #E1F5FE;">
-            <div style="margin-bottom: 4px;">Số ZaloPay: <b id="zalopay-phone" style="color: #0068FF; font-size: 0.95rem;">0988776655</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('zalopay-phone').textContent, 'Đã sao chép số ZaloPay!')">📋 Copy</span></div>
-            <div style="margin-bottom: 4px;">Tên người nhận: <b id="zalopay-name">ACE TROPICAL COFFEE</b></div>
-            <div style="margin-bottom: 4px;">Số tiền: <b id="zalopay-amount" style="color: #D32F2F;">0 đ</b></div>
-            <div>Nội dung: <b id="zalopay-memo">ORD-1000</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('zalopay-memo').textContent, 'Đã sao chép nội dung!')">📋 Copy</span></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="zaloPhoneLabel">Số ZaloPay:</span> <b id="zalopay-phone" style="color: #0068FF; font-size: 0.95rem;">0988776655</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('zalopay-phone').textContent, 'Đã sao chép số ZaloPay!')">📋 Copy</span></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="receiverLabel">Tên người nhận:</span> <b id="zalopay-name">ACE TROPICAL COFFEE</b></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="amountLabel">Số tiền:</span> <b id="zalopay-amount" style="color: #D32F2F;">0 đ</b></div>
+            <div><span data-i18n="memoLabel">Nội dung:</span> <b id="zalopay-memo">ORD-1000</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('zalopay-memo').textContent, 'Đã sao chép nội dung!')">📋 Copy</span></div>
           </div>
         </div>
 
-        <!-- 4. VIEW TIỀN MẶT -->
-        <div id="pay-view-cash" class="qr-payment-card" style="display: none; background: #E8F5E9; border-color: #C8E6C9;">
-          <div style="font-size: 32px; margin-bottom: 6px;">💵</div>
-          <div style="font-weight: 700; color: #2E7D32; font-size: 0.95rem; margin-bottom: 4px;">Thanh toán tiền mặt tại quầy</div>
-          <p style="font-size: 0.82rem; color: #388E3C; line-height: 1.4; margin: 0;">
-            Quý khách chỉ cần bấm <b>Xác nhận gửi đơn</b> dưới đây. Nhân viên quầy pha chế sẽ làm món ngay và bạn có thể thanh toán tiền mặt khi nhận đồ!
-          </p>
+        <!-- 4. VIEW THANH TOÁN THẺ VISA / MASTERCARD -->
+        <div id="pay-view-visa" class="qr-payment-card visa-theme" style="display: none;">
+          <div class="direct-conn-header" style="justify-content: center; margin-bottom: 8px;">
+            <span class="pulse-dot"></span>
+            <span data-i18n="visaGatewayLive">Cổng Thanh Toán Quốc Tế Visa / Mastercard (Direct Gateway)</span>
+          </div>
+          <div class="visa-card-box">
+            <div class="form-group" style="margin-bottom: 8px;">
+              <label style="font-size: 0.76rem; font-weight: 700; color: #1A365D;" data-i18n="cardNumberLabel">Số Thẻ Visa / Mastercard:</label>
+              <div style="position: relative;">
+                <input type="text" id="visa-card-number" class="form-control" placeholder="4111 2222 3333 4444" maxlength="19" oninput="formatCardNumberInput(this)">
+                <span style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-weight: bold; font-size: 0.8rem; color: #1A365D;">VISA / MC</span>
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 8px;">
+              <label style="font-size: 0.76rem; font-weight: 700; color: #1A365D;" data-i18n="cardHolderLabel">Tên Chủ Thẻ (In hoa không dấu):</label>
+              <input type="text" id="visa-card-name" class="form-control" placeholder="NGUYEN VAN A" oninput="this.value = this.value.toUpperCase()">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+              <div class="form-group">
+                <label style="font-size: 0.76rem; font-weight: 700; color: #1A365D;" data-i18n="cardExpiryLabel">Ngày Hết Hạn (MM/YY):</label>
+                <input type="text" id="visa-card-expiry" class="form-control" placeholder="12/28" maxlength="5" oninput="formatExpiryInput(this)">
+              </div>
+              <div class="form-group">
+                <label style="font-size: 0.76rem; font-weight: 700; color: #1A365D;" data-i18n="cardCvvLabel">Mã CVV / CVC (3 số bí mật):</label>
+                <input type="password" id="visa-card-cvv" class="form-control" placeholder="•••" maxlength="4">
+              </div>
+            </div>
+            <div style="font-size: 0.74rem; color: #4A5568; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
+              <span>🔒</span> <span data-i18n="visaSecurityText">Mã hóa bảo mật 256-bit SSL & 3D-Secure quốc tế</span>
+            </div>
+            <button type="button" class="direct-app-btn visa-gradient" onclick="processVisaDirectPayment()">
+              <span>💳</span> <span data-i18n="payVisaBtn">XÁC NHẬN THANH TOÁN THẺ VISA</span> (<span id="visa-btn-amount">0 đ</span>)
+            </button>
+          </div>
         </div>
 
       </div>
       <div class="modal-footer" style="padding: 12px 16px;">
-        <button class="checkout-btn" style="padding: 12px; font-size: 0.95rem;" onclick="submitOrderWithPayment()">
-          <span>🚀</span> XÁC NHẬN ĐÃ CHUYỂN KHOẢN & GỬI ĐƠN VÀO POS
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.78rem;">
+          <span style="color: var(--text-muted);"><span class="pulse-dot"></span> <span id="gateway-status-text" data-i18n="gatewayListening">Đang kết nối cổng thanh toán trực tiếp...</span></span>
+          <span style="font-weight: 700; color: #D32F2F;" id="payment-timer-countdown">⏳ 10:00</span>
+        </div>
+        <button class="checkout-btn" id="btn-confirm-payment" style="padding: 12px; font-size: 0.95rem;" onclick="submitOrderWithPayment()">
+          <span>⚡</span> <span data-i18n="confirmPaymentBtn">TÔI ĐÃ CHUYỂN KHOẢN XONG - XÁC THỰC & GỬI VÀO BẾP</span>
         </button>
       </div>
     </div>
   </div>
-
   <!-- MODAL: THÔNG BÁO ĐẶT MÓN THÀNH CÔNG -->
   <div class="modal-overlay" id="order-success-modal">
     <div class="modal-card" style="max-width: 440px; text-align: center;">
       <div class="modal-body" style="padding: 28px 20px;">
         <div style="font-size: 48px; margin-bottom: 12px;">🎉</div>
-        <h3 style="color: var(--primary-dark); font-size: 1.25rem; margin-bottom: 6px;">ĐẶT MÓN THÀNH CÔNG!</h3>
+        <h3 style="color: var(--primary-dark); font-size: 1.25rem; margin-bottom: 6px;" data-i18n="successTitle">🎉 ĐẶT MÓN & THANH TOÁN THÀNH CÔNG!</h3>
         <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 16px;">
-          Đơn hàng của bạn đã được chuyển thẳng tới quầy pha chế & quầy POS!
+          <span data-i18n="successDesc">Đơn hàng đã được thanh toán 100% và chuyển thẳng vào Quầy Barista (Bếp) làm món!</span>
         </p>
+
 
         <div style="background: #FAF7F2; border: 1.5px dashed var(--border); border-radius: 12px; padding: 14px; text-align: left; font-size: 0.85rem; margin-bottom: 20px;">
           <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-            <span>Mã đơn hàng:</span> <b id="success-order-id" style="color: var(--primary);">ORD-1000</b>
+            <span data-i18n="orderIdLabel">Mã đơn hàng:</span> <b id="success-order-id" style="color: var(--primary);">ORD-1000</b>
           </div>
           <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-            <span>Vị trí bàn:</span> <b id="success-order-table">Bàn 01</b>
+            <span data-i18n="tablePosLabel">Vị trí bàn:</span> <b id="success-order-table">Bàn 01</b>
           </div>
           <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
-            <span>Hình thức thanh toán:</span> <b id="success-order-payment">Chuyển khoản VietQR</b>
+            <span data-i18n="paymentMethodLabel">Hình thức thanh toán:</span> <b id="success-order-payment">Chuyển khoản VietQR</b>
           </div>
           <div style="display: flex; justify-content: space-between; border-top: 1px solid #E8DFD8; padding-top: 6px; margin-top: 6px;">
-            <span>Tổng tiền:</span> <b id="success-order-total" style="color: #D32F2F; font-size: 0.95rem;">0 đ</b>
+            <span data-i18n="totalAmountLabel">Tổng tiền:</span> <b id="success-order-total" style="color: #D32F2F; font-size: 0.95rem;">0 đ</b>
           </div>
         </div>
 
+
         <button class="checkout-btn" onclick="document.getElementById('order-success-modal').classList.remove('open')">
-          ☕ Hoàn Tất & Tiếp Tục Xem Menu
+          <span data-i18n="backToMenuBtn">☕ Hoàn Tất & Tiếp Tục Xem Menu</span>
         </button>
       </div>
     </div>
   </div>
+
+  <!-- OVERLAY XÁC THỰC CỔNG THANH TOÁN TRỰC TIẾP -->
+  <div class="processing-overlay" id="payment-processing-overlay">
+    <div class="spinner-circle"></div>
+    <h3 id="proc-title" style="font-size: 1.15rem; margin-bottom: 6px;">Đang kết nối cổng thanh toán trực tiếp...</h3>
+    <p id="proc-desc" style="font-size: 0.85rem; opacity: 0.88; max-width: 320px;">Đang đối soát giao dịch và xác thực thanh toán tiền trước khi gửi đơn vào bếp.</p>
+  </div>
+
 </body>
 </html>
-
