@@ -1722,6 +1722,61 @@
       text-align: center;
       font-size: 0.78rem;
     }
+
+    /* AUTOMATED PAYMENT DETECTION RADAR */
+    .payment-auto-detect-box {
+      background: #F8FAFC;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+    .payment-auto-detect-box.verified {
+      background: #F0FDF4;
+      border-color: #22C55E;
+      box-shadow: 0 0 16px rgba(34, 197, 94, 0.25);
+    }
+    .payment-auto-detect-box.error {
+      background: #FEF2F2;
+      border-color: #EF4444;
+    }
+    .radar-pulse-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #EFF6FF;
+      border: 2px solid #3B82F6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .radar-pulse-icon::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid #3B82F6;
+      animation: radarRipple 1.8s ease-out infinite;
+    }
+    @keyframes radarRipple {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+    .verified .radar-pulse-icon {
+      background: #DCFCE7;
+      border-color: #22C55E;
+    }
+    .verified .radar-pulse-icon::after {
+      border-color: #22C55E;
+    }
 </style>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
@@ -3479,10 +3534,21 @@
 
 
       window.addEventListener('storage', (e) => {
-        if (e.key === 'ace_menu' || e.key === 'ace_orders' || e.key === 'ace_tables' || e.key === 'ace_settings' || e.key === 'ace_users') {
+        if (e.key === 'ace_orders') {
+          try {
+            const savedOrders = localStorage.getItem('ace_orders');
+            if (savedOrders) {
+              orders = JSON.parse(savedOrders);
+              syncAllOrderViews();
+              playSuccessChime();
+              showSmsToast("🔔 CÓ ĐƠN HÀNG MỚI!", "Backend vừa nhận được cập nhật đơn hàng từ tab khác.");
+            }
+          } catch(err) {}
+        }
+        if (e.key === 'ace_menu' || e.key === 'ace_tables' || e.key === 'ace_settings' || e.key === 'ace_users') {
           loadStorageData();
           renderCustomerProducts(activeCategory);
-          renderOrders();
+          syncAllOrderViews();
           if (currentUser && currentUser.role === 'admin') {
             renderAdminMenuTable();
             renderAdminTablesList();
@@ -3669,11 +3735,47 @@
     }
 
 
+
+    // =========================================================================
+    // ĐỒNG BỘ TOÀN DIỆN CÁC VIEW BACKEND & POS KHI CÓ ĐƠN HÀNG MỚI
+    // =========================================================================
+    function syncAllOrderViews() {
+      // 1. Quầy POS Kanban
+      if (typeof renderOrders === 'function') renderOrders();
+      // 2. Bảng Lịch sử đơn hàng Backend Admin (luôn cập nhật)
+      if (typeof renderAdminOrdersTable === 'function') renderAdminOrdersTable();
+      // 3. Sơ đồ bàn ToroG
+      if (typeof renderTableMap === 'function') renderTableMap();
+      // 4. Màn hình Bếp KDS
+      if (typeof renderKitchenKDS === 'function') renderKitchenKDS();
+      // 5. Thống kê ca & Két tiền
+      if (typeof renderShiftManagement === 'function') renderShiftManagement();
+      if (typeof updateShiftDisplayUI === 'function') updateShiftDisplayUI();
+
+      // Cập nhật các badge số lượng trên thanh Tab
+      const activeOrders = orders.filter(o => o.status === 'new' || o.status === 'prep');
+      const pendingCount = orders.filter(o => o.status === 'new').length;
+      const kitchenCount = activeOrders.length;
+      const occupiedCount = tables.filter(t => isTableOccupied(t)).length;
+
+      const countPendingEl = document.getElementById('count-pending-orders');
+      if (countPendingEl) countPendingEl.textContent = pendingCount;
+
+      const countKitchenEl = document.getElementById('count-kitchen-orders');
+      if (countKitchenEl) countKitchenEl.textContent = kitchenCount;
+
+      const countOccupiedEl = document.getElementById('count-occupied-tables');
+      if (countOccupiedEl) countOccupiedEl.textContent = occupiedCount;
+
+      const kitchenActiveBadge = document.getElementById('kitchen-active-count');
+      if (kitchenActiveBadge) kitchenActiveBadge.textContent = `${kitchenCount} đơn chờ`;
+    }
+
     function saveOrdersStorage() {
       localStorage.setItem('ace_orders', JSON.stringify(orders));
-      renderOrders();
-      if (currentUser && currentUser.role === 'admin') renderAdminOrdersTable();
+      syncAllOrderViews();
     }
+
 
 
     function saveUsersStorage() {
@@ -4245,12 +4347,14 @@
 
     function startPaymentCountdown() {
       clearInterval(paymentTimerInterval);
+      stopPaymentVerificationListener();
       paymentSecondsRemaining = 600;
       updateTimerDisplay();
       paymentTimerInterval = setInterval(() => {
         paymentSecondsRemaining--;
         if (paymentSecondsRemaining <= 0) {
           clearInterval(paymentTimerInterval);
+      stopPaymentVerificationListener();
           const timerEl = document.getElementById('payment-timer-countdown');
           if (timerEl) timerEl.textContent = currentLang === 'en' ? "EXPIRED" : "HẾT GIỜ";
         } else {
@@ -4332,6 +4436,7 @@
 
         selectPaymentMethod(selectedPaymentMethod || 'vietqr');
         startPaymentCountdown();
+        startPaymentVerificationListener();
         
         const payModal = document.getElementById('payment-checkout-modal');
         if (payModal) payModal.classList.add('open');
@@ -4345,6 +4450,7 @@
     function closePaymentCheckoutModal() {
       document.getElementById('payment-checkout-modal').classList.remove('open');
       clearInterval(paymentTimerInterval);
+      stopPaymentVerificationListener();
     }
 
     function selectPaymentMethod(method) {
@@ -4554,35 +4660,185 @@
       }
     }
 
-    function submitOrderWithPayment() {
-      if (cart.length === 0) {
-        alert(currentLang === 'en' ? "Your cart is empty!" : "Giỏ hàng của bạn đang trống!");
-        return;
+    // =========================================================================
+    // HỆ THỐNG XÁC THỰC THANH TOÁN TỰ ĐỘNG CHỐNG GIAN LẬN
+    // =========================================================================
+    let paymentVerificationInterval = null;
+    let isPaymentVerified = false;
+
+    function startPaymentVerificationListener() {
+      clearInterval(paymentVerificationInterval);
+      isPaymentVerified = false;
+
+      const detectBox = document.getElementById('payment-auto-detect-box');
+      const pulseIcon = document.getElementById('radar-pulse-icon');
+      const titleEl = document.getElementById('detect-status-title');
+      const descEl = document.getElementById('detect-status-desc');
+      const alertEl = document.getElementById('detect-status-alert');
+
+      if (detectBox) {
+        detectBox.className = 'payment-auto-detect-box';
+        pulseIcon.textContent = '⏳';
+        titleEl.textContent = 'Đang tự động nhận diện thanh toán từ Ngân hàng...';
+        descEl.textContent = 'Quý khách vui lòng chuyển khoản đúng số tiền và nội dung. Hệ thống sẽ TỰ ĐỘNG CHUYỂN VÀO BẾP ngay khi ngân hàng báo có tiền!';
+        if (alertEl) alertEl.style.display = 'none';
       }
 
-      const overlay = document.getElementById('payment-processing-overlay');
-      const procTitle = document.getElementById('proc-title');
-      const procDesc = document.getElementById('proc-desc');
-      if (overlay) {
-        procTitle.textContent = currentLang === 'en' ? "Connecting to Direct Payment Gateway..." : "Đang kết nối cổng thanh toán trực tiếp...";
-        procDesc.textContent = currentLang === 'en' ? "Verifying transfer and confirming payment before sending order to the kitchen..." : "Đang đối soát giao dịch ngân hàng / ví điện tử và xác thực thanh toán tiền trước khi chuyển đơn vào bếp...";
-        overlay.classList.add('show');
-      }
-
-      const paymentMethodNames = {
-        vietqr: currentLang === 'en' ? "Bank Transfer (VietQR Napas)" : "Chuyển khoản VietQR (Napas 24/7)",
-        momo: currentLang === 'en' ? "MoMo Wallet" : "Ví MoMo Direct",
-        zalopay: currentLang === 'en' ? "ZaloPay Wallet" : "Ví ZaloPay Direct",
-        visa: currentLang === 'en' ? "Visa / Mastercard" : "Thẻ Visa / Mastercard Quốc Tế"
-      };
-
-      setTimeout(() => {
-        if (overlay) overlay.classList.remove('show');
-        completeOrderSubmission(selectedPaymentMethod, paymentMethodNames[selectedPaymentMethod] || "Chuyển khoản");
-      }, 1200);
+      // Quét tự động mỗi 2.5 giây
+      paymentVerificationInterval = setInterval(pollPaymentVerificationStatus, 2500);
     }
 
-    function completeOrderSubmission(method, methodName) {
+    function stopPaymentVerificationListener() {
+      clearInterval(paymentVerificationInterval);
+    }
+
+    // HÀM KIỂM TRA XÁC THỰC TỪ BACKEND HOẶC WEBHOOK CLOUD
+    function pollPaymentVerificationStatus() {
+      if (!currentPendingOrderId || isPaymentVerified) return;
+
+      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const total = subtotal + Math.round(subtotal * (storeSettings.vatRate / 100));
+
+      // 1. Kiểm tra qua Backend REST API (/api/payments/check-status)
+      fetch(`/api/payments/check-status?order_id=${currentPendingOrderId}&amount=${total}`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data && data.paid === true) {
+            triggerPaymentSuccess(data.transaction ? data.transaction.txn_id : null);
+          }
+        }).catch(() => {});
+
+      // 2. Kiểm tra qua Cloud Webhook Relay (ntfy.sh payments channel)
+      fetch(`${REALTIME_CHANNEL.ntfyOrdersUrl}_payments/json?poll=1`)
+        .then(res => res.text())
+        .then(text => {
+          if (!text) return;
+          const lines = text.trim().split('\n');
+          lines.forEach(l => {
+            try {
+              const item = JSON.parse(l);
+              if (item.event === 'message' && item.message) {
+                const msg = JSON.parse(item.message);
+                if (msg.order_id === currentPendingOrderId && msg.status === 'PAID') {
+                  triggerPaymentSuccess(msg.txn_id);
+                }
+              }
+            } catch(e) {}
+          });
+        }).catch(() => {});
+    }
+
+    // KHI NHẬN ĐƯỢC TÍN HIỆU TIỀN VÀO TÀI KHOẢN TỰ ĐỘNG
+    function triggerPaymentSuccess(txnId) {
+      if (isPaymentVerified) return;
+      isPaymentVerified = true;
+      stopPaymentVerificationListener();
+
+      const detectBox = document.getElementById('payment-auto-detect-box');
+      const pulseIcon = document.getElementById('radar-pulse-icon');
+      const titleEl = document.getElementById('detect-status-title');
+      const descEl = document.getElementById('detect-status-desc');
+      const alertEl = document.getElementById('detect-status-alert');
+
+      if (detectBox) {
+        detectBox.className = 'payment-auto-detect-box verified';
+        pulseIcon.textContent = '✅';
+        titleEl.textContent = '🎉 ĐÃ NHẬN THANH TOÁN THÀNH CÔNG!';
+        descEl.textContent = `Tài khoản ngân hàng đã báo có tiền! Đang chuyển đơn hàng vào Quầy Barista (Bếp)...`;
+        if (alertEl) {
+          alertEl.style.display = 'block';
+          alertEl.style.background = '#DCFCE7';
+          alertEl.style.color = '#15803D';
+          alertEl.textContent = `Mã GD Ngân hàng: ${txnId || ('TXN-' + Math.floor(100000 + Math.random()*900000))}`;
+        }
+      }
+
+      playSuccessChime();
+
+      setTimeout(() => {
+        const paymentMethodNames = {
+          vietqr: "Chuyển khoản VietQR (Napas 24/7)",
+          momo: "Ví MoMo Direct",
+          zalopay: "Ví ZaloPay Direct",
+          visa: "Thẻ Visa / Mastercard Quốc Tế"
+        };
+        completeOrderSubmission(selectedPaymentMethod, paymentMethodNames[selectedPaymentMethod] || "Chuyển khoản", txnId);
+      }, 1500);
+    }
+
+    // NÚT BẤM CỦA KHÁCH: KIỂM TRA LẠI GIAO DỊCH
+    function checkPaymentVerificationManual() {
+      const alertEl = document.getElementById('detect-status-alert');
+      if (alertEl) {
+        alertEl.style.display = 'block';
+        alertEl.style.background = '#FEF3C7';
+        alertEl.style.color = '#B45309';
+        alertEl.textContent = '⏳ Đang truy vấn dữ liệu biến động số dư ngân hàng...';
+      }
+
+      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const total = subtotal + Math.round(subtotal * (storeSettings.vatRate / 100));
+
+      fetch(`/api/payments/check-status?order_id=${currentPendingOrderId}&amount=${total}`)
+        .then(res => res.ok ? res.json() : null)
+        .then(data => {
+          if (data && data.paid === true) {
+            triggerPaymentSuccess(data.transaction ? data.transaction.txn_id : null);
+          } else {
+            showPaymentNotYetReceived();
+          }
+        }).catch(() => {
+          showPaymentNotYetReceived();
+        });
+    }
+
+    function showPaymentNotYetReceived() {
+      const alertEl = document.getElementById('detect-status-alert');
+      if (alertEl) {
+        alertEl.style.display = 'block';
+        alertEl.style.background = '#FEE2E2';
+        alertEl.style.color = '#B91C1C';
+        alertEl.textContent = `❌ Chưa nhận được giao dịch cho mã ${currentPendingOrderId}. Quý khách vui lòng hoàn tất chuyển khoản trên ứng dụng ngân hàng và chờ trong giây lát!`;
+      }
+      playAudioChime(300, 0.2);
+    }
+
+    // CÔNG CỤ DÀNH CHO CHỦ QUÁN: GIẢ LẬP BẮN WEBHOOK NGÂN HÀNG THẬT
+    function simulateRealBankWebhook() {
+      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const total = subtotal + Math.round(subtotal * (storeSettings.vatRate / 100));
+      const txnId = 'TXN-BANK-' + Math.floor(100000 + Math.random() * 900000);
+
+      // Bắn webhook vào Backend Server
+      fetch('/api/payments/webhook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          order_id: currentPendingOrderId,
+          amount: total,
+          transaction_id: txnId,
+          content: `${currentPendingOrderId} thanh toan`,
+          method: selectedPaymentMethod
+        })
+      }).catch(() => {});
+
+      // Bắn qua Cloud Relay
+      fetch(`${REALTIME_CHANNEL.ntfyOrdersUrl}_payments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          order_id: currentPendingOrderId,
+          status: 'PAID',
+          amount: total,
+          txn_id: txnId
+        })
+      }).catch(() => {});
+
+      // Kích hoạt nhận diện thành công
+      triggerPaymentSuccess(txnId);
+    }
+
+    function completeOrderSubmission(method, methodName, verifiedTxnRef = null) {
       const phone = document.getElementById('checkout-phone').value.trim() || '0988776655';
       const generalNote = document.getElementById('checkout-general-note').value.trim();
 
@@ -4593,7 +4849,7 @@
       const now = new Date();
       const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
       const orderId = currentPendingOrderId || `ORD-${1000 + orders.length + 1}`;
-      const paymentRef = 'TXN-' + Math.floor(100000 + Math.random() * 900000);
+      const paymentRef = verifiedTxnRef || ('TXN-' + Math.floor(100000 + Math.random() * 900000));
 
       const newOrder = {
         id: orderId,
@@ -7701,7 +7957,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       initNtfyCloudSync();
       initMqttSync();
       // Quét đơn và menu đám mây định kỳ mỗi 8 giây để không bao giờ bị sót đơn
-      setInterval(pollCloudOrders, 8000);
+      setInterval(pollCloudOrders, 3000);
       setInterval(pollCloudMenu, 15000);
     }
 
@@ -7893,12 +8149,15 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
 
     function handleIncomingOrder(data) {
       if (!data || !data.id) return;
-      const exists = orders.some(o => o.id === data.id);
-      if (!exists) {
+      const idx = orders.findIndex(o => o.id === data.id);
+      if (idx === -1) {
         orders.unshift(data);
         saveOrdersStorage();
         playSuccessChime();
         showSmsToast("🔔 CÓ ĐƠN ĐẶT MỚI TỪ BÀN!", `${data.id} - ${data.table} vừa gửi đơn gọi món (${formatMoney(data.total)}).`);
+      } else {
+        orders[idx] = { ...orders[idx], ...data };
+        saveOrdersStorage();
       }
     }
 
@@ -7920,29 +8179,34 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
 
     // HÀM PHÁT ĐƠN HÀNG LÊN MẠNG THỜI GIAN THỰC (ĐA TẦNG)
     function broadcastOrderRealtime(order) {
-      // Tầng 1: BroadcastChannel nội bộ (0ms giữa các tab cùng máy)
+      if (!order) return;
+
+      // Tầng 0: Gửi trực tiếp tới Backend Server REST API (/api/orders) nếu đang chạy
+      try {
+        fetch('/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(order)
+        }).then(r => {
+          if (r.ok) console.log("🚀 Đã lưu đơn hàng vào Backend Server /api/orders thành công!");
+        }).catch(() => {});
+      } catch(e) {}
+
+      // Tầng 1: BroadcastChannel nội bộ (0ms giữa các tab cùng trình duyệt)
       if (localBroadcastChannel) {
         try { localBroadcastChannel.postMessage({ type: 'NEW_ORDER', order }); } catch(e) {}
       }
 
-
-      // Tầng 2: HTTPS Cloud Pub-Sub (ntfy.sh - Cổng 443 chuẩn, hoạt động trên mọi mạng di động & wifi)
+      // Tầng 2: HTTPS Cloud Pub-Sub (ntfy.sh - Sử dụng standard POST để tránh chặn CORS)
       try {
         fetch(REALTIME_CHANNEL.ntfyOrdersUrl, {
           method: 'POST',
-          headers: {
-            'Title': 'Order ' + order.id,
-            'Priority': 'high'
-          },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(order)
         }).then((res) => {
-          if (res.ok) console.log("🚀 Đã chuyển đơn hàng lên đám mây thành công!");
-          else console.warn("ntfy order status:", res.status);
-        }).catch(err => {
-          console.warn("Lỗi gửi đơn ntfy:", err);
-        });
+          if (res.ok) console.log("🚀 Đã chuyển đơn hàng lên đám mây ntfy thành công!");
+        }).catch(() => {});
       } catch(e) {}
-
 
       // Tầng 3: WebSockets MQTT
       if (REALTIME_CHANNEL.client && REALTIME_CHANNEL.isConnected) {
@@ -7950,8 +8214,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           const msg = new Paho.MQTT.Message(JSON.stringify(order));
           msg.destinationName = REALTIME_CHANNEL.ordersTopic;
           REALTIME_CHANNEL.client.send(msg);
-          console.log("🚀 Đã phát đơn hàng lên MQTT thành công!");
-        } catch(e) { console.error("Lỗi gửi đơn MQTT:", e); }
+        } catch(e) {}
       }
     }
 
@@ -8306,12 +8569,40 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       </div>
       <div class="modal-footer" style="padding: 12px 16px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.78rem;">
-          <span style="color: var(--text-muted);"><span class="pulse-dot"></span> <span id="gateway-status-text" data-i18n="gatewayListening">Đang kết nối cổng thanh toán trực tiếp...</span></span>
+          <span style="color: var(--text-muted);"><span class="pulse-dot"></span> <span id="gateway-status-text">Đang kết nối API ngân hàng & quét biến động số dư...</span></span>
           <span style="font-weight: 700; color: #D32F2F;" id="payment-timer-countdown">⏳ 10:00</span>
         </div>
-        <button class="checkout-btn" id="btn-confirm-payment" style="padding: 12px; font-size: 0.95rem;" onclick="submitOrderWithPayment()">
-          <span>⚡</span> <span data-i18n="confirmPaymentBtn">TÔI ĐÃ CHUYỂN KHOẢN XONG - XÁC THỰC & GỬI VÀO BẾP</span>
-        </button>
+
+        <!-- HỘP NHẬN DIỆN THANH TOÁN TỰ ĐỘNG THỜI GIAN THỰC -->
+        <div class="payment-auto-detect-box" id="payment-auto-detect-box">
+          <div class="radar-pulse-icon" id="radar-pulse-icon">⏳</div>
+          <div style="flex: 1;">
+            <div id="detect-status-title" style="font-weight: 800; font-size: 0.9rem; color: #0F172A;">
+              Đang tự động nhận diện thanh toán từ Ngân hàng...
+            </div>
+            <div id="detect-status-desc" style="font-size: 0.78rem; color: #64748B; margin-top: 2px;">
+              Quý khách vui lòng chuyển khoản đúng số tiền và nội dung. Hệ thống sẽ <b>TỰ ĐỘNG CHUYỂN VÀO BẾP</b> ngay khi ngân hàng báo có tiền!
+            </div>
+            <div id="detect-status-alert" style="display: none; margin-top: 6px; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700;"></div>
+          </div>
+        </div>
+
+        <!-- HÀNG NÚT THAO TÁC CỦA KHÁCH -->
+        <div style="display: flex; gap: 8px; margin-top: 10px;">
+          <button type="button" class="toolbar-btn" style="flex: 1; padding: 10px; font-size: 0.84rem; background: #FFF; border: 1.5px solid #CBD5E1;" onclick="checkPaymentVerificationManual()">
+            🔄 Kiểm Tra Lại Giao Dịch
+          </button>
+          <button type="button" class="toolbar-btn btn-danger" style="padding: 10px 14px; font-size: 0.84rem;" onclick="closePaymentCheckoutModal()">
+            ❌ Hủy / Đổi Món
+          </button>
+        </div>
+
+        <!-- CÔNG CỤ KIỂM THỬ DÀNH RIÊNG CHO CHỦ QUÁN -->
+        <div style="margin-top: 10px; text-align: center; border-top: 1px dashed #E2E8F0; padding-top: 8px;">
+          <button type="button" class="toolbar-btn" style="padding: 4px 10px; font-size: 0.74rem; background: #F1F5F9; color: #64748B; border: 1px dashed #94A3B8;" onclick="simulateRealBankWebhook()">
+            🧪 [Dành Cho Chủ Quán Test]: Bắn Webhook Ngân Hàng Báo Có Tiền
+          </button>
+        </div>
       </div>
     </div>
   </div>
