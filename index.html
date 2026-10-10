@@ -838,6 +838,8 @@
       .receipt-title { font-size: 13pt; font-weight: bold; margin-bottom: 4px; }
     }
   </style>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
 </head>
 <body>
 
@@ -1607,6 +1609,7 @@
 
     // --- 2. KHỞI TẠO ỨNG DỤNG ---
     window.addEventListener('DOMContentLoaded', () => {
+      initRealtimeSync();
       loadStorageData();
       checkAuthSession();
 
@@ -2196,6 +2199,7 @@
 
       orders.unshift(newOrder);
       saveOrdersStorage();
+      broadcastOrderRealtime(newOrder); // TỰ ĐỘNG BẮN ĐƠN SANG MÁY POS NGAY TỨC THÌ!
 
       cart = [];
       updateCartUI();
@@ -2675,6 +2679,7 @@
 
       saveMenuStorage();
       updateCartUI();
+      broadcastMenuRealtime(menuItems); // PHÁT GIÁ VÀ MÓN MỚI SANG TẤT CẢ ĐIỆN THOẠI KHÁCH!
       closeItemModal();
       syncToCloudAuto(menuItems);
 
@@ -2814,7 +2819,8 @@
             img { width: 220px; height: 220px; border-radius: 8px; }
             .footer { margin-top: 15px; font-weight: bold; color: #6F4E37; }
           </style>
-        </head>
+          
+</head>
         <body onload="window.print()">
           <div class="card">
             <h2>${storeSettings.name}</h2>
@@ -2892,7 +2898,8 @@
               .qr-sheet-card { border-width: 1px; }
             }
           </style>
-        </head>
+          
+</head>
         <body onload="window.print()">
           <div class="qr-grid">
             ${cardsHtml}
@@ -3942,6 +3949,144 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       }).catch(() => {
         prompt("Sao chép link đồng bộ dưới đây:", syncUrl);
       });
+    }
+
+
+    // =========================================================================
+    // HỆ THỐNG ĐỒNG BỘ ĐƠN HÀNG & THỰC ĐƠN THỜI GIAN THỰC (REALTIME WEBSOCKETS)
+    // Hoàn toàn miễn phí, không cần server, kết nối siêu tốc (< 0.2 giây)
+    // Giúp:
+    // 1. Khách đặt món ở bàn -> Quầy POS lập tức nhận đơn & reo chuông!
+    // 2. Chủ quán sửa giá / thêm món -> Mọi điện thoại khách quét QR nhận ngay!
+    // =========================================================================
+    const REALTIME_CHANNEL = {
+      broker: "broker.hivemq.com",
+      port: 8884,
+      ordersTopic: "acetropical_coffee_vn_orders",
+      menuTopic: "acetropical_coffee_vn_menu",
+      client: null,
+      isConnected: false
+    };
+
+    function initRealtimeSync() {
+      if (typeof Paho === 'undefined' || !Paho.MQTT) {
+        console.log("ℹ️ Đang tải thư viện thời gian thực hoặc chạy offline...");
+        setTimeout(initRealtimeSync, 2000);
+        return;
+      }
+
+      try {
+        const clientId = "ace_client_" + Math.random().toString(16).substring(2, 10);
+        REALTIME_CHANNEL.client = new Paho.MQTT.Client(REALTIME_CHANNEL.broker, REALTIME_CHANNEL.port, clientId);
+
+        REALTIME_CHANNEL.client.onConnectionLost = (responseObject) => {
+          REALTIME_CHANNEL.isConnected = false;
+          console.warn("Mất kết nối realtime, đang tự động kết nối lại:", responseObject.errorMessage);
+          setTimeout(initRealtimeSync, 3000);
+        };
+
+        REALTIME_CHANNEL.client.onMessageArrived = (message) => {
+          handleIncomingRealtimeMessage(message.destinationName, message.payloadString);
+        };
+
+        REALTIME_CHANNEL.client.connect({
+          useSSL: true,
+          timeout: 5,
+          keepAliveInterval: 30,
+          onSuccess: () => {
+            REALTIME_CHANNEL.isConnected = true;
+            console.log("🟢 Đã kết nối kênh thời gian thực siêu tốc HiveMQ!");
+            REALTIME_CHANNEL.client.subscribe(REALTIME_CHANNEL.ordersTopic);
+            REALTIME_CHANNEL.client.subscribe(REALTIME_CHANNEL.menuTopic);
+            updateSyncStatusUI('success', '🟢 Trực tuyến thời gian thực (Nhận đơn tức thì)');
+          },
+          onFailure: (err) => {
+            REALTIME_CHANNEL.isConnected = false;
+            console.warn("Không thể kết nối HiveMQ, chuyển sang chế độ tự động định kỳ:", err);
+            // Thử broker dự phòng EMQX nếu HiveMQ bận
+            tryFallbackBroker();
+          }
+        });
+      } catch(e) {
+        console.error("Init realtime error:", e);
+      }
+    }
+
+    function tryFallbackBroker() {
+      try {
+        const clientId = "ace_emqx_" + Math.random().toString(16).substring(2, 10);
+        REALTIME_CHANNEL.client = new Paho.MQTT.Client("broker.emqx.io", 8084, clientId);
+        REALTIME_CHANNEL.client.onMessageArrived = (message) => {
+          handleIncomingRealtimeMessage(message.destinationName, message.payloadString);
+        };
+        REALTIME_CHANNEL.client.connect({
+          useSSL: true,
+          onSuccess: () => {
+            REALTIME_CHANNEL.isConnected = true;
+            console.log("🟢 Đã kết nối kênh thời gian thực dự phòng EMQX!");
+            REALTIME_CHANNEL.client.subscribe(REALTIME_CHANNEL.ordersTopic);
+            REALTIME_CHANNEL.client.subscribe(REALTIME_CHANNEL.menuTopic);
+          }
+        });
+      } catch(e) {}
+    }
+
+    // XỬ LÝ DỮ LIỆU ĐẾN TỪ THIẾT BỊ KHÁC
+    function handleIncomingRealtimeMessage(topic, payloadStr) {
+      try {
+        const data = JSON.parse(payloadStr);
+
+        // 1. CÓ ĐƠN HÀNG MỚI TỪ KHÁCH QUÉT QR TẠI BÀN
+        if (topic === REALTIME_CHANNEL.ordersTopic) {
+          if (data && data.id) {
+            const exists = orders.some(o => o.id === data.id);
+            if (!exists) {
+              orders.unshift(data);
+              saveOrdersStorage();
+              playSuccessChime(); // Phát chuông báo đơn mới!
+              showSmsToast("🔔 CÓ ĐƠN ĐẶT MỚI TỪ BÀN!", `${data.id} - ${data.table} vừa gửi đơn gọi món (${formatMoney(data.total)}).`);
+            }
+          }
+        }
+
+        // 2. CHỦ QUÁN ĐỔI GIÁ HOẶC THÊM MÓN MỚI
+        if (topic === REALTIME_CHANNEL.menuTopic) {
+          if (Array.isArray(data) && data.length > 0) {
+            menuItems = data;
+            localStorage.setItem('ace_menu', JSON.stringify(menuItems));
+            renderCustomerProducts(activeCategory);
+            updateCartUI();
+            if (currentUser && currentUser.role === 'admin') renderAdminMenuTable();
+            console.log("✨ Thực đơn vừa được cập nhật thời gian thực từ chủ quán!");
+          }
+        }
+      } catch(e) {
+        console.error("Lỗi phân tích tin nhắn realtime:", e);
+      }
+    }
+
+    // HÀM PHÁT ĐƠN HÀNG LÊN MẠNG THỜI GIAN THỰC
+    function broadcastOrderRealtime(order) {
+      if (REALTIME_CHANNEL.client && REALTIME_CHANNEL.isConnected) {
+        try {
+          const msg = new Paho.MQTT.Message(JSON.stringify(order));
+          msg.destinationName = REALTIME_CHANNEL.ordersTopic;
+          REALTIME_CHANNEL.client.send(msg);
+          console.log("🚀 Đã phát đơn hàng lên quầy POS thành công!");
+        } catch(e) { console.error("Lỗi gửi đơn realtime:", e); }
+      }
+    }
+
+    // HÀM PHÁT MENU & GIÁ MỚI LÊN MẠNG THỜI GIAN THỰC
+    function broadcastMenuRealtime(menuList) {
+      if (REALTIME_CHANNEL.client && REALTIME_CHANNEL.isConnected) {
+        try {
+          const msg = new Paho.MQTT.Message(JSON.stringify(menuList));
+          msg.destinationName = REALTIME_CHANNEL.menuTopic;
+          REALTIME_CHANNEL.client.send(msg);
+          console.log("🚀 Đã phát thực đơn mới cho tất cả các điện thoại!");
+        } catch(e) { console.error("Lỗi gửi menu realtime:", e); }
+      }
     }
 
   </script>
