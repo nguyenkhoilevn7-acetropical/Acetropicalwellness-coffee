@@ -1315,8 +1315,49 @@
           <textarea id="item-form-desc" class="form-control" rows="2" placeholder="Hương vị thơm ngon..."></textarea>
         </div>
         <div class="form-group">
-          <label>URL Hình Ảnh (Hoặc để trống dùng biểu tượng cà phê):</label>
-          <input type="url" id="item-form-img" class="form-control" placeholder="https://... hoặc link ảnh trực tiếp">
+          <label style="display: flex; justify-content: space-between; align-items: center;">
+            <span>Hình Ảnh Món Ăn / Thức Uống:</span>
+            <span style="font-size: 0.75rem; color: var(--primary); font-weight: normal;">(Chọn từ điện thoại, máy tính hoặc ảnh mẫu)</span>
+          </label>
+          
+          <!-- HỘP BẤM CHỌN ẢNH TỪ ĐIỆN THOẠI HOẶC MÁY TÍNH -->
+          <div id="image-upload-dropzone" style="border: 2px dashed #D2B48C; border-radius: 12px; background: #FAF7F2; padding: 14px; text-align: center; cursor: pointer; transition: all 0.2s;" onclick="triggerFileInput()">
+            <div id="dropzone-empty-state">
+              <div style="font-size: 30px; margin-bottom: 4px;">📸</div>
+              <div style="font-weight: 700; color: #4A3323; font-size: 0.92rem;">Chạm vào đây để chọn ảnh từ Thiết Bị</div>
+              <div style="font-size: 0.78rem; color: #8C6D58; margin-top: 2px;">(Mở Album ảnh hoặc Camera chụp trực tiếp món)</div>
+            </div>
+            
+            <div id="item-img-preview-container" style="display: none; position: relative;">
+              <img id="item-img-preview" src="" alt="Xem trước ảnh" style="max-height: 140px; max-width: 100%; border-radius: 8px; object-fit: cover; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin: 0 auto; display: block;">
+              <div id="upload-status-text" style="font-size: 0.8rem; font-weight: 600; color: #2E7D32; margin-top: 6px;">✓ Đã tải ảnh lên thành công!</div>
+              <div style="margin-top: 6px; display: flex; justify-content: center; gap: 8px;">
+                <button type="button" class="toolbar-btn" style="padding: 3px 10px; font-size: 0.76rem;" onclick="event.stopPropagation(); triggerFileInput();">🔄 Đổi ảnh khác</button>
+                <button type="button" class="toolbar-btn btn-cancel" style="padding: 3px 10px; font-size: 0.76rem;" onclick="event.stopPropagation(); clearItemImage();">❌ Xóa ảnh</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Input file ẩn chuẩn không dùng display:none để hỗ trợ 100% iOS Safari & Android -->
+          <input type="file" id="item-form-file" accept="image/*" style="opacity: 0; position: absolute; z-index: -10; width: 1px; height: 1px; pointer-events: none;" onchange="handleItemImageUpload(event)">
+          <input type="hidden" id="item-form-img">
+
+          <!-- THƯ VIỆN ẢNH MẪU CHUẨN CỦA QUÁN (1-CHẠM) -->
+          <div style="margin-top: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-size: 0.78rem; font-weight: 600; color: var(--text-muted);">Hoặc chọn nhanh ảnh mẫu có sẵn:</span>
+              <button type="button" style="background: none; border: none; color: var(--primary); font-size: 0.78rem; cursor: pointer; text-decoration: underline;" onclick="toggleDirectUrlInput()">Dán link ảnh thủ công</button>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;" id="preset-images-grid">
+              <!-- Rendered via JS -->
+            </div>
+
+            <!-- Ô NHẬP LINK THỦ CÔNG (NẾU CẦN) -->
+            <div id="direct-url-container" style="display: none; margin-top: 8px;">
+              <input type="url" id="direct-url-input" class="form-control" placeholder="Dán link ảnh https://... vào đây" oninput="applyDirectImageUrl(this.value)">
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label>
@@ -1557,14 +1598,16 @@
     ];
 
     const DEFAULT_MENU = [
-      { id: 1, name: "Cà phê Sữa Đá Sài Gòn", category: "coffee", price: 35000, badge: "Bán chạy nhất", desc: "Cà phê nguyên chất rang xay đậm đà kết hợp sữa đặc ngọt ngào.", available: true, imgUrl: "" },
-      { id: 2, name: "Cà phê Đen Đá Nguyên Chất", category: "coffee", price: 29000, badge: "Đậm vị", desc: "Hương vị truyền thống mạnh mẽ từ hạt Robusta Đắk Lắk.", available: true, imgUrl: "" },
-      { id: 3, name: "Bạc Xỉu Đá Tầng", category: "coffee", price: 39000, badge: "Được yêu thích", desc: "Nhiều sữa ít cà phê, béo ngậy thơm ngon, phân tầng đẹp mắt.", available: true, imgUrl: "" },
-      { id: 4, name: "Trà Đào Cam Sả", category: "tea", price: 45000, badge: "Thanh mát", desc: "Trà thanh dịu kết hợp những miếng đào giòn thơm nức và sả tươi.", available: true, imgUrl: "" },
-      { id: 5, name: "Trà Sải Vải Sen Vàng", category: "tea", price: 49000, badge: "Đặc biệt", desc: "Trà ô long thơm ngát kèm hạt sen bùi béo và vải tươi mọng nước.", available: true, imgUrl: "" },
-      { id: 6, name: "Bánh Croissant Bơ Tỏi Phô Mai", category: "bakery", price: 38000, badge: "Nướng nóng", desc: "Bánh sừng bò giòn rụm phủ bơ tỏi thơm lừng và ngập tràn phô mai.", available: true, imgUrl: "" },
-      { id: 7, name: "Bánh Tiramisu Ý", category: "bakery", price: 48000, badge: "Best Dessert", desc: "Bánh ngọt vị cà phê đậm đà, kem mascarpone mềm mịn phủ cacao.", available: true, imgUrl: "" },
-      { id: 8, name: "Sinh Tố Xoài Dừa Dầm", category: "smoothie", price: 52000, badge: "Nhiệt đới", desc: "Xoài chín mọng xay mịn cùng nước cốt dừa béo bùi và trân châu trắng.", available: true, imgUrl: "" }
+      { id: 1, name: "Cà phê Sữa Đá Sài Gòn", category: "coffee", price: 51000, badge: "Bán chạy nhất", desc: "Cà phê nguyên chất rang xay đậm đà kết hợp sữa đặc ngọt ngào béo ngậy.", available: true, imgUrl: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=500&auto=format&fit=crop&q=80" },
+      { id: 2, name: "Cà phê Đen Đá Nguyên Chất", category: "coffee", price: 60000, badge: "Đậm vị", desc: "Hương vị truyền thống mạnh mẽ từ hạt Robusta Đắk Lắk tuyển chọn.", available: true, imgUrl: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&auto=format&fit=crop&q=80" },
+      { id: 3, name: "Bạc Xỉu Đá Tầng", category: "coffee", price: 55000, badge: "Được yêu thích", desc: "Nhiều sữa ít cà phê, béo ngậy thơm ngon, phân tầng 3 lớp đẹp mắt.", available: true, imgUrl: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&auto=format&fit=crop&q=80" },
+      { id: 4, name: "Cà Phê Muối Hoàng Gia", category: "coffee", price: 45000, badge: "Signature", desc: "Lớp kem muối bồng bềnh mằn mặn hòa quyện cà phê phin đậm đà quyến rũ.", available: true, imgUrl: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=500&auto=format&fit=crop&q=80" },
+      { id: 5, name: "Trà Đào Cam Sả", category: "tea", price: 45000, badge: "Thanh mát", desc: "Trà thanh dịu kết hợp những miếng đào giòn thơm nức và sả tươi giải nhiệt.", available: true, imgUrl: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&auto=format&fit=crop&q=80" },
+      { id: 6, name: "Trà Sải Vải Sen Vàng", category: "tea", price: 49000, badge: "Đặc biệt", desc: "Trà ô long thơm ngát kèm hạt sen bùi béo và vải tươi mọng nước giòn ngọt.", available: true, imgUrl: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=500&auto=format&fit=crop&q=80" },
+      { id: 7, name: "Trà Sữa Oolong Nướng", category: "tea", price: 48000, badge: "Hot Trend", desc: "Trà oolong nướng thơm lừng kết hợp sữa tươi thanh trùng và trân châu đường đen.", available: true, imgUrl: "https://images.unsplash.com/photo-1558857563-b371b266a206?w=500&auto=format&fit=crop&q=80" },
+      { id: 8, name: "Bánh Croissant Bơ Tỏi Phô Mai", category: "bakery", price: 38000, badge: "Nướng nóng", desc: "Bánh sừng bò giòn rụm phủ bơ tỏi thơm lừng và ngập tràn phô mai tan chảy.", available: true, imgUrl: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&auto=format&fit=crop&q=80" },
+      { id: 9, name: "Bánh Tiramisu Ý", category: "bakery", price: 48000, badge: "Best Dessert", desc: "Bánh ngọt vị cà phê đậm đà, kem mascarpone mềm mịn phủ bột cacao nguyên chất.", available: true, imgUrl: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500&auto=format&fit=crop&q=80" },
+      { id: 10, name: "Sinh Tố Xoài Dừa Dầm", category: "smoothie", price: 52000, badge: "Nhiệt đới", desc: "Xoài chín mọng xay mịn cùng nước cốt dừa béo bùi và thạch dừa giòn sần sật.", available: true, imgUrl: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=500&auto=format&fit=crop&q=80" }
     ];
 
     const DEFAULT_TABLES = [
@@ -1675,14 +1718,32 @@
     }
 
     function loadStorageData() {
-      // Menu
+      // Menu version check for price & image update auto-sync
+      const CURRENT_MENU_VERSION = '2026_V3_PRICES';
+      const storedVersion = localStorage.getItem('ace_menu_version');
       const savedMenu = localStorage.getItem('ace_menu');
       if (savedMenu) {
         try {
           menuItems = JSON.parse(savedMenu);
-        } catch(e) { menuItems = [...DEFAULT_MENU]; }
+          if (storedVersion !== CURRENT_MENU_VERSION) {
+            const menuMap = new Map();
+            DEFAULT_MENU.forEach(item => menuMap.set(item.id, item));
+            menuItems.forEach(userItem => {
+              if (userItem.id > 10 || !menuMap.has(userItem.id)) {
+                menuMap.set(userItem.id, userItem);
+              }
+            });
+            menuItems = Array.from(menuMap.values());
+            localStorage.setItem('ace_menu', JSON.stringify(menuItems));
+            localStorage.setItem('ace_menu_version', CURRENT_MENU_VERSION);
+          }
+        } catch(e) {
+          menuItems = [...DEFAULT_MENU];
+          localStorage.setItem('ace_menu_version', CURRENT_MENU_VERSION);
+        }
       } else {
         menuItems = [...DEFAULT_MENU];
+        localStorage.setItem('ace_menu_version', CURRENT_MENU_VERSION);
       }
 
       // Tables
@@ -2605,8 +2666,179 @@
       return found ? found.name : catId;
     }
 
+    const PRESET_SAMPLE_IMAGES = [
+      { name: "Cà phê sữa", url: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=500&auto=format&fit=crop&q=80" },
+      { name: "Cà phê đen", url: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&auto=format&fit=crop&q=80" },
+      { name: "Bạc xỉu", url: "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&auto=format&fit=crop&q=80" },
+      { name: "Cà phê muối", url: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=500&auto=format&fit=crop&q=80" },
+      { name: "Trà đào", url: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&auto=format&fit=crop&q=80" },
+      { name: "Trà vải", url: "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=500&auto=format&fit=crop&q=80" },
+      { name: "Trà sữa", url: "https://images.unsplash.com/photo-1558857563-b371b266a206?w=500&auto=format&fit=crop&q=80" },
+      { name: "Croissant", url: "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&auto=format&fit=crop&q=80" },
+      { name: "Tiramisu", url: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500&auto=format&fit=crop&q=80" },
+      { name: "Sinh tố", url: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=500&auto=format&fit=crop&q=80" }
+    ];
+
+    function renderPresetImages() {
+      const container = document.getElementById('preset-images-grid');
+      if (!container) return;
+      container.innerHTML = PRESET_SAMPLE_IMAGES.map((img, idx) => `
+        <div style="cursor: pointer; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff; text-align: center; padding: 2px;" onclick="selectPresetImage('${img.url}', '${img.name}')">
+          <img src="${img.url}" alt="${img.name}" style="width: 100%; height: 42px; object-fit: cover; border-radius: 6px; display: block;">
+          <div style="font-size: 0.68rem; padding: 2px 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text);">${img.name}</div>
+        </div>
+      `).join('');
+    }
+
+    function triggerFileInput() {
+      const fileInp = document.getElementById('item-form-file');
+      if (fileInp) {
+        fileInp.value = ''; // Reset để chọn lại cùng file vẫn kích hoạt change
+        fileInp.click();
+      }
+    }
+
+    function handleItemImageUpload(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const emptyState = document.getElementById('dropzone-empty-state');
+      const previewContainer = document.getElementById('item-img-preview-container');
+      const statusText = document.getElementById('upload-status-text');
+      const previewImg = document.getElementById('item-img-preview');
+
+      emptyState.style.display = 'none';
+      previewContainer.style.display = 'block';
+      statusText.innerHTML = '<span style="color: #E65100;">⏳ Đang xử lý & nén ảnh từ thiết bị...</span>';
+
+      const reader = new FileReader();
+      reader.onerror = () => {
+        statusText.innerHTML = '<span style="color: #D32F2F;">❌ Không thể đọc file ảnh. Vui lòng thử ảnh khác.</span>';
+      };
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onerror = () => {
+          statusText.innerHTML = '<span style="color: #D32F2F;">❌ Định dạng ảnh không được hỗ trợ.</span>';
+        };
+        img.onload = function() {
+          try {
+            // Nén ảnh gọn nhẹ (tối đa 450px) để hiển thị sắc nét trên retina nhưng dung lượng siêu nhẹ
+            const canvas = document.createElement('canvas');
+            const maxDim = 450;
+            let width = img.width;
+            let height = img.height;
+            if (width > height && width > maxDim) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            } else if (height > maxDim) {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+            document.getElementById('item-form-img').value = dataUrl;
+            previewImg.src = dataUrl;
+            statusText.innerHTML = '<span style="color: #2E7D32;">✓ Đã tải ảnh từ thiết bị thành công!</span>';
+
+            // Đồng thời đẩy file lên ntfy.sh để lấy link HTTPS ngắn gọn đồng bộ cho máy khác
+            canvas.toBlob((blob) => {
+              if (!blob) return;
+              const uploadName = 'item_' + Date.now() + '.jpg';
+              fetch('https://ntfy.sh/acetropical_coffee_vn_uploads', {
+                method: 'PUT',
+                body: blob,
+                headers: { 'Filename': uploadName }
+              })
+              .then(res => res.json())
+              .then(json => {
+                if (json && json.attachment && json.attachment.url) {
+                  document.getElementById('item-form-img').value = json.attachment.url;
+                  statusText.innerHTML = '<span style="color: #2E7D32;">🟢 Đã tải và đồng bộ đám mây thành công!</span>';
+                  console.log("Đã tải ảnh lên đám mây:", json.attachment.url);
+                }
+              })
+              .catch(err => {
+                console.log("Giữ ảnh nén cục bộ:", err);
+              });
+            }, 'image/jpeg', 0.82);
+
+          } catch(err) {
+            console.error("Lỗi nén ảnh:", err);
+            statusText.innerHTML = '<span style="color: #D32F2F;">❌ Lỗi khi xử lý ảnh.</span>';
+          }
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function selectPresetImage(url, name) {
+      document.getElementById('item-form-img').value = url;
+      showItemImagePreview(url, `✓ Đã chọn ảnh mẫu: ${name}`);
+    }
+
+    function toggleDirectUrlInput() {
+      const container = document.getElementById('direct-url-container');
+      const input = document.getElementById('direct-url-input');
+      if (container.style.display === 'none') {
+        container.style.display = 'block';
+        input.value = document.getElementById('item-form-img').value;
+        input.focus();
+      } else {
+        container.style.display = 'none';
+      }
+    }
+
+    function applyDirectImageUrl(val) {
+      const trimmed = val ? val.trim() : '';
+      document.getElementById('item-form-img').value = trimmed;
+      if (trimmed) {
+        showItemImagePreview(trimmed, '✓ Đang dùng link ảnh trực tiếp');
+      } else {
+        clearItemImage();
+      }
+    }
+
+    function showItemImagePreview(url, customMsg) {
+      const emptyState = document.getElementById('dropzone-empty-state');
+      const container = document.getElementById('item-img-preview-container');
+      const preview = document.getElementById('item-img-preview');
+      const statusText = document.getElementById('upload-status-text');
+
+      if (url && url.trim()) {
+        preview.src = url.trim();
+        emptyState.style.display = 'none';
+        container.style.display = 'block';
+        statusText.innerHTML = `<span style="color: #2E7D32;">${customMsg || '✓ Đang sử dụng hình ảnh này'}</span>`;
+      } else {
+        emptyState.style.display = 'block';
+        container.style.display = 'none';
+      }
+    }
+
+    function clearItemImage() {
+      document.getElementById('item-form-img').value = '';
+      const emptyState = document.getElementById('dropzone-empty-state');
+      const container = document.getElementById('item-img-preview-container');
+      if (emptyState) emptyState.style.display = 'block';
+      if (container) container.style.display = 'none';
+      const fileInp = document.getElementById('item-form-file');
+      if (fileInp) fileInp.value = '';
+      const directInp = document.getElementById('direct-url-input');
+      if (directInp) directInp.value = '';
+    }
+
     function openItemModal(itemId) {
       document.getElementById('item-modal').classList.add('open');
+      renderPresetImages();
+      
+      const directContainer = document.getElementById('direct-url-container');
+      if (directContainer) directContainer.style.display = 'none';
+
       if (itemId) {
         const item = menuItems.find(m => m.id === itemId);
         if (!item) return;
@@ -2619,21 +2851,24 @@
         document.getElementById('item-form-desc').value = item.desc || '';
         document.getElementById('item-form-img').value = item.imgUrl || '';
         document.getElementById('item-form-avail').checked = item.available !== false;
+        showItemImagePreview(item.imgUrl);
       } else {
         document.getElementById('item-modal-title').textContent = "Thêm Món Mới Vào Menu";
         document.getElementById('item-edit-id').value = '';
         document.getElementById('item-form-name').value = '';
         document.getElementById('item-form-cat').value = 'coffee';
-        document.getElementById('item-form-price').value = '35000';
+        document.getElementById('item-form-price').value = '45000';
         document.getElementById('item-form-badge').value = 'Mới';
         document.getElementById('item-form-desc').value = '';
         document.getElementById('item-form-img').value = '';
         document.getElementById('item-form-avail').checked = true;
+        clearItemImage();
       }
     }
 
     function closeItemModal() {
       document.getElementById('item-modal').classList.remove('open');
+      clearItemImage();
     }
 
     function saveItemForm() {
@@ -2673,7 +2908,6 @@
 
       lastAddedItemId = savedId;
 
-      // ĐẢM BẢO TỰ ĐỘNG CHUYỂN DANH MỤC VỀ 'TẤT CẢ' HOẶC DANH MỤC CỦA MÓN ĐỂ HIỂN THỊ NGAY
       activeCategory = 'all';
       renderCustomerCategoryFilter();
 
@@ -2692,6 +2926,7 @@
       if (confirm(`Bạn có chắc muốn xóa món "${item.name}" khỏi thực đơn?`)) {
         menuItems = menuItems.filter(m => m.id !== itemId);
         saveMenuStorage();
+        broadcastMenuRealtime(menuItems); // ĐỒNG BỘ XÓA MÓN SANG CÁC THIẾT BỊ KHÁC
         syncToCloudAuto(menuItems);
         showSmsToast("ĐÃ XÓA MÓN", `Món "${item.name}" đã được xóa.`);
       }
@@ -2701,6 +2936,8 @@
       if (confirm("Khôi phục lại thực đơn gốc ban đầu? Mọi món tự thêm sẽ bị đặt lại.")) {
         menuItems = [...DEFAULT_MENU];
         saveMenuStorage();
+        broadcastMenuRealtime(menuItems);
+        syncToCloudAuto(menuItems);
         showSmsToast("KHÔI PHỤC MENU", "Đã đặt lại thực đơn mẫu chuẩn.");
       }
     }
@@ -2819,8 +3056,7 @@
             img { width: 220px; height: 220px; border-radius: 8px; }
             .footer { margin-top: 15px; font-weight: bold; color: #6F4E37; }
           </style>
-          
-</head>
+        </head>
         <body onload="window.print()">
           <div class="card">
             <h2>${storeSettings.name}</h2>
@@ -2828,32 +3064,7 @@
             <img src="${dataUrl}">
             <div class="footer">${storeSettings.footer}</div>
           </div>
-        
-  <!-- MODAL: MÃ QR ĐỒNG BỘ THỰC ĐƠN TỨC THÌ (DÀNH CHO CHỦ QUÁN ĐỒNG BỘ NHANH) -->
-  <div class="modal-overlay" id="sync-qr-modal">
-    <div class="modal-card" style="max-width: 480px;">
-      <div class="modal-header">
-        <h3>📲 Mã QR Đồng Bộ Thực Đơn Sang Máy Khác</h3>
-        <button class="close-cart-btn" onclick="closeSyncQrModal()">&times;</button>
-      </div>
-      <div class="modal-body" style="text-align: center;">
-        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;">
-          Dùng điện thoại khác (hoặc máy POS/thu ngân) mở camera hoặc Zalo quét mã này 1 lần duy nhất để <b>nạp ngay toàn bộ món mới & giá mới</b> sang máy đó:
-        </p>
-        <div style="background: #FDFBF8; border: 2px dashed var(--border); border-radius: 12px; padding: 18px; display: inline-block;">
-          <canvas id="sync-menu-qr-canvas" width="240" height="240" style="margin: 0 auto; display: block; border-radius: 8px;"></canvas>
-        </div>
-        <div style="margin-top: 14px;">
-          <button class="toolbar-btn btn-primary" style="margin: 0 auto;" onclick="copySyncUrlToClipboard()">📋 Sao Chép Link Đồng Bộ Trực Tiếp</button>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="toolbar-btn" onclick="closeSyncQrModal()">Đóng</button>
-      </div>
-    </div>
-  </div>
-
-</body>
+        </body>
         </html>
       `);
       printWin.document.close();
@@ -3953,36 +4164,157 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
 
 
     // =========================================================================
-    // HỆ THỐNG ĐỒNG BỘ ĐƠN HÀNG & THỰC ĐƠN THỜI GIAN THỰC (REALTIME WEBSOCKETS)
-    // Hoàn toàn miễn phí, không cần server, kết nối siêu tốc (< 0.2 giây)
-    // Giúp:
-    // 1. Khách đặt món ở bàn -> Quầy POS lập tức nhận đơn & reo chuông!
-    // 2. Chủ quán sửa giá / thêm món -> Mọi điện thoại khách quét QR nhận ngay!
+    // HỆ THỐNG ĐỒNG BỘ ĐƠN HÀNG & THỰC ĐƠN ĐA KÊNH THỜI GIAN THỰC (TRI-CHANNEL SYNC)
+    // 1. Kênh Cổng 443 HTTPS Pub-Sub (ntfy.sh) - Hoạt động trên mọi mạng 3G/4G/Wifi, không bị chặn port, lưu đệm 12h
+    // 2. Kênh WebSockets MQTT siêu tốc (HiveMQ:8884/mqtt & EMQX:8084/mqtt)
+    // 3. Kênh Nội Bộ BroadcastChannel + Storage Event (Đồng bộ tức thì 0ms giữa các tab cùng thiết bị)
     // =========================================================================
     const REALTIME_CHANNEL = {
       broker: "broker.hivemq.com",
       port: 8884,
+      path: "/mqtt",
       ordersTopic: "acetropical_coffee_vn_orders",
       menuTopic: "acetropical_coffee_vn_menu",
+      ntfyOrdersUrl: "https://ntfy.sh/acetropical_coffee_vn_orders",
+      ntfyMenuUrl: "https://ntfy.sh/acetropical_coffee_vn_menu",
       client: null,
-      isConnected: false
+      isConnected: false,
+      ordersEventSource: null,
+      menuEventSource: null
     };
 
+    // Kênh Broadcast nội bộ trình duyệt (0ms giữa các tab cùng máy)
+    const localBroadcastChannel = (typeof BroadcastChannel !== 'undefined') ? new BroadcastChannel('ace_cafe_realtime') : null;
+    if (localBroadcastChannel) {
+      localBroadcastChannel.onmessage = (event) => {
+        if (!event.data) return;
+        if (event.data.type === 'NEW_ORDER') {
+          handleIncomingOrder(event.data.order);
+        } else if (event.data.type === 'MENU_UPDATE') {
+          handleIncomingMenu(event.data.menu);
+        }
+      };
+    }
+
+    // KHỞI ĐỘNG HỆ THỐNG ĐỒNG BỘ
     function initRealtimeSync() {
+      initNtfyCloudSync();
+      initMqttSync();
+      // Quét đơn và menu đám mây định kỳ mỗi 8 giây để không bao giờ bị sót đơn
+      setInterval(pollCloudOrders, 8000);
+      setInterval(pollCloudMenu, 15000);
+    }
+
+    // 1. KÊNH HTTPS CLOUD (ntfy.sh) - CỔNG 443 KHÔNG THỂ BỊ CHẶN
+    function initNtfyCloudSync() {
+      try {
+        if (typeof EventSource !== 'undefined') {
+          // Lắng nghe đơn hàng mới (Dành cho Quầy POS & Quản lý)
+          if (!REALTIME_CHANNEL.ordersEventSource) {
+            REALTIME_CHANNEL.ordersEventSource = new EventSource(REALTIME_CHANNEL.ntfyOrdersUrl + '/sse');
+            REALTIME_CHANNEL.ordersEventSource.onmessage = (event) => {
+              try {
+                const ntfyObj = JSON.parse(event.data);
+                if (ntfyObj.event === 'message' && ntfyObj.message) {
+                  const order = JSON.parse(ntfyObj.message);
+                  handleIncomingOrder(order);
+                }
+              } catch(e) {}
+            };
+          }
+
+          // Lắng nghe thực đơn & giá mới (Dành cho Khách hàng & Máy khác)
+          if (!REALTIME_CHANNEL.menuEventSource) {
+            REALTIME_CHANNEL.menuEventSource = new EventSource(REALTIME_CHANNEL.ntfyMenuUrl + '/sse');
+            REALTIME_CHANNEL.menuEventSource.onmessage = (event) => {
+              try {
+                const ntfyObj = JSON.parse(event.data);
+                if (ntfyObj.event === 'message' && ntfyObj.message) {
+                  const menuData = JSON.parse(ntfyObj.message);
+                  handleIncomingMenu(menuData);
+                }
+              } catch(e) {}
+            };
+          }
+        }
+      } catch(e) {
+        console.warn("Lỗi khởi tạo ntfy EventSource:", e);
+      }
+
+      // Kéo đơn và menu trong vòng 12h qua ngay khi vừa mở trang
+      pollCloudOrders();
+      pollCloudMenu();
+    }
+
+    // Kéo đơn hàng gần đây từ đám mây (Tránh mất đơn khi máy POS bị tắt màn hình / mở sau)
+    function pollCloudOrders() {
+      fetch(REALTIME_CHANNEL.ntfyOrdersUrl + '/json?poll=1&since=12h')
+        .then(res => res.text())
+        .then(text => {
+          if (!text) return;
+          const lines = text.trim().split('\n');
+          lines.forEach(line => {
+            try {
+              const item = JSON.parse(line);
+              if (item.event === 'message' && item.message) {
+                const order = JSON.parse(item.message);
+                if (order && order.id) {
+                  const exists = orders.some(o => o.id === order.id);
+                  if (!exists) {
+                    orders.unshift(order);
+                    saveOrdersStorage();
+                    playSuccessChime();
+                    showSmsToast("🔔 ĐƠN MỚI TỪ BÀN!", `${order.id} - ${order.table} (${formatMoney(order.total)})`);
+                  }
+                }
+              }
+            } catch(e) {}
+          });
+        })
+        .catch(() => {});
+    }
+
+    // Kéo thực đơn mới nhất từ đám mây
+    function pollCloudMenu() {
+      fetch(REALTIME_CHANNEL.ntfyMenuUrl + '/json?poll=1&since=12h')
+        .then(res => res.text())
+        .then(text => {
+          if (!text) return;
+          const lines = text.trim().split('\n');
+          let latestMenu = null;
+          lines.forEach(line => {
+            try {
+              const item = JSON.parse(line);
+              if (item.event === 'message' && item.message) {
+                const m = JSON.parse(item.message);
+                if (Array.isArray(m) && m.length > 0) {
+                  latestMenu = m;
+                }
+              }
+            } catch(e) {}
+          });
+          if (latestMenu) {
+            handleIncomingMenu(latestMenu);
+          }
+        })
+        .catch(() => {});
+    }
+
+    // 2. KÊNH MQTT WEBSOCKETS (HỖ TRỢ ĐƯỜNG DẪN /mqtt CHUẨN)
+    function initMqttSync() {
       if (typeof Paho === 'undefined' || !Paho.MQTT) {
-        console.log("ℹ️ Đang tải thư viện thời gian thực hoặc chạy offline...");
-        setTimeout(initRealtimeSync, 2000);
+        setTimeout(initMqttSync, 2000);
         return;
       }
 
       try {
-        const clientId = "ace_client_" + Math.random().toString(16).substring(2, 10);
-        REALTIME_CHANNEL.client = new Paho.MQTT.Client(REALTIME_CHANNEL.broker, REALTIME_CHANNEL.port, clientId);
+        const clientId = "ace_" + Math.random().toString(16).substring(2, 10);
+        REALTIME_CHANNEL.client = new Paho.MQTT.Client(REALTIME_CHANNEL.broker, REALTIME_CHANNEL.port, REALTIME_CHANNEL.path, clientId);
 
         REALTIME_CHANNEL.client.onConnectionLost = (responseObject) => {
           REALTIME_CHANNEL.isConnected = false;
-          console.warn("Mất kết nối realtime, đang tự động kết nối lại:", responseObject.errorMessage);
-          setTimeout(initRealtimeSync, 3000);
+          console.warn("Mất kết nối MQTT, sẽ thử lại sau:", responseObject.errorMessage);
+          setTimeout(initMqttSync, 5000);
         };
 
         REALTIME_CHANNEL.client.onMessageArrived = (message) => {
@@ -3998,24 +4330,23 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
             console.log("🟢 Đã kết nối kênh thời gian thực siêu tốc HiveMQ!");
             REALTIME_CHANNEL.client.subscribe(REALTIME_CHANNEL.ordersTopic);
             REALTIME_CHANNEL.client.subscribe(REALTIME_CHANNEL.menuTopic);
-            updateSyncStatusUI('success', '🟢 Trực tuyến thời gian thực (Nhận đơn tức thì)');
+            updateSyncStatusUI('success', '🟢 Đồng bộ đa kênh trực tuyến (Tức thì)');
           },
           onFailure: (err) => {
             REALTIME_CHANNEL.isConnected = false;
-            console.warn("Không thể kết nối HiveMQ, chuyển sang chế độ tự động định kỳ:", err);
-            // Thử broker dự phòng EMQX nếu HiveMQ bận
+            console.warn("Chuyển sang broker dự phòng EMQX:", err);
             tryFallbackBroker();
           }
         });
       } catch(e) {
-        console.error("Init realtime error:", e);
+        console.error("Lỗi khởi tạo MQTT:", e);
       }
     }
 
     function tryFallbackBroker() {
       try {
         const clientId = "ace_emqx_" + Math.random().toString(16).substring(2, 10);
-        REALTIME_CHANNEL.client = new Paho.MQTT.Client("broker.emqx.io", 8084, clientId);
+        REALTIME_CHANNEL.client = new Paho.MQTT.Client("broker.emqx.io", 8084, "/mqtt", clientId);
         REALTIME_CHANNEL.client.onMessageArrived = (message) => {
           handleIncomingRealtimeMessage(message.destinationName, message.payloadString);
         };
@@ -4023,69 +4354,122 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           useSSL: true,
           onSuccess: () => {
             REALTIME_CHANNEL.isConnected = true;
-            console.log("🟢 Đã kết nối kênh thời gian thực dự phòng EMQX!");
+            console.log("🟢 Đã kết nối kênh dự phòng EMQX!");
             REALTIME_CHANNEL.client.subscribe(REALTIME_CHANNEL.ordersTopic);
             REALTIME_CHANNEL.client.subscribe(REALTIME_CHANNEL.menuTopic);
+          },
+          onFailure: () => {
+            console.log("ℹ️ Đang hoạt động qua kênh đám mây HTTPS ntfy.sh an toàn.");
           }
         });
       } catch(e) {}
     }
 
-    // XỬ LÝ DỮ LIỆU ĐẾN TỪ THIẾT BỊ KHÁC
     function handleIncomingRealtimeMessage(topic, payloadStr) {
       try {
         const data = JSON.parse(payloadStr);
-
-        // 1. CÓ ĐƠN HÀNG MỚI TỪ KHÁCH QUÉT QR TẠI BÀN
         if (topic === REALTIME_CHANNEL.ordersTopic) {
-          if (data && data.id) {
-            const exists = orders.some(o => o.id === data.id);
-            if (!exists) {
-              orders.unshift(data);
-              saveOrdersStorage();
-              playSuccessChime(); // Phát chuông báo đơn mới!
-              showSmsToast("🔔 CÓ ĐƠN ĐẶT MỚI TỪ BÀN!", `${data.id} - ${data.table} vừa gửi đơn gọi món (${formatMoney(data.total)}).`);
-            }
-          }
-        }
-
-        // 2. CHỦ QUÁN ĐỔI GIÁ HOẶC THÊM MÓN MỚI
-        if (topic === REALTIME_CHANNEL.menuTopic) {
-          if (Array.isArray(data) && data.length > 0) {
-            menuItems = data;
-            localStorage.setItem('ace_menu', JSON.stringify(menuItems));
-            renderCustomerProducts(activeCategory);
-            updateCartUI();
-            if (currentUser && currentUser.role === 'admin') renderAdminMenuTable();
-            console.log("✨ Thực đơn vừa được cập nhật thời gian thực từ chủ quán!");
-          }
+          handleIncomingOrder(data);
+        } else if (topic === REALTIME_CHANNEL.menuTopic) {
+          handleIncomingMenu(data);
         }
       } catch(e) {
         console.error("Lỗi phân tích tin nhắn realtime:", e);
       }
     }
 
-    // HÀM PHÁT ĐƠN HÀNG LÊN MẠNG THỜI GIAN THỰC
+    function handleIncomingOrder(data) {
+      if (!data || !data.id) return;
+      const exists = orders.some(o => o.id === data.id);
+      if (!exists) {
+        orders.unshift(data);
+        saveOrdersStorage();
+        playSuccessChime();
+        showSmsToast("🔔 CÓ ĐƠN ĐẶT MỚI TỪ BÀN!", `${data.id} - ${data.table} vừa gửi đơn gọi món (${formatMoney(data.total)}).`);
+      }
+    }
+
+    function handleIncomingMenu(data) {
+      if (Array.isArray(data) && data.length > 0) {
+        if (JSON.stringify(menuItems) !== JSON.stringify(data)) {
+          menuItems = data;
+          localStorage.setItem('ace_menu', JSON.stringify(menuItems));
+          renderCustomerProducts(activeCategory);
+          updateCartUI();
+          if (currentUser && currentUser.role === 'admin') renderAdminMenuTable();
+          console.log("✨ Thực đơn vừa được cập nhật thời gian thực!");
+        }
+      }
+    }
+
+    // HÀM PHÁT ĐƠN HÀNG LÊN MẠNG THỜI GIAN THỰC (ĐA TẦNG)
     function broadcastOrderRealtime(order) {
+      // Tầng 1: BroadcastChannel nội bộ (0ms giữa các tab cùng máy)
+      if (localBroadcastChannel) {
+        try { localBroadcastChannel.postMessage({ type: 'NEW_ORDER', order }); } catch(e) {}
+      }
+
+      // Tầng 2: HTTPS Cloud Pub-Sub (ntfy.sh - Cổng 443 chuẩn, hoạt động trên mọi mạng di động & wifi)
+      try {
+        fetch(REALTIME_CHANNEL.ntfyOrdersUrl, {
+          method: 'POST',
+          headers: {
+            'Title': 'Đơn hàng mới ' + order.id,
+            'Priority': 'high'
+          },
+          body: JSON.stringify(order)
+        }).then(() => {
+          console.log("🚀 Đã chuyển đơn hàng lên đám mây thành công!");
+        }).catch(err => {
+          console.warn("Lỗi gửi đơn ntfy:", err);
+        });
+      } catch(e) {}
+
+      // Tầng 3: WebSockets MQTT
       if (REALTIME_CHANNEL.client && REALTIME_CHANNEL.isConnected) {
         try {
           const msg = new Paho.MQTT.Message(JSON.stringify(order));
           msg.destinationName = REALTIME_CHANNEL.ordersTopic;
           REALTIME_CHANNEL.client.send(msg);
-          console.log("🚀 Đã phát đơn hàng lên quầy POS thành công!");
-        } catch(e) { console.error("Lỗi gửi đơn realtime:", e); }
+          console.log("🚀 Đã phát đơn hàng lên MQTT thành công!");
+        } catch(e) { console.error("Lỗi gửi đơn MQTT:", e); }
       }
     }
 
-    // HÀM PHÁT MENU & GIÁ MỚI LÊN MẠNG THỜI GIAN THỰC
+    // HÀM PHÁT MENU & GIÁ MỚI LÊN MẠNG THỜI GIAN THỰC (ĐA TẦNG)
     function broadcastMenuRealtime(menuList) {
+      // Tầng 1: BroadcastChannel nội bộ (0ms giữa các tab cùng máy)
+      if (localBroadcastChannel) {
+        try { localBroadcastChannel.postMessage({ type: 'MENU_UPDATE', menu: menuList }); } catch(e) {}
+      }
+
+      // Tầng 2: HTTPS Cloud Pub-Sub (ntfy.sh)
+      try {
+        const payloadStr = JSON.stringify(menuList);
+        if (payloadStr.length <= 3800) {
+          fetch(REALTIME_CHANNEL.ntfyMenuUrl, {
+            method: 'POST',
+            headers: { 'Title': 'Cập nhật thực đơn quán' },
+            body: payloadStr
+          }).catch(err => console.warn("Lỗi gửi menu ntfy:", err));
+        } else {
+          // Gửi dạng tệp nếu thực đơn có chứa ảnh Base64
+          fetch(REALTIME_CHANNEL.ntfyMenuUrl, {
+            method: 'PUT',
+            headers: { 'Filename': 'menu_update.json', 'Title': 'MENU_ATTACHMENT' },
+            body: payloadStr
+          }).catch(err => console.warn("Lỗi gửi menu tệp ntfy:", err));
+        }
+      } catch(e) {}
+
+      // Tầng 3: WebSockets MQTT
       if (REALTIME_CHANNEL.client && REALTIME_CHANNEL.isConnected) {
         try {
           const msg = new Paho.MQTT.Message(JSON.stringify(menuList));
           msg.destinationName = REALTIME_CHANNEL.menuTopic;
           REALTIME_CHANNEL.client.send(msg);
-          console.log("🚀 Đã phát thực đơn mới cho tất cả các điện thoại!");
-        } catch(e) { console.error("Lỗi gửi menu realtime:", e); }
+          console.log("🚀 Đã phát thực đơn qua MQTT!");
+        } catch(e) { console.error("Lỗi gửi menu MQTT:", e); }
       }
     }
 
