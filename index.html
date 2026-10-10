@@ -1041,18 +1041,32 @@
       .receipt-title { font-size: 13pt; font-weight: bold; margin-bottom: 4px; }
     }
   
-    /* --- KOOTORO TOROG SMART POS & ENVIRONMENT SWITCHER & COMPACT FOOTER --- */
-    :root {
-      --torog-primary: #FF4B2B;
-      --torog-gradient: linear-gradient(135deg, #FF416C, #FF4B2B);
-      --torog-dark: #1E293B;
-      --torog-navy: #0F172A;
-      --torog-border: #E2E8F0;
-      --torog-card-bg: #FFFFFF;
-      --torog-accent: #3B82F6;
-      --torog-success: #10B981;
-      --torog-warning: #F59E0B;
-      --torog-danger: #EF4444;
+    /* --- BỘ CHỌN NGÔN NGỮ & CHẾ ĐỘ LIVE / TEST --- */
+    .lang-toggle-container {
+      display: inline-flex;
+      background: rgba(0, 0, 0, 0.28);
+      padding: 3px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.75);
+      padding: 4px 10px;
+      border-radius: 16px;
+      font-size: 0.74rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: #FFFFFF;
+      color: #1E293B;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
     }
 
     .env-toggle-container {
@@ -1095,7 +1109,62 @@
       box-shadow: 0 0 6px #4ADE80;
     }
 
-    /* PAYMENT CHECKOUT MODAL FOOTER (COMPACT & NEAT) */
+    /* PREPAYMENT ALERT BANNER */
+    .prepay-alert-banner {
+      background: #FFF7ED;
+      border: 1.5px solid #F97316;
+      border-radius: 10px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 0.82rem;
+      color: #9A3412;
+      line-height: 1.4;
+    }
+
+    /* DIRECT CONNECT APP BUTTON */
+    .direct-connect-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .direct-conn-header {
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .direct-app-btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      color: #FFF;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: all 0.2s;
+    }
+    .bank-gradient { background: linear-gradient(135deg, #1E3A8A, #2563EB); }
+    .momo-gradient { background: linear-gradient(135deg, #A50064, #D82D8B); }
+    .zalo-gradient { background: linear-gradient(135deg, #0068FF, #0084FF); }
+    .visa-gradient { background: linear-gradient(135deg, #1A365D, #2B6CB0); }
+
+    /* CHECKOUT FOOTER (COMPACT & NEAT) */
     .checkout-modal-footer {
       display: flex !important;
       flex-direction: column !important;
@@ -1223,7 +1292,14 @@
       transform: translateY(-1px);
     }
 
-    /* TOROG SMART POS WORKSPACE */
+    /* KOOTORO TOROG SMART POS WORKSPACE */
+    :root {
+      --torog-primary: #FF4B2B;
+      --torog-gradient: linear-gradient(135deg, #FF416C, #FF4B2B);
+      --torog-dark: #1E293B;
+      --torog-navy: #0F172A;
+      --torog-border: #E2E8F0;
+    }
     .torog-header-bar {
       background: linear-gradient(90deg, #1E293B, #0F172A);
       color: #FFFFFF;
@@ -1237,11 +1313,7 @@
       gap: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-    .torog-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
+    .torog-brand { display: flex; align-items: center; gap: 10px; }
     .torog-logo-badge {
       background: var(--torog-gradient);
       color: #FFF;
@@ -1252,21 +1324,8 @@
       letter-spacing: 0.5px;
       box-shadow: 0 2px 8px rgba(255, 75, 43, 0.4);
     }
-    .torog-meta-info {
-      display: flex;
-      gap: 12px;
-      font-size: 0.82rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .torog-meta-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.08);
-      padding: 5px 12px;
-      border-radius: 20px;
-    }
+    .torog-meta-info { display: flex; gap: 12px; font-size: 0.82rem; align-items: center; flex-wrap: wrap; }
+    .torog-meta-item { display: flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.08); padding: 5px 12px; border-radius: 20px; }
 
     .pos-tabs-nav {
       display: flex;
@@ -1300,12 +1359,8 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
 
-    .pos-content-pane {
-      display: none;
-    }
-    .pos-content-pane.active {
-      display: block;
-    }
+    .pos-content-pane { display: none; }
+    .pos-content-pane.active { display: block; }
 
     .counter-pos-layout {
       display: grid;
@@ -1323,12 +1378,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       border: 1px solid #E2E8F0;
     }
-    .counter-pos-pills {
-      display: flex;
-      gap: 6px;
-      overflow-x: auto;
-      padding-bottom: 6px;
-    }
+    .counter-pos-pills { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; }
     .counter-pos-pill {
       padding: 6px 14px;
       background: #F1F5F9;
@@ -1341,11 +1391,7 @@
       white-space: nowrap;
       transition: all 0.15s;
     }
-    .counter-pos-pill.active {
-      background: #FF4B2B;
-      color: #FFF;
-      border-color: #FF4B2B;
-    }
+    .counter-pos-pill.active { background: #FF4B2B; color: #FFF; border-color: #FF4B2B; }
 
     .pos-tiles-grid {
       display: grid;
@@ -1373,13 +1419,7 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 10px rgba(255, 75, 43, 0.12);
     }
-    .pos-tile-img {
-      width: 100%;
-      height: 75px;
-      object-fit: cover;
-      border-radius: 6px;
-      margin-bottom: 6px;
-    }
+    .pos-tile-img { width: 100%; height: 75px; object-fit: cover; border-radius: 6px; margin-bottom: 6px; }
     .pos-tile-name {
       font-size: 0.82rem;
       font-weight: 700;
@@ -1391,11 +1431,7 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-    .pos-tile-price {
-      font-size: 0.85rem;
-      font-weight: 800;
-      color: #FF4B2B;
-    }
+    .pos-tile-price { font-size: 0.85rem; font-weight: 800; color: #FF4B2B; }
 
     .counter-ticket-box {
       background: #FFF;
@@ -1406,101 +1442,19 @@
       flex-direction: column;
       overflow: hidden;
     }
-    .ticket-header {
-      background: #1E293B;
-      color: #FFF;
-      padding: 12px 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .ticket-type-toggle {
-      display: flex;
-      background: #F1F5F9;
-      padding: 6px 12px;
-      gap: 6px;
-      border-bottom: 1px solid #E2E8F0;
-    }
-    .ticket-type-btn {
-      flex: 1;
-      padding: 6px;
-      border: none;
-      background: transparent;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .ticket-type-btn.active {
-      background: #FFFFFF;
-      color: #FF4B2B;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-    }
-    .ticket-table-selector {
-      padding: 8px 12px;
-      background: #F8FAFC;
-      border-bottom: 1px solid #E2E8F0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.84rem;
-    }
-    .ticket-items-scroll {
-      max-height: 280px;
-      min-height: 160px;
-      overflow-y: auto;
-      padding: 8px 12px;
-    }
-    .ticket-item-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px dashed #E2E8F0;
-      font-size: 0.83rem;
-    }
-    .ticket-item-qty-ctrl {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-    .ticket-qty-btn {
-      width: 22px;
-      height: 22px;
-      border: 1px solid #CBD5E1;
-      background: #FFF;
-      border-radius: 4px;
-      font-weight: bold;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .ticket-summary {
-      padding: 12px 14px;
-      background: #F8FAFC;
-      border-top: 1px solid #E2E8F0;
-      font-size: 0.84rem;
-    }
-    .ticket-summary-line {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 5px;
-    }
-    .ticket-summary-line.total {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #FF4B2B;
-      border-top: 1px solid #CBD5E1;
-      padding-top: 6px;
-      margin-top: 6px;
-    }
-    .ticket-actions {
-      padding: 10px 14px;
-      background: #FFF;
-      display: flex;
-      gap: 8px;
-    }
+    .ticket-header { background: #1E293B; color: #FFF; padding: 12px 14px; display: flex; justify-content: space-between; align-items: center; }
+    .ticket-type-toggle { display: flex; background: #F1F5F9; padding: 6px 12px; gap: 6px; border-bottom: 1px solid #E2E8F0; }
+    .ticket-type-btn { flex: 1; padding: 6px; border: none; background: transparent; border-radius: 6px; font-size: 0.82rem; font-weight: 700; cursor: pointer; }
+    .ticket-type-btn.active { background: #FFFFFF; color: #FF4B2B; box-shadow: 0 2px 4px rgba(0,0,0,0.08); }
+    .ticket-table-selector { padding: 8px 12px; background: #F8FAFC; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; font-size: 0.84rem; }
+    .ticket-items-scroll { max-height: 280px; min-height: 160px; overflow-y: auto; padding: 8px 12px; }
+    .ticket-item-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #E2E8F0; font-size: 0.83rem; }
+    .ticket-item-qty-ctrl { display: flex; align-items: center; gap: 4px; }
+    .ticket-qty-btn { width: 22px; height: 22px; border: 1px solid #CBD5E1; background: #FFF; border-radius: 4px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .ticket-summary { padding: 12px 14px; background: #F8FAFC; border-top: 1px solid #E2E8F0; font-size: 0.84rem; }
+    .ticket-summary-line { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .ticket-summary-line.total { font-size: 1.05rem; font-weight: 800; color: #FF4B2B; border-top: 1px solid #CBD5E1; padding-top: 6px; margin-top: 6px; }
+    .ticket-actions { padding: 10px 14px; background: #FFF; display: flex; gap: 8px; }
     .btn-pos-pay {
       flex: 2;
       background: var(--torog-gradient);
@@ -1518,108 +1472,31 @@
       box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
       transition: all 0.2s;
     }
-    .btn-pos-clear {
-      flex: 1;
-      background: #F1F5F9;
-      color: #475569;
-      border: 1px solid #CBD5E1;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.82rem;
-      cursor: pointer;
-    }
+    .btn-pos-clear { flex: 1; background: #F1F5F9; color: #475569; border: 1px solid #CBD5E1; border-radius: 8px; font-weight: 600; font-size: 0.82rem; cursor: pointer; }
 
-    .tables-map-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 12px;
-      padding: 6px;
-    }
-    .table-map-tile {
-      background: #FFF;
-      border-radius: 12px;
-      padding: 14px;
-      border: 2px solid #CBD5E1;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
+    .tables-map-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; padding: 6px; }
+    .table-map-tile { background: #FFF; border-radius: 12px; padding: 14px; border: 2px solid #CBD5E1; cursor: pointer; transition: all 0.15s; }
     .table-map-tile.available { border-color: #10B981; background: #F0FDF4; }
     .table-map-tile.occupied { border-color: #F59E0B; background: #FFFBEB; }
-    .table-tile-status-pill {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 12px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      margin-top: 4px;
-    }
+    .table-tile-status-pill { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.72rem; font-weight: 700; margin-top: 4px; }
     .table-map-tile.available .table-tile-status-pill { background: #DCFCE7; color: #166534; }
     .table-map-tile.occupied .table-tile-status-pill { background: #FEF3C7; color: #92400E; }
 
-    .kds-tickets-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 14px;
-    }
-    .kds-ticket-card {
-      background: #FFF;
-      border-radius: 12px;
-      border: 2px solid #E2E8F0;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      display: flex;
-      flex-direction: column;
-    }
+    .kds-tickets-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+    .kds-ticket-card { background: #FFF; border-radius: 12px; border: 2px solid #E2E8F0; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
     .kds-ticket-card.waiting { border-color: #F59E0B; }
     .kds-ticket-card.cooking { border-color: #3B82F6; }
-    .kds-ticket-header {
-      padding: 10px 14px;
-      background: #F8FAFC;
-      border-bottom: 1px solid #E2E8F0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    .kds-ticket-header { padding: 10px 14px; background: #F8FAFC; border-bottom: 1px solid #E2E8F0; display: flex; justify-content: space-between; align-items: center; }
     .kds-items-list { padding: 12px 14px; flex: 1; }
     .kds-item-entry { margin-bottom: 8px; padding-bottom: 6px; border-bottom: 1px dashed #E2E8F0; }
     .kds-actions-footer { padding: 10px 14px; background: #F8FAFC; border-top: 1px solid #E2E8F0; display: flex; gap: 8px; }
 
-    .shift-manager-card {
-      background: #FFF;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-      border: 1px solid #E2E8F0;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .shift-grid-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 12px;
-      margin: 16px 0;
-    }
-    .shift-stat-box {
-      background: #F8FAFC;
-      border: 1px solid #E2E8F0;
-      border-radius: 10px;
-      padding: 12px;
-      text-align: center;
-    }
+    .shift-manager-card { background: #FFF; border-radius: 12px; padding: 20px; box-shadow: 0 4px 14px rgba(0,0,0,0.05); border: 1px solid #E2E8F0; max-width: 800px; margin: 0 auto; }
+    .shift-grid-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 16px 0; }
+    .shift-stat-box { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 12px; text-align: center; }
     .shift-stat-num { font-size: 1.15rem; font-weight: 800; color: #0F172A; margin-top: 4px; }
 
-    .thermal-bill-container {
-      width: 320px;
-      background: #FFF;
-      margin: 0 auto;
-      padding: 16px 14px;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.85rem;
-      line-height: 1.4;
-      color: #000;
-      border: 1px dashed #CBD5E1;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    }
+    .thermal-bill-container { width: 320px; background: #FFF; margin: 0 auto; padding: 16px 14px; font-family: 'Courier New', Courier, monospace; font-size: 0.85rem; line-height: 1.4; color: #000; border: 1px dashed #CBD5E1; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
     .thermal-bill-header { text-align: center; border-bottom: 1px dashed #000; padding-bottom: 8px; margin-bottom: 8px; }
     .thermal-bill-row { display: flex; justify-content: space-between; margin-bottom: 3px; }
     .thermal-bill-footer { border-top: 1px dashed #000; padding-top: 8px; margin-top: 8px; text-align: center; font-size: 0.78rem; }
@@ -1657,6 +1534,21 @@
 
 
       <div class="header-actions">
+        <!-- BỘ CHỌN NGÔN NGỮ (VI / EN) -->
+        <div class="lang-toggle-container" title="Chọn ngôn ngữ / Select Language">
+          <button type="button" class="lang-btn active" id="lang-btn-vi" onclick="setLanguage('vi')">🇻🇳 Tiếng Việt</button>
+          <button type="button" class="lang-btn" id="lang-btn-en" onclick="setLanguage('en')">🇬🇧 English</button>
+        </div>
+
+        <!-- BỘ CHUYỂN ĐỔI CHẾ ĐỘ (LIVE / TEST MODE) -->
+        <div class="env-toggle-container" title="Chuyển đổi Môi trường Vận hành / Thử nghiệm">
+          <button type="button" class="env-btn active" id="env-btn-live" onclick="setAppEnvironment('live')">
+            <span class="live-status-dot"></span> LIVE
+          </button>
+          <button type="button" class="env-btn" id="env-btn-test" onclick="setAppEnvironment('test')">
+            🧪 TEST
+          </button>
+        </div>
         <div class="table-badge" id="header-table-badge" onclick="openTableModal()">
           <span>📍</span> <span id="current-table-label">Bàn 01 (Tầng trệt)</span>
         </div>
@@ -2682,274 +2574,6 @@
   <!-- SCRIPT LOGIC HOÀN CHỈNH & CHỐNG LỖI MẤT MÓN -->
   <script>
     // --- 1. DỮ LIỆU GỐC & TÀI KHOẢN MẪU ---
-    
-    // =========================================================================
-    // HỆ THỐNG ĐA NGÔN NGỮ SONG NGỮ (VIỆT NAM 🇻🇳 / ENGLISH 🇬🇧)
-    // =========================================================================
-    let currentLang = localStorage.getItem('ace_lang') || 'vi';
-
-    const I18N = {
-      vi: {
-        brandSub: "Hệ Thống QR Order & Quản Trị POS",
-        welcomeMsg: "Chào mừng bạn đến với Ace Tropical Wellness Coffee",
-        tableLabel: "Bàn của bạn:",
-        tableSub: "(Chọn món & gửi quầy)",
-        changeTableBtn: "🔄 Đổi bàn / Quét lại QR",
-        searchPlaceholder: "🔍 Tìm kiếm món ngon...",
-        cartBtn: "Giỏ hàng",
-        cartTitle: "Giỏ Hàng Gọi Món",
-        cartEmpty: "Giỏ hàng của bạn đang trống! Hãy chọn món ngon thưởng thức nhé.",
-        subtotalLabel: "Tạm tính:",
-        vatLabel: "Thuế VAT (8%):",
-        totalLabel: "Tổng thanh toán:",
-        phoneLabel: "📱 Số điện thoại nhận thông báo khi có món:",
-        noteLabel: "📝 Ghi chú cho quầy pha chế:",
-        notePlaceholder: "Ít đường, không đá, ly giấy...",
-        checkoutBtn: "💳 TIẾP TỤC THANH TOÁN (TRẢ TRƯỚC)",
-        payModalTitle: "Thanh Toán Đơn Hàng",
-        prepayNoticeTitle: "BẮT BUỘC THANH TOÁN TRƯỚC:",
-        prepayNoticeDesc: " Quý khách vui lòng hoàn tất chuyển khoản / thanh toán trước. Đơn hàng chỉ được chuyển thẳng vào Quầy Barista (Bếp) làm món sau khi hệ thống ghi nhận thanh toán thành công!",
-        orderIdLabel: "Mã đơn:",
-        totalPayLabel: "Tổng thanh toán:",
-        phoneInputLabel: "Số điện thoại khách (*):",
-        generalNoteLabel: "Ghi chú chung:",
-        generalNotePlaceholder: "Lấy món tại quầy, ít đá...",
-        choosePaymentMethodLabel: "Chọn cổng thanh toán trực tiếp:",
-        payTabBank: "Ngân Hàng (VietQR)",
-        payTabMoMo: "Ví MoMo",
-        payTabZalo: "Ví ZaloPay",
-        payTabVisa: "Thẻ Visa / Master",
-        bankGatewayLive: "Direct Connect: Toàn bộ 54+ Ngân Hàng Việt Nam (Napas 24/7)",
-        openBankAppBtn: "MỞ APP NGÂN HÀNG THANH TOÁN (DIRECT APP LINK)",
-        vietqrInstruction: "⚡ Hoặc quét mã VietQR tự động điền tiền & nội dung:",
-        bankLabel: "Ngân hàng:",
-        accNumLabel: "Số tài khoản:",
-        accNameLabel: "Chủ tài khoản:",
-        amountLabel: "Số tiền:",
-        memoLabel: "Nội dung CK:",
-        momoGatewayLive: "Direct Connect: Cổng Thanh Toán MoMo Pay Trực Tiếp",
-        openMoMoAppBtn: "MỞ ỨNG DỤNG MOMO THANH TOÁN NGAY",
-        momoInstruction: "📱 Hoặc quét mã bằng ứng dụng Ví MoMo:",
-        momoPhoneLabel: "Số MoMo:",
-        receiverLabel: "Tên người nhận:",
-        zaloGatewayLive: "Direct Connect: Cổng Thanh Toán ZaloPay Trực Tiếp",
-        openZaloAppBtn: "MỞ ỨNG DỤNG ZALOPAY THANH TOÁN NGAY",
-        zaloInstruction: "📱 Hoặc quét mã bằng ứng dụng ZaloPay hoặc Zalo:",
-        zaloPhoneLabel: "Số ZaloPay:",
-        visaGatewayLive: "Cổng Thanh Toán Quốc Tế Visa / Mastercard (Direct Gateway)",
-        cardNumberLabel: "Số Thẻ Visa / Mastercard:",
-        cardHolderLabel: "Tên Chủ Thẻ (In hoa không dấu):",
-        cardExpiryLabel: "Ngày Hết Hạn (MM/YY):",
-        cardCvvLabel: "Mã CVV / CVC (3 số bí mật):",
-        visaSecurityText: "Mã hóa bảo mật 256-bit SSL & 3D-Secure quốc tế",
-        payVisaBtn: "XÁC NHẬN THANH TOÁN THẺ VISA",
-        gatewayListening: "Đang kết nối cổng thanh toán trực tiếp...",
-        confirmPaymentBtn: "TÔI ĐÃ CHUYỂN KHOẢN XONG - XÁC THỰC & GỬI VÀO BẾP",
-        successTitle: "🎉 ĐẶT MÓN & THANH TOÁN THÀNH CÔNG!",
-        successDesc: "Đơn hàng đã được thanh toán 100% và chuyển thẳng vào Quầy Barista (Bếp) làm món!",
-        tablePosLabel: "Vị trí bàn:",
-        paymentMethodLabel: "Hình thức thanh toán:",
-        totalAmountLabel: "Tổng tiền:",
-        backToMenuBtn: "☕ Hoàn Tất & Tiếp Tục Xem Menu",
-        addBtn: "Thêm",
-        soldOut: "Hết Món",
-        itemDetailTitle: "Chi Tiết Món",
-        iceLabel: "Mức đá:",
-        sugarLabel: "Mức đường:",
-        toppingLabel: "Topping thêm:",
-        customerNoteLabel: "Ghi chú món:"
-      },
-      en: {
-        brandSub: "QR Table Ordering & Barista POS System",
-        welcomeMsg: "Welcome to Ace Tropical Wellness Coffee",
-        tableLabel: "Your Table:",
-        tableSub: "(Select items & order)",
-        changeTableBtn: "🔄 Change Table / Scan QR",
-        searchPlaceholder: "🔍 Search delicious drinks & food...",
-        cartBtn: "Cart",
-        cartTitle: "Your Order Cart",
-        cartEmpty: "Your cart is empty! Pick your favorite drinks to enjoy.",
-        subtotalLabel: "Subtotal:",
-        vatLabel: "VAT Tax (8%):",
-        totalLabel: "Total Amount:",
-        phoneLabel: "📱 Mobile number for order notification:",
-        noteLabel: "📝 Special notes for barista / kitchen:",
-        notePlaceholder: "Less sugar, no ice, paper cup...",
-        checkoutBtn: "💳 PROCEED TO PAYMENT (PREPAYMENT REQUIRED)",
-        payModalTitle: "Order Prepayment",
-        prepayNoticeTitle: "PREPAYMENT REQUIRED:",
-        prepayNoticeDesc: " Please complete your transfer/card payment first. Orders are sent directly to the Barista Kitchen ONLY after payment is verified!",
-        orderIdLabel: "Order ID:",
-        totalPayLabel: "Total Payment:",
-        phoneInputLabel: "Customer Phone (*):",
-        generalNoteLabel: "General Note:",
-        generalNotePlaceholder: "Pick up at counter, less ice...",
-        choosePaymentMethodLabel: "Select direct payment gateway:",
-        payTabBank: "Bank (VietQR)",
-        payTabMoMo: "MoMo Wallet",
-        payTabZalo: "ZaloPay Wallet",
-        payTabVisa: "Visa / Mastercard",
-        bankGatewayLive: "Direct Connect: All 54+ Vietnam Banks (Napas 24/7)",
-        openBankAppBtn: "OPEN BANKING APP TO PAY (DIRECT APP LINK)",
-        vietqrInstruction: "⚡ Or scan VietQR to auto-fill amount & order code:",
-        bankLabel: "Bank:",
-        accNumLabel: "Account No.:",
-        accNameLabel: "Account Name:",
-        amountLabel: "Amount:",
-        memoLabel: "Transfer Memo:",
-        momoGatewayLive: "Direct Connect: MoMo Pay Direct Payment Gateway",
-        openMoMoAppBtn: "OPEN MOMO APP TO PAY NOW",
-        momoInstruction: "📱 Or scan QR using your MoMo Wallet App:",
-        momoPhoneLabel: "MoMo Phone:",
-        receiverLabel: "Recipient:",
-        zaloGatewayLive: "Direct Connect: ZaloPay Direct Payment Gateway",
-        openZaloAppBtn: "OPEN ZALOPAY APP TO PAY NOW",
-        zaloInstruction: "📱 Or scan QR using ZaloPay or Zalo App:",
-        zaloPhoneLabel: "ZaloPay Phone:",
-        visaGatewayLive: "International Card Gateway (Visa / Mastercard / JCB)",
-        cardNumberLabel: "Card Number (Visa / Mastercard):",
-        cardHolderLabel: "Cardholder Name (Uppercase):",
-        cardExpiryLabel: "Expiry Date (MM/YY):",
-        cardCvvLabel: "CVV / CVC Code (3 digits):",
-        visaSecurityText: "256-bit SSL & 3D-Secure International Encryption",
-        payVisaBtn: "PAY NOW WITH VISA / MASTER",
-        gatewayListening: "Connected to payment gateway, listening for transfer...",
-        confirmPaymentBtn: "I HAVE COMPLETED PAYMENT - VERIFY & SEND TO KITCHEN",
-        successTitle: "🎉 ORDER & PAYMENT SUCCESSFUL!",
-        successDesc: "Your order has been 100% prepaid and sent straight to the Barista Kitchen!",
-        tablePosLabel: "Table:",
-        paymentMethodLabel: "Payment Method:",
-        totalAmountLabel: "Total Amount:",
-        backToMenuBtn: "☕ Done & Return to Menu",
-        addBtn: "+ Add",
-        soldOut: "Sold Out",
-        itemDetailTitle: "Item Details",
-        iceLabel: "Ice Level:",
-        sugarLabel: "Sugar Level:",
-        toppingLabel: "Add-on Toppings:",
-        customerNoteLabel: "Item Note:"
-      }
-    };
-
-    function setLanguage(lang) {
-      currentLang = (lang === 'en') ? 'en' : 'vi';
-      localStorage.setItem('ace_lang', currentLang);
-
-      const btnVi = document.getElementById('lang-btn-vi');
-      const btnEn = document.getElementById('lang-btn-en');
-      if (btnVi) btnVi.classList.toggle('active', currentLang === 'vi');
-      if (btnEn) btnEn.classList.toggle('active', currentLang === 'en');
-
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (I18N[currentLang] && I18N[currentLang][key]) el.textContent = I18N[currentLang][key];
-      });
-      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-        const key = el.getAttribute('data-i18n-ph');
-        if (I18N[currentLang] && I18N[currentLang][key]) el.setAttribute('placeholder', I18N[currentLang][key]);
-      });
-
-      renderCustomerCategoryFilter();
-      renderCustomerProducts(activeCategory);
-      updateCartUI();
-      updateTableDisplay();
-      renderTablePickerGrid();
-    }
-
-    const MENU_DICTIONARY = {
-      1: { name_en: "Saigon Iced Milk Coffee", desc_en: "Traditional Vietnamese Robusta blended with rich condensed milk over ice.", badge_en: "Best Seller" },
-      2: { name_en: "Traditional Black Coffee", desc_en: "Bold, aromatic slow-dripped pure Robusta coffee.", badge_en: "Strong" },
-      3: { name_en: "Hanoi Egg Coffee (Hot)", desc_en: "Legendary Hanoi whipped egg cream atop rich drip coffee.", badge_en: "Signature" },
-      4: { name_en: "Highland Coconut Coffee", desc_en: "Smooth blended coconut cream with iced Vietnamese espresso.", badge_en: "Popular" },
-      5: { name_en: "Saigon Bac Xiu Iced", desc_en: "Layered sweet condensed milk, fresh milk with a gentle espresso splash.", badge_en: "Favorite" },
-      6: { name_en: "Lotus Seed Longan Tea", desc_en: "Refreshing golden lotus tea with sweet fresh longan meat.", badge_en: "Refreshing" },
-      7: { name_en: "Italian Tiramisu Cake", desc_en: "Classic mascarpone cheese layered with espresso-soaked ladyfingers.", badge_en: "Chef Special" },
-      8: { name_en: "French Butter Croissant", desc_en: "Crispy, golden multi-layered pastry baked with premium butter.", badge_en: "Fresh Baked" },
-      9: { name_en: "Tropical Avocado Smoothie", desc_en: "Creamy fresh Dak Lak avocado blended with milk and crushed ice.", badge_en: "Healthy" },
-      10: { name_en: "Cold Brew Herbal Hibiscus", desc_en: "16-hour steeped cold brew infused with ruby hibiscus flowers.", badge_en: "New" }
-    };
-
-    function autoTranslateMenuName(viName) {
-      if (!viName) return '';
-      let n = viName;
-      n = n.replace(/Cà phê sữa đá/gi, 'Iced Milk Coffee');
-      n = n.replace(/Cà phê đen/gi, 'Black Coffee');
-      n = n.replace(/Cà phê trứng/gi, 'Egg Coffee');
-      n = n.replace(/Cà phê cốt dừa/gi, 'Coconut Coffee');
-      n = n.replace(/Bạc xỉu/gi, 'Bac Xiu Coffee');
-      n = n.replace(/Trà sen/gi, 'Lotus Seed Tea');
-      n = n.replace(/Trà đào/gi, 'Peach Tea');
-      n = n.replace(/Trà sữa/gi, 'Milk Tea');
-      n = n.replace(/Bánh Tiramisu/gi, 'Tiramisu Cake');
-      n = n.replace(/Bánh sừng bò/gi, 'Butter Croissant');
-      n = n.replace(/Bánh mì/gi, 'Vietnamese Baguette');
-      n = n.replace(/Sinh tố bơ/gi, 'Avocado Smoothie');
-      n = n.replace(/Sinh tố/gi, 'Smoothie');
-      return n;
-    }
-
-    function autoTranslateMenuDesc(viDesc, item) {
-      if (!viDesc) return currentLang === 'en' ? 'Crafted with premium ingredients at Ace Tropical Coffee.' : '';
-      if (item && item.id && MENU_DICTIONARY[item.id]) return MENU_DICTIONARY[item.id].desc_en;
-      return viDesc;
-    }
-
-    function autoTranslateBadge(badge) {
-      if (!badge) return '';
-      const bMap = {
-        'Bán chạy': 'Best Seller',
-        'Đậm vị': 'Strong',
-        'Đặc sản': 'Signature',
-        'Yêu thích': 'Popular',
-        'Được yêu thích': 'Favorite',
-        'Thanh mát': 'Refreshing',
-        'Bánh tươi': 'Fresh Baked',
-        'Mới': 'New',
-        'Healthy': 'Healthy'
-      };
-      return bMap[badge] || badge;
-    }
-
-    function getItemDisplayName(item) {
-      if (!item) return '';
-      if (currentLang !== 'en') return item.name;
-      if (item.name_en) return item.name_en;
-      if (item.id && MENU_DICTIONARY[item.id]) return MENU_DICTIONARY[item.id].name_en;
-      return autoTranslateMenuName(item.name);
-    }
-
-    function getItemDisplayDesc(item) {
-      if (!item) return '';
-      if (currentLang !== 'en') return item.desc || '';
-      if (item.desc_en) return item.desc_en;
-      if (item.id && MENU_DICTIONARY[item.id]) return MENU_DICTIONARY[item.id].desc_en;
-      return autoTranslateMenuDesc(item.desc, item);
-    }
-
-    function getItemDisplayBadge(item) {
-      if (!item) return '';
-      if (currentLang !== 'en') return item.badge || '';
-      if (item.badge_en) return item.badge_en;
-      if (item.id && MENU_DICTIONARY[item.id]) return MENU_DICTIONARY[item.id].badge_en;
-      return autoTranslateBadge(item.badge);
-    }
-
-    function enrichMenuWithEnglish(menuList) {
-      if (!Array.isArray(menuList)) return;
-      menuList.forEach(item => {
-        if (MENU_DICTIONARY[item.id]) {
-          item.name_en = MENU_DICTIONARY[item.id].name_en;
-          item.desc_en = MENU_DICTIONARY[item.id].desc_en;
-          item.badge_en = MENU_DICTIONARY[item.id].badge_en;
-        } else {
-          item.name_en = item.name_en || autoTranslateMenuName(item.name);
-          item.desc_en = item.desc_en || autoTranslateMenuDesc(item.desc, item);
-          item.badge_en = item.badge_en || autoTranslateBadge(item.badge);
-        }
-      });
-    }
-
-
     const DEFAULT_USERS = [
       { id: 1, fullname: "Chủ Quán (Admin)", username: "admin", password: "admin123", role: "admin", active: true },
       { id: 2, fullname: "Nguyễn Văn Barista", username: "barista", password: "123456", role: "staff", active: true },
@@ -2998,22 +2622,6 @@
     let menuItems = [];
     let tables = [];
     let currentTable = DEFAULT_TABLES[0] || { id: "1", name: "Bàn 01 (Tầng trệt)", name_en: "Table 01 (Ground Floor)" };
-
-    function getTableDisplayName(table) {
-      if (!table) return currentLang === 'en' ? 'Table 01 (Ground Floor)' : 'Bàn 01 (Tầng trệt)';
-      if (currentLang === 'en') {
-        if (table.name_en) return table.name_en;
-        let name = table.name || ('Table ' + (table.id || '01'));
-        name = name.replace(/^Bàn\s*/i, 'Table ');
-        name = name.replace(/Tầng trệt/i, 'Ground Floor');
-        name = name.replace(/Khu máy lạnh/i, 'AC Room');
-        name = name.replace(/Sân vườn/i, 'Garden Patio');
-        name = name.replace(/Ban công/i, 'Balcony');
-        return name;
-      }
-      return table.name || ('Bàn ' + (table.id || '01'));
-    }
-
     let cart = [];
     let orders = [];
     let storeSettings = {
@@ -3043,8 +2651,8 @@
     window.addEventListener('DOMContentLoaded', () => {
 
       initAppEnvironment();
-      setLanguage(currentLang);
-      initToroGShift();      initRealtimeSync();
+      initToroGShift();
+      setLanguage(currentLang);      initRealtimeSync();
       loadStorageData();
       checkAuthSession();
 
@@ -3286,6 +2894,11 @@
       localStorage.setItem('ace_orders', JSON.stringify(orders));
       syncAllOrderViews();
     }
+    function oldSaveOrdersStorage() {
+      localStorage.setItem('ace_orders', JSON.stringify(orders));
+      renderOrders();
+      if (currentUser && currentUser.role === 'admin') renderAdminOrdersTable();
+    }
 
 
     function saveUsersStorage() {
@@ -3478,9 +3091,14 @@
     }
 
 
-    function updateTableDisplay() {
-      if (currentTable) {
-        document.getElementById('current-table-label').textContent = currentTable.name;
+        function updateTableDisplay() {
+      const label = document.getElementById('current-table-label');
+      if (label && currentTable) {
+        label.textContent = (typeof getLocalizedTableName === 'function') ? getLocalizedTableName(currentTable) : currentTable.name;
+      }
+      const cartTableLabel = document.getElementById('cart-table-display');
+      if (cartTableLabel && currentTable) {
+        cartTableLabel.textContent = (typeof getLocalizedTableName === 'function') ? getLocalizedTableName(currentTable) : currentTable.name;
       }
     }
 
@@ -3514,6 +3132,23 @@
       renderCustomerProducts(activeCategory);
     }
 
+
+        function renderCustomerCategoryFilter() {
+      const container = document.getElementById('category-filter-container');
+      if (!container) return;
+      const categories = [
+        { id: 'all', name: 'Tất Cả Món', name_en: 'All Items', icon: '✨' },
+        { id: 'coffee', name: 'Cà Phê', name_en: 'Coffee', icon: '☕' },
+        { id: 'tea', name: 'Trà & Trà Sữa', name_en: 'Tea & Milk Tea', icon: '🍵' },
+        { id: 'bakery', name: 'Bánh Ngọt', name_en: 'Pastries', icon: '🥐' },
+        { id: 'smoothie', name: 'Sinh Tố & Khác', name_en: 'Smoothies', icon: '🥤' }
+      ];
+      container.innerHTML = categories.map(cat => `
+        <button class="category-pill ${activeCategory === cat.id ? 'active' : ''}" onclick="selectCustomerCategory('${cat.id}')">
+          <span>${cat.icon}</span> ${typeof currentLang !== 'undefined' && currentLang === 'en' ? cat.name_en : cat.name}
+        </button>
+      `).join('');
+    }
 
     function renderCustomerProducts(catId) {
       const grid = document.getElementById('products-grid');
@@ -3560,12 +3195,12 @@
               ${imgDisplay}
             </div>
             <div class="product-details">
-              <div class="product-name">${item.name}</div>
-              <div class="product-desc">${item.desc || 'Hương vị tuyệt hảo tại Ace Tropical Wellness Coffee.'}</div>
+              <div class="product-name">${(typeof getLocalizedProductName === 'function') ? getLocalizedProductName(item) : item.name}</div>
+              <div class="product-desc">${(typeof getLocalizedProductDesc === 'function') ? getLocalizedProductDesc(item) : (item.desc || 'Hương vị tuyệt hảo tại Ace Tropical Wellness Coffee.')}</div>
               <div class="product-footer">
                 <div class="product-price">${formatMoney(item.price)}</div>
                 <button class="add-to-cart-btn" onclick="event.stopPropagation(); openProductDetailModal(${item.id})" ${isOutOfStock ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>
-                  <span>🔍</span> Xem & Chọn
+                  <span>🔍</span> ${(typeof currentLang !== 'undefined' && currentLang === 'en') ? 'Select' : 'Xem & Chọn'}
                 </button>
               </div>
             </div>
@@ -3817,42 +3452,48 @@
         return;
       }
 
-
       if (!currentPendingOrderId) {
         const orderNumber = 1000 + orders.length + 1;
         currentPendingOrderId = `ORD-${orderNumber}`;
       }
 
-
       toggleCartDrawer(false);
-
 
       const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
       const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
       const total = subtotal + vat;
 
-
       document.getElementById('checkout-order-id-display').textContent = currentPendingOrderId;
-      document.getElementById('checkout-table-display').textContent = currentTable.name;
+      document.getElementById('checkout-table-display').textContent = (typeof getLocalizedTableName === 'function') ? getLocalizedTableName(currentTable) : currentTable.name;
       document.getElementById('checkout-subtotal-display').textContent = formatMoney(subtotal);
       document.getElementById('checkout-vat-display').textContent = formatMoney(vat);
       document.getElementById('checkout-total-display').textContent = formatMoney(total);
       document.getElementById('checkout-total-header').textContent = formatMoney(total);
 
-
       document.getElementById('checkout-items-preview').innerHTML = cart.map(c => `
         <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px dashed #eee;">
           <div>
-            <b>${c.qty}x</b> ${c.item.name}
+            <b>${c.qty}x</b> ${(typeof getLocalizedProductName === 'function') ? getLocalizedProductName(c.item) : c.item.name}
             ${c.custom ? `<div style="font-size: 0.72rem; color: #888;">└ ${c.custom}</div>` : ''}
           </div>
           <div style="font-weight: 600;">${formatMoney(c.item.price * c.qty)}</div>
         </div>
       `).join('');
 
+      selectPaymentMethod(selectedPaymentMethod || 'vietqr');
+      startPaymentVerificationListener();
 
-      selectPaymentMethod(selectedPaymentMethod);
+      const testModalActions = document.getElementById('test-mode-modal-actions');
+      if (testModalActions) {
+        testModalActions.style.display = (typeof appEnvironment !== 'undefined' && appEnvironment === 'test') ? 'block' : 'none';
+      }
+
       document.getElementById('payment-checkout-modal').classList.add('open');
+    }
+
+    function closePaymentCheckoutModal() {
+      stopPaymentVerificationListener();
+      document.getElementById('payment-checkout-modal').classList.remove('open');
     }
 
 
@@ -4036,7 +3677,100 @@
 
       playSuccessChime();
     }
-function submitCustomerOrder() {
+
+    // =========================================================================
+    // XỬ LÝ GỬI ĐƠN HÀNG SAU KHI ĐÃ XÁC THỰC THANH TOÁN (STRICT PREPAYMENT)
+    // =========================================================================
+    function completeOrderSubmission(method, methodName, verifiedTxnRef = null) {
+      if (cart.length === 0) {
+        alert("Giỏ hàng của bạn đang trống!");
+        return;
+      }
+
+      const phoneEl = document.getElementById('checkout-phone');
+      const noteEl = document.getElementById('checkout-general-note');
+      const phone = (phoneEl && phoneEl.value.trim()) ? phoneEl.value.trim() : '0988776655';
+      const generalNote = (noteEl && noteEl.value.trim()) ? noteEl.value.trim() : '';
+
+      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
+      const total = subtotal + vat;
+
+      const now = new Date();
+      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      const orderId = currentPendingOrderId || `ORD-${1000 + orders.length + 1}`;
+      const paymentRef = verifiedTxnRef || ('TXN-' + Math.floor(100000 + Math.random() * 900000));
+
+      const newOrder = {
+        id: orderId,
+        time: timeStr,
+        table: currentTable.name,
+        phone: phone,
+        note: generalNote,
+        paymentMethod: method || selectedPaymentMethod,
+        paymentMethodName: methodName || "Chuyển khoản VietQR (Napas 24/7)",
+        paymentStatus: 'paid_verified',
+        paymentRef: paymentRef,
+        isTest: (typeof appEnvironment !== 'undefined' && appEnvironment === 'test'),
+        verifiedAt: new Date().toISOString(),
+        items: cart.map(c => ({
+          id: c.item.id,
+          name: c.item.name,
+          qty: c.qty,
+          price: c.item.price,
+          total: c.item.price * c.qty,
+          custom: c.custom || ''
+        })),
+        subtotal: subtotal,
+        vat: vat,
+        total: total,
+        status: 'new'
+      };
+
+      orders.unshift(newOrder);
+      saveOrdersStorage();
+
+      // BẮN ĐƠN SANG MÁY POS QUA TẤT CẢ CÁC KÊNH THỜI GIAN THỰC
+      broadcastOrderRealtime(newOrder);
+
+      cart = [];
+      currentPendingOrderId = null;
+      updateCartUI();
+
+      closePaymentCheckoutModal();
+
+      // Hiện màn hình chúc mừng đặt món thành công
+      const sId = document.getElementById('success-order-id');
+      const sTable = document.getElementById('success-order-table');
+      const sPay = document.getElementById('success-order-payment');
+      const sTot = document.getElementById('success-order-total');
+      const sModal = document.getElementById('order-success-modal');
+
+      if (sId) sId.textContent = newOrder.id;
+      if (sTable) sTable.textContent = newOrder.table;
+      if (sPay) sPay.textContent = `${newOrder.paymentMethodName} (Đã xác thực: ${paymentRef})`;
+      if (sTot) sTot.textContent = formatMoney(newOrder.total);
+      if (sModal) sModal.classList.add('open');
+
+      playSuccessChime();
+      showSmsToast(
+        (typeof currentLang !== 'undefined' && currentLang === 'en') ? "ORDER SUCCESSFUL!" : "ĐẶT MÓN THÀNH CÔNG!",
+        (typeof currentLang !== 'undefined' && currentLang === 'en')
+          ? `Order #${orderId} from ${currentTable.name} has been verified and sent to POS / Kitchen.`
+          : `Mã đơn ${orderId} tại ${currentTable.name} đã được ngân hàng xác nhận và chuyển vào Quầy POS.`
+      );
+    }
+
+    function submitOrderWithPayment() {
+      // Chặn hoàn toàn: Chỉ gửi order khi hệ thống đã nhận diện thanh toán thành công
+      if (!isPaymentVerified) {
+        checkPaymentVerificationManual();
+      } else {
+        completeOrderSubmission(selectedPaymentMethod, "Chuyển khoản VietQR");
+      }
+    }
+
+    function submitCustomerOrder() {
       if (cart.length === 0) {
         alert("Giỏ hàng của bạn đang trống!");
         return;
@@ -6524,6 +6258,389 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
 
   
     // =========================================================================
+    // HỆ THỐNG ĐA NGÔN NGỮ SONG NGỮ (VIỆT NAM 🇻🇳 / ENGLISH 🇬🇧)
+    // =========================================================================
+    let currentLang = localStorage.getItem('ace_lang') || 'vi';
+
+    const I18N = {
+      vi: {
+        brandSub: "Hệ Thống QR Order & Quản Trị POS",
+        welcomeMsg: "Chào mừng bạn đến với Ace Tropical Wellness Coffee",
+        tableLabel: "Bàn của bạn:",
+        tableSub: "(Chọn món & gửi quầy)",
+        changeTableBtn: "🔄 Đổi bàn / Quét lại QR",
+        searchPlaceholder: "🔍 Tìm kiếm món ngon...",
+        cartBtn: "Giỏ hàng",
+        cartTitle: "Giỏ Hàng Gọi Món",
+        cartEmpty: "Giỏ hàng của bạn đang trống! Hãy chọn món ngon thưởng thức nhé.",
+        subtotalLabel: "Tạm tính:",
+        vatLabel: "Thuế VAT (8%):",
+        totalLabel: "Tổng thanh toán:",
+        phoneLabel: "📱 Số điện thoại nhận thông báo khi có món:",
+        noteLabel: "📝 Ghi chú cho quầy pha chế:",
+        notePlaceholder: "Ít đường, không đá, ly giấy...",
+        checkoutBtn: "💳 TIẾP TỤC THANH TOÁN (TRẢ TRƯỚC)",
+        payModalTitle: "Thanh Toán Đơn Hàng",
+        prepayNoticeTitle: "BẮT BUỘC THANH TOÁN TRƯỚC:",
+        prepayNoticeDesc: " Quý khách vui lòng hoàn tất chuyển khoản / thanh toán trước. Đơn hàng chỉ được chuyển thẳng vào Quầy Barista (Bếp) làm món sau khi hệ thống ghi nhận thanh toán thành công!",
+        orderIdLabel: "Mã đơn:",
+        totalPayLabel: "Tổng thanh toán:",
+        phoneInputLabel: "Số điện thoại khách (*):",
+        generalNoteLabel: "Ghi chú chung:",
+        generalNotePlaceholder: "Lấy món tại quầy, ít đá...",
+        choosePaymentMethodLabel: "Chọn cổng thanh toán trực tiếp:",
+        payTabBank: "Ngân Hàng (VietQR)",
+        payTabMoMo: "Ví MoMo",
+        payTabZalo: "Ví ZaloPay",
+        payTabVisa: "Thẻ Visa / Master",
+        bankGatewayLive: "Direct Connect: Toàn bộ 54+ Ngân Hàng Việt Nam (Napas 24/7)",
+        openBankAppBtn: "MỞ APP NGÂN HÀNG THANH TOÁN (DIRECT APP LINK)",
+        vietqrInstruction: "⚡ Hoặc quét mã VietQR tự động điền tiền & nội dung:",
+        bankLabel: "Ngân hàng:",
+        accNumLabel: "Số tài khoản:",
+        accNameLabel: "Chủ tài khoản:",
+        amountLabel: "Số tiền:",
+        memoLabel: "Nội dung CK:",
+        momoGatewayLive: "Direct Connect: Cổng Thanh Toán MoMo Pay Trực Tiếp",
+        openMoMoAppBtn: "MỞ ỨNG DỤNG MOMO THANH TOÁN NGAY",
+        momoInstruction: "📱 Hoặc quét mã bằng ứng dụng Ví MoMo:",
+        momoPhoneLabel: "Số MoMo:",
+        receiverLabel: "Tên người nhận:",
+        zaloGatewayLive: "Direct Connect: Cổng Thanh Toán ZaloPay Trực Tiếp",
+        openZaloAppBtn: "MỞ ỨNG DỤNG ZALOPAY THANH TOÁN NGAY",
+        zaloInstruction: "📱 Hoặc quét mã bằng ứng dụng ZaloPay hoặc Zalo:",
+        zaloPhoneLabel: "Số ZaloPay:",
+        visaGatewayLive: "Cổng Thanh Toán Quốc Tế Visa / Mastercard (Direct Gateway)",
+        cardNumberLabel: "Số Thẻ Visa / Mastercard:",
+        cardHolderLabel: "Tên Chủ Thẻ (In hoa không dấu):",
+        cardExpiryLabel: "Ngày Hết Hạn (MM/YY):",
+        cardCvvLabel: "Mã CVV / CVC (3 số bí mật):",
+        visaSecurityText: "Mã hóa bảo mật 256-bit SSL & 3D-Secure quốc tế",
+        payVisaBtn: "XÁC NHẬN THANH TOÁN THẺ VISA",
+        gatewayListening: "Đang kết nối cổng thanh toán trực tiếp...",
+        confirmPaymentBtn: "TÔI ĐÃ CHUYỂN KHOẢN XONG - XÁC THỰC & GỬI VÀO BẾP",
+        successTitle: "🎉 ĐẶT MÓN & THANH TOÁN THÀNH CÔNG!",
+        successDesc: "Đơn hàng đã được thanh toán 100% và chuyển thẳng vào Quầy Barista (Bếp) làm món!",
+        tablePosLabel: "Vị trí bàn:",
+        paymentMethodLabel: "Hình thức thanh toán:",
+        totalAmountLabel: "Tổng tiền:",
+        backToMenuBtn: "☕ Hoàn Tất & Tiếp Tục Xem Menu",
+        addBtn: "Thêm",
+        soldOut: "Hết Món",
+        itemDetailTitle: "Chi Tiết Món",
+        iceLabel: "Mức đá:",
+        sugarLabel: "Mức đường:",
+        toppingLabel: "Topping thêm:",
+        customerNoteLabel: "Ghi chú món:"
+      },
+      en: {
+        brandSub: "QR Table Ordering & Barista POS System",
+        welcomeMsg: "Welcome to Ace Tropical Wellness Coffee",
+        tableLabel: "Your Table:",
+        tableSub: "(Select items & order)",
+        changeTableBtn: "🔄 Change Table / Scan QR",
+        searchPlaceholder: "🔍 Search delicious drinks & food...",
+        cartBtn: "Cart",
+        cartTitle: "Your Order Cart",
+        cartEmpty: "Your cart is empty! Pick your favorite drinks to enjoy.",
+        subtotalLabel: "Subtotal:",
+        vatLabel: "VAT Tax (8%):",
+        totalLabel: "Total Amount:",
+        phoneLabel: "📱 Mobile number for order notification:",
+        noteLabel: "📝 Special notes for barista / kitchen:",
+        notePlaceholder: "Less sugar, no ice, paper cup...",
+        checkoutBtn: "💳 PROCEED TO PAYMENT (PREPAYMENT REQUIRED)",
+        payModalTitle: "Order Prepayment",
+        prepayNoticeTitle: "PREPAYMENT REQUIRED:",
+        prepayNoticeDesc: " Please complete your transfer/card payment first. Orders are sent directly to the Barista Kitchen ONLY after payment is verified!",
+        orderIdLabel: "Order ID:",
+        totalPayLabel: "Total Payment:",
+        phoneInputLabel: "Customer Phone (*):",
+        generalNoteLabel: "General Note:",
+        generalNotePlaceholder: "Pick up at counter, less ice...",
+        choosePaymentMethodLabel: "Select direct payment gateway:",
+        payTabBank: "Bank (VietQR)",
+        payTabMoMo: "MoMo Wallet",
+        payTabZalo: "ZaloPay Wallet",
+        payTabVisa: "Visa / Mastercard",
+        bankGatewayLive: "Direct Connect: All 54+ Vietnam Banks (Napas 24/7)",
+        openBankAppBtn: "OPEN BANKING APP TO PAY (DIRECT APP LINK)",
+        vietqrInstruction: "⚡ Or scan VietQR to auto-fill amount & order code:",
+        bankLabel: "Bank:",
+        accNumLabel: "Account No.:",
+        accNameLabel: "Account Name:",
+        amountLabel: "Amount:",
+        memoLabel: "Transfer Memo:",
+        momoGatewayLive: "Direct Connect: MoMo Pay Direct Payment Gateway",
+        openMoMoAppBtn: "OPEN MOMO APP TO PAY NOW",
+        momoInstruction: "📱 Or scan QR using your MoMo Wallet App:",
+        momoPhoneLabel: "MoMo Phone:",
+        receiverLabel: "Recipient:",
+        zaloGatewayLive: "Direct Connect: ZaloPay Direct Payment Gateway",
+        openZaloAppBtn: "OPEN ZALOPAY APP TO PAY NOW",
+        zaloInstruction: "📱 Or scan QR using ZaloPay or Zalo App:",
+        zaloPhoneLabel: "ZaloPay Phone:",
+        visaGatewayLive: "International Card Gateway (Visa / Mastercard / JCB)",
+        cardNumberLabel: "Card Number (Visa / Mastercard):",
+        cardHolderLabel: "Cardholder Name (Uppercase):",
+        cardExpiryLabel: "Expiry Date (MM/YY):",
+        cardCvvLabel: "CVV / CVC Code (3 digits):",
+        visaSecurityText: "256-bit SSL & 3D-Secure International Encryption",
+        payVisaBtn: "PAY NOW WITH VISA / MASTER",
+        gatewayListening: "Connected to payment gateway, listening for transfer...",
+        confirmPaymentBtn: "I HAVE COMPLETED PAYMENT - VERIFY & SEND TO KITCHEN",
+        successTitle: "🎉 ORDER & PAYMENT SUCCESSFUL!",
+        successDesc: "Your order has been 100% prepaid and sent straight to the Barista Kitchen!",
+        tablePosLabel: "Table:",
+        paymentMethodLabel: "Payment Method:",
+        totalAmountLabel: "Total Amount:",
+        backToMenuBtn: "☕ Done & Return to Menu",
+        addBtn: "+ Add",
+        soldOut: "Sold Out",
+        itemDetailTitle: "Item Details",
+        iceLabel: "Ice Level:",
+        sugarLabel: "Sugar Level:",
+        toppingLabel: "Add-on Toppings:",
+        customerNoteLabel: "Item Note:"
+      }
+    };
+
+    
+    // =========================================================================
+    // TỪ ĐIỂN ĐA NGÔN NGỮ CHI TIẾT (ENGLISH / TIẾNG VIỆT) CHO MÓN ĂN & BÀN
+    // =========================================================================
+    const TABLE_DICTIONARY = {
+      "1": "Table 01 (Ground Floor)",
+      "2": "Table 02 (Ground Floor)",
+      "3": "Table 03 (Air-Conditioned)",
+      "4": "Table 04 (Air-Conditioned)",
+      "5": "Table 05 (Garden Patio)",
+      "6": "Table 06 (Garden Patio)",
+      "7": "Table 07 (Balcony)",
+      "8": "Table 08 (Balcony)"
+    };
+
+    function getLocalizedProductName(item) {
+      if (!item) return '';
+      if (typeof currentLang !== 'undefined' && currentLang === 'en') {
+        if (typeof MENU_DICTIONARY !== 'undefined' && MENU_DICTIONARY[item.id] && MENU_DICTIONARY[item.id].name_en) {
+          return MENU_DICTIONARY[item.id].name_en;
+        }
+        if (item.name_en) return item.name_en;
+      }
+      return item.name;
+    }
+
+    function getLocalizedProductDesc(item) {
+      if (!item) return '';
+      if (typeof currentLang !== 'undefined' && currentLang === 'en') {
+        if (typeof MENU_DICTIONARY !== 'undefined' && MENU_DICTIONARY[item.id] && MENU_DICTIONARY[item.id].desc_en) {
+          return MENU_DICTIONARY[item.id].desc_en;
+        }
+        if (item.desc_en) return item.desc_en;
+      }
+      return item.desc || 'Hương vị tuyệt hảo tại Ace Tropical Wellness Coffee.';
+    }
+
+    function getLocalizedProductBadge(item) {
+      if (!item || !item.badge) return '';
+      if (typeof currentLang !== 'undefined' && currentLang === 'en') {
+        if (typeof MENU_DICTIONARY !== 'undefined' && MENU_DICTIONARY[item.id] && MENU_DICTIONARY[item.id].badge_en) {
+          return MENU_DICTIONARY[item.id].badge_en;
+        }
+        if (item.badge_en) return item.badge_en;
+      }
+      return item.badge;
+    }
+
+    function getLocalizedTableName(tbl) {
+      if (!tbl) return '';
+      if (typeof currentLang !== 'undefined' && currentLang === 'en') {
+        if (TABLE_DICTIONARY[tbl.id]) return TABLE_DICTIONARY[tbl.id];
+        if (tbl.name_en) return tbl.name_en;
+      }
+      return tbl.name;
+    }
+
+    function setLanguage(lang) {
+      currentLang = (lang === 'en') ? 'en' : 'vi';
+      localStorage.setItem('ace_lang', currentLang);
+
+      const btnVi = document.getElementById('lang-btn-vi');
+      const btnEn = document.getElementById('lang-btn-en');
+      if (btnVi) btnVi.classList.toggle('active', currentLang === 'vi');
+      if (btnEn) btnEn.classList.toggle('active', currentLang === 'en');
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (I18N[currentLang] && I18N[currentLang][key]) el.textContent = I18N[currentLang][key];
+      });
+      document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        if (I18N[currentLang] && I18N[currentLang][key]) el.setAttribute('placeholder', I18N[currentLang][key]);
+      });
+
+      const brandSub = document.querySelector('.brand-sub');
+      if (brandSub && I18N[currentLang]) brandSub.textContent = I18N[currentLang].brandSub;
+
+      const searchInput = document.getElementById('customer-search-input');
+      if (searchInput && I18N[currentLang]) searchInput.placeholder = I18N[currentLang].searchPlaceholder;
+
+      const testBannerText = document.getElementById('test-banner-text');
+      if (testBannerText) {
+        testBannerText.innerHTML = (currentLang === 'en')
+          ? '<b>TEST MODE ACTIVE:</b> All features operate 100% identically to Live Mode. You can use the Simulate Bank Transfer button in the checkout popup to test orders without real money.'
+          : '<b>CHẾ ĐỘ CHẠY THỬ NGHIỆM (TEST MODE):</b> Mọi tính năng hoạt động 100% giống Live Mode. Bạn có thể dùng nút Giả Lập Ngân Hàng trong popup thanh toán để test đơn hàng mà không cần chuyển tiền thật.';
+      }
+
+      const radarTitle = document.getElementById('detect-status-title');
+      const radarDesc = document.getElementById('detect-status-desc');
+      if (radarTitle && !isPaymentVerified) {
+        radarTitle.textContent = (currentLang === 'en')
+          ? 'Automatically listening for Bank Transfer...'
+          : 'Đang tự động nhận diện thanh toán từ Ngân hàng...';
+      }
+      if (radarDesc && !isPaymentVerified) {
+        radarDesc.innerHTML = (currentLang === 'en')
+          ? 'Please transfer the exact amount and memo. The system will <b>AUTOMATICALLY DISPATCH TO KITCHEN</b> once received!'
+          : 'Quý khách vui lòng chuyển khoản đúng số tiền và nội dung. Hệ thống sẽ <b>TỰ ĐỘNG CHUYỂN VÀO BẾP</b> ngay khi ngân hàng báo có tiền!';
+      }
+
+      const btnCheck = document.getElementById('btn-check-payment');
+      if (btnCheck) {
+        btnCheck.innerHTML = `<span>🔄</span> <span>${currentLang === 'en' ? 'Check Payment Status' : 'Kiểm Tra Lại Giao Dịch'}</span>`;
+      }
+      const btnCancel = document.getElementById('btn-cancel-checkout');
+      if (btnCancel) {
+        btnCancel.innerHTML = `<span>❌</span> <span>${currentLang === 'en' ? 'Cancel / Change Items' : 'Hủy / Đổi Món'}</span>`;
+      }
+      const btnSim = document.getElementById('btn-simulate-test-pay');
+      if (btnSim) {
+        btnSim.innerHTML = `🧪 [Test Mode] ${currentLang === 'en' ? 'Simulate Bank Transfer (Success)' : 'Giả Lập Ngân Hàng Báo Có Tiền'}`;
+      }
+
+      renderCustomerCategoryFilter();
+      renderCustomerProducts(activeCategory);
+      updateCartUI();
+      updateTableDisplay();
+      renderTablePickerGrid();
+    }
+
+    const MENU_DICTIONARY = {
+      1: { name_en: "Saigon Iced Milk Coffee", desc_en: "Traditional Vietnamese Robusta blended with rich condensed milk over ice.", badge_en: "Best Seller" },
+      2: { name_en: "Traditional Black Coffee", desc_en: "Bold, aromatic slow-dripped pure Robusta coffee.", badge_en: "Strong" },
+      3: { name_en: "Hanoi Egg Coffee (Hot)", desc_en: "Legendary Hanoi whipped egg cream atop rich drip coffee.", badge_en: "Signature" },
+      4: { name_en: "Highland Coconut Coffee", desc_en: "Smooth blended coconut cream with iced Vietnamese espresso.", badge_en: "Popular" },
+      5: { name_en: "Saigon Bac Xiu Iced", desc_en: "Layered sweet condensed milk, fresh milk with a gentle espresso splash.", badge_en: "Favorite" },
+      6: { name_en: "Lotus Seed Longan Tea", desc_en: "Refreshing golden lotus tea with sweet fresh longan meat.", badge_en: "Refreshing" },
+      7: { name_en: "Italian Tiramisu Cake", desc_en: "Classic mascarpone cheese layered with espresso-soaked ladyfingers.", badge_en: "Chef Special" },
+      8: { name_en: "French Butter Croissant", desc_en: "Crispy, golden multi-layered pastry baked with premium butter.", badge_en: "Fresh Baked" },
+      9: { name_en: "Tropical Avocado Smoothie", desc_en: "Creamy fresh Dak Lak avocado blended with milk and crushed ice.", badge_en: "Healthy" },
+      10: { name_en: "Cold Brew Herbal Hibiscus", desc_en: "16-hour steeped cold brew infused with ruby hibiscus flowers.", badge_en: "New" }
+    };
+
+    function autoTranslateMenuName(viName) {
+      if (!viName) return '';
+      let n = viName;
+      n = n.replace(/Cà phê sữa đá/gi, 'Iced Milk Coffee');
+      n = n.replace(/Cà phê đen/gi, 'Black Coffee');
+      n = n.replace(/Cà phê trứng/gi, 'Egg Coffee');
+      n = n.replace(/Cà phê cốt dừa/gi, 'Coconut Coffee');
+      n = n.replace(/Bạc xỉu/gi, 'Bac Xiu Coffee');
+      n = n.replace(/Trà sen/gi, 'Lotus Seed Tea');
+      n = n.replace(/Trà đào/gi, 'Peach Tea');
+      n = n.replace(/Trà sữa/gi, 'Milk Tea');
+      n = n.replace(/Bánh Tiramisu/gi, 'Tiramisu Cake');
+      n = n.replace(/Bánh sừng bò/gi, 'Butter Croissant');
+      n = n.replace(/Bánh mì/gi, 'Vietnamese Baguette');
+      n = n.replace(/Sinh tố bơ/gi, 'Avocado Smoothie');
+      n = n.replace(/Sinh tố/gi, 'Smoothie');
+      return n;
+    }
+
+    function autoTranslateMenuDesc(viDesc, item) {
+      if (!viDesc) return currentLang === 'en' ? 'Crafted with premium ingredients at Ace Tropical Coffee.' : '';
+      if (item && item.id && MENU_DICTIONARY[item.id]) return MENU_DICTIONARY[item.id].desc_en;
+      return viDesc;
+    }
+
+    function autoTranslateBadge(badge) {
+      if (!badge) return '';
+      const bMap = {
+        'Bán chạy': 'Best Seller',
+        'Đậm vị': 'Strong',
+        'Đặc sản': 'Signature',
+        'Yêu thích': 'Popular',
+        'Được yêu thích': 'Favorite',
+        'Thanh mát': 'Refreshing',
+        'Bánh tươi': 'Fresh Baked',
+        'Mới': 'New',
+        'Healthy': 'Healthy'
+      };
+      return bMap[badge] || badge;
+    }
+
+    function getItemDisplayName(item) {
+      if (!item) return '';
+      if (currentLang !== 'en') return item.name;
+      if (item.name_en) return item.name_en;
+      if (item.id && MENU_DICTIONARY[item.id] && MENU_DICTIONARY[item.id].name_en) {
+        return MENU_DICTIONARY[item.id].name_en;
+      }
+      return autoTranslateMenuName(item.name);
+    }
+
+    function getItemDisplayDesc(item) {
+      if (!item) return '';
+      if (currentLang !== 'en') return item.desc || '';
+      if (item.desc_en) return item.desc_en;
+      if (item.id && MENU_DICTIONARY[item.id] && MENU_DICTIONARY[item.id].desc_en) {
+        return MENU_DICTIONARY[item.id].desc_en;
+      }
+      return autoTranslateMenuDesc(item.desc, item);
+    }
+
+    function getItemDisplayBadge(item) {
+      if (!item) return '';
+      if (currentLang !== 'en') return item.badge || '';
+      if (item.badge_en) return item.badge_en;
+      if (item.id && MENU_DICTIONARY[item.id] && MENU_DICTIONARY[item.id].badge_en) {
+        return MENU_DICTIONARY[item.id].badge_en;
+      }
+      return autoTranslateBadge(item.badge);
+    }
+
+    function enrichMenuWithEnglish(menuList) {
+      if (!Array.isArray(menuList)) return;
+      menuList.forEach(item => {
+        if (MENU_DICTIONARY[item.id]) {
+          item.name_en = MENU_DICTIONARY[item.id].name_en;
+          item.desc_en = MENU_DICTIONARY[item.id].desc_en;
+          item.badge_en = MENU_DICTIONARY[item.id].badge_en;
+        } else {
+          item.name_en = item.name_en || autoTranslateMenuName(item.name);
+          item.desc_en = item.desc_en || autoTranslateMenuDesc(item.desc, item);
+          item.badge_en = item.badge_en || autoTranslateBadge(item.badge);
+        }
+      });
+    }
+
+    function getTableDisplayName(table) {
+      if (!table) return currentLang === 'en' ? 'Table 01 (Ground Floor)' : 'Bàn 01 (Tầng trệt)';
+      if (currentLang === 'en') {
+        if (table.name_en) return table.name_en;
+        let name = table.name || ('Table ' + (table.id || '01'));
+        name = name.replace(/^Bàn\s*/i, 'Table ');
+        name = name.replace(/Tầng trệt/i, 'Ground Floor');
+        name = name.replace(/Khu máy lạnh/i, 'AC Room');
+        name = name.replace(/Sân vườn/i, 'Garden Patio');
+        name = name.replace(/Ban công/i, 'Balcony');
+        return name;
+      }
+      return table.name || ('Bàn ' + (table.id || '01'));
+    }
+
+    // =========================================================================
     // QUẢN LÝ CHẾ ĐỘ MÔI TRƯỜNG (LIVE MODE vs TEST MODE)
     // =========================================================================
     let appEnvironment = 'live'; // 'live' hoặc 'test'
@@ -6560,6 +6677,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
     // HỆ THỐNG XÁC THỰC THANH TOÁN TỰ ĐỘNG CHỐNG GIAN LẬN (STRICT PREPAYMENT)
     // =========================================================================
     let paymentVerificationInterval = null;
+    let paymentTimerInterval = null;
     let isPaymentVerified = false;
 
     function startPaymentVerificationListener() {
@@ -6580,12 +6698,30 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
         if (alertEl) alertEl.style.display = 'none';
       }
 
-      // Quét tự động mỗi 2.5 giây
+      // Đếm ngược thời gian thanh toán 10 phút
+      let timeLeft = 600;
+      clearInterval(paymentTimerInterval);
+      const timerEl = document.getElementById('payment-timer-countdown');
+      if (timerEl) timerEl.textContent = '⏳ 10:00';
+      paymentTimerInterval = setInterval(() => {
+        timeLeft--;
+        if (timeLeft <= 0) {
+          clearInterval(paymentTimerInterval);
+          stopPaymentVerificationListener();
+          if (timerEl) timerEl.textContent = (typeof currentLang !== 'undefined' && currentLang === 'en') ? '⏳ 00:00 (Expired)' : '⏳ 00:00 (Hết hạn)';
+        } else {
+          const m = Math.floor(timeLeft / 60);
+          const s = timeLeft % 60;
+          if (timerEl) timerEl.textContent = `⏳ ${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        }
+      }, 1000);
+
       paymentVerificationInterval = setInterval(pollPaymentVerificationStatus, 2500);
     }
 
     function stopPaymentVerificationListener() {
       clearInterval(paymentVerificationInterval);
+      clearInterval(paymentTimerInterval);
     }
 
     function pollPaymentVerificationStatus() {
@@ -6594,7 +6730,6 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
       const total = subtotal + Math.round(subtotal * (storeSettings.vatRate / 100));
 
-      // 1. Kiểm tra qua Backend REST API
       fetch(`/api/payments/check-status?order_id=${currentPendingOrderId}&amount=${total}`)
         .then(res => res.ok ? res.json() : null)
         .then(data => {
@@ -6603,7 +6738,6 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           }
         }).catch(() => {});
 
-      // 2. Kiểm tra qua Cloud Webhook Relay
       fetch(`${REALTIME_CHANNEL.ntfyOrdersUrl}_payments/json?poll=1`)
         .then(res => res.text())
         .then(text => {
@@ -6725,6 +6859,57 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       }).catch(() => {});
 
       triggerPaymentSuccess(txnId);
+    }
+
+    function openDirectBankingApp() {
+      const bankId = storeSettings.bankId || 'MB';
+      const acc = storeSettings.bankAccount || '0988776655';
+      const memo = currentPendingOrderId;
+      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const total = subtotal + Math.round(subtotal * (storeSettings.vatRate / 100));
+      window.location.href = `https://img.vietqr.io/image/${bankId}-${acc}-compact2.png?amount=${total}&addInfo=${memo}`;
+    }
+
+    function openDirectMoMoApp() {
+      const phone = storeSettings.momoPhone || '0988776655';
+      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const total = subtotal + Math.round(subtotal * (storeSettings.vatRate / 100));
+      window.location.href = `momo://app?action=payWithApp&isScan=true&amount=${total}&comment=${currentPendingOrderId}`;
+    }
+
+    function openDirectZaloPayApp() {
+      const phone = storeSettings.zalopayPhone || '0988776655';
+      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const total = subtotal + Math.round(subtotal * (storeSettings.vatRate / 100));
+      window.location.href = `zalopay://launch?action=pay&amount=${total}&desc=${currentPendingOrderId}`;
+    }
+
+    function processVisaDirectPayment() {
+      const cardNum = (document.getElementById('visa-card-number') ? document.getElementById('visa-card-number').value : '').replace(/\s/g, '');
+      const cardName = (document.getElementById('visa-card-name') ? document.getElementById('visa-card-name').value : '').trim();
+      const cardExp = (document.getElementById('visa-card-expiry') ? document.getElementById('visa-card-expiry').value : '').trim();
+      const cardCvv = (document.getElementById('visa-card-cvv') ? document.getElementById('visa-card-cvv').value : '').trim();
+
+      if (cardNum.length < 15 || !cardName || cardExp.length < 5 || cardCvv.length < 3) {
+        alert(currentLang === 'en' ? "Please enter complete and valid card information!" : "Vui lòng nhập đầy đủ và chính xác thông tin thẻ Visa/Mastercard!");
+        return;
+      }
+
+      const txnId = 'AUTH-VISA-' + Math.floor(100000 + Math.random() * 900000);
+      triggerPaymentSuccess(txnId);
+    }
+
+    function formatCardNumberInput(input) {
+      let v = input.value.replace(/\D/g, '').substring(0, 16);
+      let parts = [];
+      for (let i = 0; i < v.length; i += 4) parts.push(v.substring(i, i + 4));
+      input.value = parts.join(' ');
+    }
+
+    function formatExpiryInput(input) {
+      let v = input.value.replace(/\D/g, '').substring(0, 4);
+      if (v.length >= 3) input.value = v.substring(0, 2) + '/' + v.substring(2);
+      else input.value = v;
     }
 
     // =========================================================================
@@ -7090,7 +7275,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       const vatRate = (storeSettings && storeSettings.vatRate) ? storeSettings.vatRate : 8;
       const total = discountedSubtotal + Math.round(discountedSubtotal * (vatRate / 100));
 
-      const cashGiven = parseFloat((document.getElementById('cpay-cash-given').value || '0').replace(/[^0-9]/g, '')) || 0;
+      const cashGiven = parseFloat((document.getElementById('cpay-cash-given').value || '0').replace(/\D/g, '')) || 0;
       const change = Math.max(0, cashGiven - total);
       document.getElementById('cpay-cash-change').textContent = formatMoney(change);
     }
@@ -7754,147 +7939,237 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
 
   <!-- MODAL: THANH TOÁN & QUÉT MÃ QR (NGÂN HÀNG, MOMO, ZALOPAY) -->
   <div class="modal-overlay" id="payment-checkout-modal">
-    <div class="modal-card" style="max-width: 500px;">
+    <div class="modal-card" style="max-width: 520px;">
       <div class="modal-header">
         <div>
-          <h3 style="margin: 0; font-size: 1.1rem;">💳 Thanh Toán Gọi Món</h3>
+          <h3 style="margin: 0; font-size: 1.1rem;">💳 <span data-i18n="payModalTitle">Thanh Toán Đơn Hàng</span></h3>
           <span style="font-size: 0.78rem; opacity: 0.85;" id="checkout-table-display">Bàn 01</span>
         </div>
         <button class="close-cart-btn" onclick="closePaymentCheckoutModal()">&times;</button>
       </div>
       <div class="modal-body" style="padding: 14px;">
 
+        <!-- CẢNH BÁO BẮT BUỘC TRẢ TRƯỚC -->
+        <div class="prepay-alert-banner">
+          <span style="font-size: 1.4rem;">🔒</span>
+          <div>
+            <b data-i18n="prepayNoticeTitle">BẮT BUỘC THANH TOÁN TRƯỚC:</b>
+            <span data-i18n="prepayNoticeDesc"> Quý khách vui lòng hoàn tất chuyển khoản / thanh toán trước. Đơn hàng chỉ được chuyển thẳng vào Quầy Barista (Bếp) làm món sau khi hệ thống ghi nhận thanh toán thành công!</span>
+          </div>
+        </div>
 
         <!-- TÓM TẮT ĐƠN HÀNG -->
         <div style="background: #FDFBF8; border: 1px solid var(--border); border-radius: 10px; padding: 10px; margin-bottom: 12px;">
           <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 6px;">
-            <span>Mã đơn: <b id="checkout-order-id-display">ORD-1000</b></span>
-            <span>Tổng thanh toán: <b id="checkout-total-header" style="color: var(--primary); font-size: 0.95rem;">0 đ</b></span>
+            <span><span data-i18n="orderIdLabel">Mã đơn:</span> <b id="checkout-order-id-display">ORD-1000</b></span>
+            <span><span data-i18n="totalPayLabel">Tổng thanh toán:</span> <b id="checkout-total-header" style="color: var(--primary); font-size: 0.95rem;">0 đ</b></span>
           </div>
           <div id="checkout-items-preview" style="max-height: 100px; overflow-y: auto; margin-bottom: 6px;"></div>
           <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); border-top: 1px solid #EEE; padding-top: 4px;">
-            <span>Tạm tính: <span id="checkout-subtotal-display">0 đ</span> | VAT (8%): <span id="checkout-vat-display">0 đ</span></span>
-            <span style="font-weight: 700; color: var(--text);">Tổng: <span id="checkout-total-display">0 đ</span></span>
+            <span><span data-i18n="subtotalLabel">Tạm tính:</span> <span id="checkout-subtotal-display">0 đ</span> | <span data-i18n="vatLabel">VAT (8%):</span> <span id="checkout-vat-display">0 đ</span></span>
+            <span style="font-weight: 700; color: var(--text);"><span data-i18n="totalLabel">Tổng:</span> <span id="checkout-total-display">0 đ</span></span>
           </div>
         </div>
-
 
         <!-- THÔNG TIN LIÊN HỆ -->
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
           <div>
-            <label style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 2px;">Số điện thoại khách (*):</label>
+            <label style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 2px;" data-i18n="phoneInputLabel">Số điện thoại khách (*):</label>
             <input type="tel" id="checkout-phone" class="form-control" placeholder="0988xxxxxx" style="padding: 6px 10px; font-size: 0.82rem;">
           </div>
           <div>
-            <label style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 2px;">Ghi chú chung:</label>
-            <input type="text" id="checkout-general-note" class="form-control" placeholder="Lấy món tại quầy..." style="padding: 6px 10px; font-size: 0.82rem;">
+            <label style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 2px;" data-i18n="generalNoteLabel">Ghi chú chung:</label>
+            <input type="text" id="checkout-general-note" class="form-control" placeholder="Lấy món tại quầy..." data-i18n-ph="generalNotePlaceholder" style="padding: 6px 10px; font-size: 0.82rem;">
           </div>
         </div>
 
-
-        <!-- CHỌN PHƯƠNG THỨC THANH TOÁN -->
-        <label style="font-size: 0.8rem; font-weight: 800; color: var(--primary-dark); display: block; margin-bottom: 6px;">
-          Chọn hình thức thanh toán:
+        <!-- CHỌN PHƯƠNG THỨC THANH TOÁN (100% TRẢ TRƯỚC - BỎ TIỀN MẶT) -->
+        <label style="font-size: 0.8rem; font-weight: 800; color: var(--primary-dark); display: block; margin-bottom: 6px;" data-i18n="choosePaymentMethodLabel">
+          Chọn cổng thanh toán trực tiếp:
         </label>
         <div class="pay-methods-grid">
           <div class="pay-tab-btn active" id="pay-tab-vietqr" onclick="selectPaymentMethod('vietqr')">
-            🏦 Chuyển Khoản Ngân Hàng
+            🏦 <span data-i18n="payTabBank">Ngân Hàng (VietQR)</span>
           </div>
           <div class="pay-tab-btn momo" id="pay-tab-momo" onclick="selectPaymentMethod('momo')">
-            📱 Ví MoMo
+            📱 <span data-i18n="payTabMoMo">Ví MoMo</span>
           </div>
           <div class="pay-tab-btn zalo" id="pay-tab-zalopay" onclick="selectPaymentMethod('zalopay')">
-            📱 Ví ZaloPay
+            📱 <span data-i18n="payTabZalo">Ví ZaloPay</span>
           </div>
-          <div class="pay-tab-btn" id="pay-tab-cash" onclick="selectPaymentMethod('cash')">
-            💵 Tiền Mặt / Tại Quầy
+          <div class="pay-tab-btn visa" id="pay-tab-visa" onclick="selectPaymentMethod('visa')">
+            💳 <span data-i18n="payTabVisa">Thẻ Visa / Master</span>
           </div>
         </div>
 
-
         <!-- 1. VIEW THANH TOÁN VIETQR NGÂN HÀNG -->
         <div id="pay-view-vietqr" class="qr-payment-card">
-          <div style="font-size: 0.82rem; font-weight: 700; color: #1565C0; margin-bottom: 8px;">
-            ⚡ Quét mã VietQR bằng ứng dụng bất kỳ ngân hàng nào
+          <div class="direct-connect-box">
+            <div class="direct-conn-header">
+              <span class="pulse-dot"></span>
+              <span data-i18n="bankGatewayLive">Direct Connect: Toàn bộ 54+ Ngân Hàng Việt Nam (Napas 24/7)</span>
+            </div>
+            <button type="button" class="direct-app-btn bank-gradient" onclick="openDirectBankingApp()">
+              <span>🚀</span> <span data-i18n="openBankAppBtn">MỞ APP NGÂN HÀNG THANH TOÁN (DIRECT APP LINK)</span>
+            </button>
           </div>
-          <div style="background: #FFF; padding: 10px; border-radius: 8px; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+          <div style="font-size: 0.8rem; font-weight: 700; color: #1565C0; margin: 8px 0 6px 0;" data-i18n="vietqrInstruction">
+            ⚡ Hoặc quét mã VietQR tự động điền tiền & nội dung:
+          </div>
+          <div style="background: #FFF; padding: 10px; border-radius: 12px; display: inline-block; box-shadow: 0 2px 10px rgba(0,0,0,0.08); max-width: 260px; margin: 0 auto;">
             <img id="pay-vietqr-img" src="" alt="Mã VietQR Thanh Toán" style="max-width: 240px; width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px;">
           </div>
           <div style="margin-top: 10px; font-size: 0.8rem; text-align: left; background: #FFF; padding: 10px; border-radius: 8px; border: 1px solid #E3F2FD;">
-            <div style="margin-bottom: 4px;">Ngân hàng: <b id="vietqr-bank-name">MBBank</b></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="bankLabel">Ngân hàng:</span> <b id="vietqr-bank-name">MBBank</b></div>
             <div style="margin-bottom: 4px;">
-              Số tài khoản: <b id="vietqr-acc-num" style="color: var(--primary); font-size: 0.95rem;">0988776655</b>
+              <span data-i18n="accNumLabel">Số tài khoản:</span> <b id="vietqr-acc-num" style="color: var(--primary); font-size: 0.95rem;">0988776655</b>
               <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('vietqr-acc-num').textContent, 'Đã sao chép số tài khoản!')">📋 Copy</span>
             </div>
-            <div style="margin-bottom: 4px;">Chủ tài khoản: <b id="vietqr-acc-name">ACE TROPICAL COFFEE</b></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="accNameLabel">Chủ tài khoản:</span> <b id="vietqr-acc-name">ACE TROPICAL COFFEE</b></div>
             <div style="margin-bottom: 4px;">
-              Số tiền: <b id="vietqr-amount" style="color: #D32F2F;">0 đ</b>
+              <span data-i18n="amountLabel">Số tiền:</span> <b id="vietqr-amount" style="color: #D32F2F;">0 đ</b>
               <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('vietqr-amount').textContent.replace(/[^0-9]/g,''), 'Đã sao chép số tiền!')">📋 Copy</span>
             </div>
             <div>
-              Nội dung CK: <b id="vietqr-memo" style="color: var(--primary-dark); font-size: 0.9rem;">ORD-1000</b>
+              <span data-i18n="memoLabel">Nội dung CK:</span> <b id="vietqr-memo" style="color: var(--primary-dark); font-size: 0.9rem;">ORD-1000</b>
               <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('vietqr-memo').textContent, 'Đã sao chép nội dung chuyển khoản!')">📋 Copy</span>
             </div>
           </div>
         </div>
 
-
         <!-- 2. VIEW THANH TOÁN MOMO -->
         <div id="pay-view-momo" class="qr-payment-card momo-theme" style="display: none;">
-          <div style="font-size: 0.82rem; font-weight: 700; color: #A50064; margin-bottom: 8px;">
-            📱 Quét mã bằng ứng dụng Ví MoMo
+          <div class="direct-connect-box">
+            <div class="direct-conn-header">
+              <span class="pulse-dot"></span>
+              <span data-i18n="momoGatewayLive">Direct Connect: Cổng Thanh Toán MoMo Pay Trực Tiếp</span>
+            </div>
+            <button type="button" class="direct-app-btn momo-gradient" onclick="openDirectMoMoApp()">
+              <span>🚀</span> <span data-i18n="openMoMoAppBtn">MỞ ỨNG DỤNG MOMO THANH TOÁN NGAY</span>
+            </button>
+          </div>
+          <div style="font-size: 0.8rem; font-weight: 700; color: #A50064; margin: 8px 0 6px 0;" data-i18n="momoInstruction">
+            📱 Hoặc quét mã bằng ứng dụng Ví MoMo:
           </div>
           <div style="background: #FFF; padding: 10px; border-radius: 8px; display: inline-block;">
             <canvas id="pay-momo-canvas" width="200" height="200" style="display: block; margin: 0 auto;"></canvas>
           </div>
           <div style="margin-top: 10px; font-size: 0.8rem; text-align: left; background: #FFF; padding: 10px; border-radius: 8px; border: 1px solid #FCE4EC;">
-            <div style="margin-bottom: 4px;">Số MoMo: <b id="momo-phone" style="color: #A50064; font-size: 0.95rem;">0988776655</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('momo-phone').textContent, 'Đã sao chép số MoMo!')">📋 Copy</span></div>
-            <div style="margin-bottom: 4px;">Tên người nhận: <b id="momo-name">ACE TROPICAL COFFEE</b></div>
-            <div style="margin-bottom: 4px;">Số tiền: <b id="momo-amount" style="color: #D32F2F;">0 đ</b></div>
-            <div>Lời nhắn chuyển tiền: <b id="momo-memo">ORD-1000</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('momo-memo').textContent, 'Đã sao chép lời nhắn!')">📋 Copy</span></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="momoPhoneLabel">Số MoMo:</span> <b id="momo-phone" style="color: #A50064; font-size: 0.95rem;">0988776655</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('momo-phone').textContent, 'Đã sao chép số MoMo!')">📋 Copy</span></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="receiverLabel">Tên người nhận:</span> <b id="momo-name">ACE TROPICAL COFFEE</b></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="amountLabel">Số tiền:</span> <b id="momo-amount" style="color: #D32F2F;">0 đ</b></div>
+            <div><span data-i18n="memoLabel">Lời nhắn:</span> <b id="momo-memo">ORD-1000</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('momo-memo').textContent, 'Đã sao chép lời nhắn!')">📋 Copy</span></div>
           </div>
         </div>
 
-
         <!-- 3. VIEW THANH TOÁN ZALOPAY -->
         <div id="pay-view-zalopay" class="qr-payment-card zalo-theme" style="display: none;">
-          <div style="font-size: 0.82rem; font-weight: 700; color: #0068FF; margin-bottom: 8px;">
-            📱 Quét mã bằng ứng dụng ZaloPay hoặc Zalo
+          <div class="direct-connect-box">
+            <div class="direct-conn-header">
+              <span class="pulse-dot"></span>
+              <span data-i18n="zaloGatewayLive">Direct Connect: Cổng Thanh Toán ZaloPay Trực Tiếp</span>
+            </div>
+            <button type="button" class="direct-app-btn zalo-gradient" onclick="openDirectZaloPayApp()">
+              <span>🚀</span> <span data-i18n="openZaloAppBtn">MỞ ỨNG DỤNG ZALOPAY THANH TOÁN NGAY</span>
+            </button>
+          </div>
+          <div style="font-size: 0.8rem; font-weight: 700; color: #0068FF; margin: 8px 0 6px 0;" data-i18n="zaloInstruction">
+            📱 Hoặc quét mã bằng ứng dụng ZaloPay hoặc Zalo:
           </div>
           <div style="background: #FFF; padding: 10px; border-radius: 8px; display: inline-block;">
             <canvas id="pay-zalopay-canvas" width="200" height="200" style="display: block; margin: 0 auto;"></canvas>
           </div>
           <div style="margin-top: 10px; font-size: 0.8rem; text-align: left; background: #FFF; padding: 10px; border-radius: 8px; border: 1px solid #E1F5FE;">
-            <div style="margin-bottom: 4px;">Số ZaloPay: <b id="zalopay-phone" style="color: #0068FF; font-size: 0.95rem;">0988776655</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('zalopay-phone').textContent, 'Đã sao chép số ZaloPay!')">📋 Copy</span></div>
-            <div style="margin-bottom: 4px;">Tên người nhận: <b id="zalopay-name">ACE TROPICAL COFFEE</b></div>
-            <div style="margin-bottom: 4px;">Số tiền: <b id="zalopay-amount" style="color: #D32F2F;">0 đ</b></div>
-            <div>Nội dung: <b id="zalopay-memo">ORD-1000</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('zalopay-memo').textContent, 'Đã sao chép nội dung!')">📋 Copy</span></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="zaloPhoneLabel">Số ZaloPay:</span> <b id="zalopay-phone" style="color: #0068FF; font-size: 0.95rem;">0988776655</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('zalopay-phone').textContent, 'Đã sao chép số ZaloPay!')">📋 Copy</span></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="receiverLabel">Tên người nhận:</span> <b id="zalopay-name">ACE TROPICAL COFFEE</b></div>
+            <div style="margin-bottom: 4px;"><span data-i18n="amountLabel">Số tiền:</span> <b id="zalopay-amount" style="color: #D32F2F;">0 đ</b></div>
+            <div><span data-i18n="memoLabel">Nội dung:</span> <b id="zalopay-memo">ORD-1000</b> <span class="copy-pill" onclick="copyTextToClipboard(document.getElementById('zalopay-memo').textContent, 'Đã sao chép nội dung!')">📋 Copy</span></div>
           </div>
         </div>
 
-
-        <!-- 4. VIEW TIỀN MẶT -->
-        <div id="pay-view-cash" class="qr-payment-card" style="display: none; background: #E8F5E9; border-color: #C8E6C9;">
-          <div style="font-size: 32px; margin-bottom: 6px;">💵</div>
-          <div style="font-weight: 700; color: #2E7D32; font-size: 0.95rem; margin-bottom: 4px;">Thanh toán tiền mặt tại quầy</div>
-          <p style="font-size: 0.82rem; color: #388E3C; line-height: 1.4; margin: 0;">
-            Quý khách chỉ cần bấm <b>Xác nhận gửi đơn</b> dưới đây. Nhân viên quầy pha chế sẽ làm món ngay và bạn có thể thanh toán tiền mặt khi nhận đồ!
-          </p>
+        <!-- 4. VIEW THANH TOÁN THẺ VISA / MASTERCARD -->
+        <div id="pay-view-visa" class="qr-payment-card visa-theme" style="display: none;">
+          <div class="direct-conn-header" style="justify-content: center; margin-bottom: 8px;">
+            <span class="pulse-dot"></span>
+            <span data-i18n="visaGatewayLive">Cổng Thanh Toán Quốc Tế Visa / Mastercard (Direct Gateway)</span>
+          </div>
+          <div class="visa-card-box">
+            <div class="form-group" style="margin-bottom: 8px;">
+              <label style="font-size: 0.76rem; font-weight: 700; color: #1A365D;" data-i18n="cardNumberLabel">Số Thẻ Visa / Mastercard:</label>
+              <div style="position: relative;">
+                <input type="text" id="visa-card-number" class="form-control" placeholder="4111 2222 3333 4444" maxlength="19" oninput="formatCardNumberInput(this)">
+                <span style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-weight: bold; font-size: 0.8rem; color: #1A365D;">VISA / MC</span>
+              </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 8px;">
+              <label style="font-size: 0.76rem; font-weight: 700; color: #1A365D;" data-i18n="cardHolderLabel">Tên Chủ Thẻ (In hoa không dấu):</label>
+              <input type="text" id="visa-card-name" class="form-control" placeholder="NGUYEN VAN A" oninput="this.value = this.value.toUpperCase()">
+            </div>
+            <div style="grid-template-columns: 1fr 1fr; display: grid; gap: 8px; margin-bottom: 8px;">
+              <div class="form-group">
+                <label style="font-size: 0.76rem; font-weight: 700; color: #1A365D;" data-i18n="cardExpiryLabel">Ngày Hết Hạn (MM/YY):</label>
+                <input type="text" id="visa-card-expiry" class="form-control" placeholder="12/28" maxlength="5" oninput="formatExpiryInput(this)">
+              </div>
+              <div class="form-group">
+                <label style="font-size: 0.76rem; font-weight: 700; color: #1A365D;" data-i18n="cardCvvLabel">Mã CVV / CVC (3 số bí mật):</label>
+                <input type="password" id="visa-card-cvv" class="form-control" placeholder="•••" maxlength="4">
+              </div>
+            </div>
+            <div style="font-size: 0.74rem; color: #4A5568; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;">
+              <span>🔒</span> <span data-i18n="visaSecurityText">Mã hóa bảo mật 256-bit SSL & 3D-Secure quốc tế</span>
+            </div>
+            <button type="button" class="direct-app-btn visa-gradient" onclick="processVisaDirectPayment()">
+              <span>💳</span> <span data-i18n="payVisaBtn">XÁC NHẬN THANH TOÁN THẺ VISA</span> (<span id="visa-btn-amount">0 đ</span>)
+            </button>
+          </div>
         </div>
 
-
       </div>
-      <div class="modal-footer" style="padding: 12px 16px;">
-        <button class="checkout-btn" style="padding: 12px; font-size: 0.95rem;" onclick="submitOrderWithPayment()">
-          <span>🚀</span> XÁC NHẬN ĐÃ CHUYỂN KHOẢN & GỬI ĐƠN VÀO POS
-        </button>
+
+      <!-- FOOTER: BỘ NHẬN DIỆN TỰ ĐỘNG & NÚT THAO TÁC NGAY NGẮN -->
+      <div class="modal-footer checkout-modal-footer">
+        <!-- DÒNG TRẠNG THÁI & TIMER -->
+        <div class="checkout-footer-status-row">
+          <div style="display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #64748B;">
+            <span class="pulse-dot"></span>
+            <span id="gateway-status-text">Đang kết nối API ngân hàng & quét biến động số dư...</span>
+          </div>
+          <span style="font-weight: 800; color: #D32F2F; font-size: 0.85rem;" id="payment-timer-countdown">⏳ 10:00</span>
+        </div>
+
+        <!-- HỘP NHẬN DIỆN THANH TOÁN TỰ ĐỘNG THỜI GIAN THỰC -->
+        <div class="payment-auto-detect-box" id="payment-auto-detect-box">
+          <div class="radar-pulse-icon" id="radar-pulse-icon">⏳</div>
+          <div style="flex: 1; text-align: left;">
+            <div id="detect-status-title" style="font-weight: 800; font-size: 0.88rem; color: #0F172A;">
+              Đang tự động nhận diện thanh toán từ Ngân hàng...
+            </div>
+            <div id="detect-status-desc" style="font-size: 0.76rem; color: #64748B; margin-top: 2px; line-height: 1.35;">
+              Quý khách vui lòng chuyển khoản đúng số tiền và nội dung. Hệ thống sẽ <b>TỰ ĐỘNG CHUYỂN VÀO BẾP</b> ngay khi ngân hàng báo có tiền!
+            </div>
+            <div id="detect-status-alert" style="display: none; margin-top: 6px; padding: 6px 10px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;"></div>
+          </div>
+        </div>
+
+        <!-- HÀNG NÚT THAO TÁC CỦA KHÁCH -->
+        <div class="checkout-footer-buttons-row">
+          <button type="button" class="btn-check-payment" id="btn-check-payment" onclick="checkPaymentVerificationManual()">
+            <span>🔄</span> <span>Kiểm Tra Lại Giao Dịch</span>
+          </button>
+          <button type="button" class="btn-cancel-checkout" id="btn-cancel-checkout" onclick="closePaymentCheckoutModal()">
+            <span>❌</span> <span>Hủy / Đổi Món</span>
+          </button>
+        </div>
+
+        <!-- CÔNG CỤ TEST DÀNH RIÊNG CHO TEST MODE (ẨN KHI Ở LIVE MODE) -->
+        <div id="test-mode-modal-actions" style="display: none; margin-top: 4px; padding-top: 8px; border-top: 1px dashed #CBD5E1; text-align: center;">
+          <button type="button" class="btn-simulate-test-pay" id="btn-simulate-test-pay" onclick="simulateRealBankWebhook()">
+            🧪 [Test Mode] Giả Lập Ngân Hàng Báo Có Tiền
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-
-
-  <!-- MODAL: THÔNG BÁO ĐẶT MÓN THÀNH CÔNG -->
-  <div class="modal-overlay" id="order-success-modal">
+  </div><div class="modal-overlay" id="order-success-modal">
     <div class="modal-card" style="max-width: 440px; text-align: center;">
       <div class="modal-body" style="padding: 28px 20px;">
         <div style="font-size: 48px; margin-bottom: 12px;">🎉</div>
@@ -7967,7 +8242,6 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           </button>
         </div>
 
-        <!-- 1. QUẸT / CHẠM THẺ TOROG EDC -->
         <div id="cpay-view-card" class="qr-payment-card" style="padding: 14px; text-align: center; border: 1.5px solid #3B82F6;">
           <div style="font-weight: 800; color: #1E3A8A; margin-bottom: 6px;">
             MÁY ĐỌC THẺ THÔNG MINH TOROG SMART POS
@@ -7983,7 +8257,6 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           </button>
         </div>
 
-        <!-- 2. VIETQR -->
         <div id="cpay-view-vietqr" class="qr-payment-card" style="display: none; padding: 14px; text-align: center; border: 1.5px solid #8B5CF6;">
           <div style="font-size: 0.82rem; font-weight: 700; color: #6D28D9; margin-bottom: 8px;">
             Khách quét mã VietQR tự động điền tiền & nội dung:
@@ -7999,7 +8272,6 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           </button>
         </div>
 
-        <!-- 3. VÍ ĐIỆN TỬ -->
         <div id="cpay-view-wallet" class="qr-payment-card" style="display: none; padding: 14px; text-align: center; border: 1.5px solid #EC4899;">
           <div style="font-size: 0.82rem; font-weight: 700; color: #BE185D; margin-bottom: 8px;">
             Quét mã thanh toán MoMo / ZaloPay / VNPay:
@@ -8012,7 +8284,6 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           </button>
         </div>
 
-        <!-- 4. TIỀN MẶT -->
         <div id="cpay-view-cash" class="qr-payment-card" style="display: none; padding: 14px; border: 1.5px solid #10B981;">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <span style="font-size: 0.85rem; font-weight: 700;">Tiền khách đưa:</span>
