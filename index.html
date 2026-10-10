@@ -1223,7 +1223,506 @@
       to { transform: rotate(360deg); }
     }
 
-  </style>
+  
+    /* --- KOOTORO TOROG SMART POS STYLES --- */
+    :root {
+      --torog-primary: #FF4B2B;
+      --torog-gradient: linear-gradient(135deg, #FF416C, #FF4B2B);
+      --torog-dark: #1E293B;
+      --torog-navy: #0F172A;
+      --torog-border: #E2E8F0;
+      --torog-card-bg: #FFFFFF;
+      --torog-accent: #3B82F6;
+      --torog-success: #10B981;
+      --torog-warning: #F59E0B;
+      --torog-danger: #EF4444;
+    }
+
+    .torog-header-bar {
+      background: linear-gradient(90deg, #1E293B, #0F172A);
+      color: #FFFFFF;
+      padding: 10px 16px;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .torog-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .torog-logo-badge {
+      background: var(--torog-gradient);
+      color: #FFF;
+      font-weight: 900;
+      font-size: 0.95rem;
+      padding: 4px 10px;
+      border-radius: 8px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 8px rgba(255, 75, 43, 0.4);
+    }
+    .torog-meta-info {
+      display: flex;
+      gap: 16px;
+      font-size: 0.82rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .torog-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    .pos-tabs-nav {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      background: #E2E8F0;
+      padding: 4px;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+    .pos-tab-button {
+      flex: 1;
+      min-width: 140px;
+      padding: 10px 14px;
+      border: none;
+      background: transparent;
+      color: #475569;
+      font-weight: 700;
+      font-size: 0.88rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .pos-tab-button.active {
+      background: #FFFFFF;
+      color: #FF4B2B;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+
+    .pos-content-pane {
+      display: none;
+    }
+    .pos-content-pane.active {
+      display: block;
+    }
+
+    /* COUNTER POS TWO-COLUMN LAYOUT */
+    .counter-pos-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 14px;
+      align-items: start;
+    }
+    @media (max-width: 992px) {
+      .counter-pos-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .counter-catalog-box {
+      background: #FFF;
+      border-radius: 12px;
+      padding: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      border: 1px solid #E2E8F0;
+    }
+    .counter-pos-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+    .counter-pos-pill {
+      padding: 6px 14px;
+      background: #F1F5F9;
+      color: #334155;
+      border: 1px solid #CBD5E1;
+      border-radius: 20px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s;
+    }
+    .counter-pos-pill.active {
+      background: #FF4B2B;
+      color: #FFF;
+      border-color: #FF4B2B;
+    }
+
+    .pos-tiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+      max-height: 520px;
+      overflow-y: auto;
+      padding: 4px;
+    }
+    .pos-tile-card {
+      background: #F8FAFC;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      user-select: none;
+    }
+    .pos-tile-card:hover {
+      border-color: #FF4B2B;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(255, 75, 43, 0.12);
+    }
+    .pos-tile-img {
+      width: 100%;
+      height: 75px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 6px;
+    }
+    .pos-tile-name {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 4px;
+      line-height: 1.2;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .pos-tile-price {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #FF4B2B;
+    }
+
+    /* RIGHT TICKET BOX */
+    .counter-ticket-box {
+      background: #FFF;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      border: 1px solid #E2E8F0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .ticket-header {
+      background: #1E293B;
+      color: #FFF;
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ticket-type-toggle {
+      display: flex;
+      background: #F1F5F9;
+      padding: 6px 12px;
+      gap: 6px;
+      border-bottom: 1px solid #E2E8F0;
+    }
+    .ticket-type-btn {
+      flex: 1;
+      padding: 6px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .ticket-type-btn.active {
+      background: #FFFFFF;
+      color: #FF4B2B;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    }
+    .ticket-table-selector {
+      padding: 8px 12px;
+      background: #F8FAFC;
+      border-bottom: 1px solid #E2E8F0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.84rem;
+    }
+    .ticket-items-scroll {
+      max-height: 280px;
+      min-height: 160px;
+      overflow-y: auto;
+      padding: 8px 12px;
+    }
+    .ticket-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed #E2E8F0;
+      font-size: 0.83rem;
+    }
+    .ticket-item-qty-ctrl {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .ticket-qty-btn {
+      width: 22px;
+      height: 22px;
+      border: 1px solid #CBD5E1;
+      background: #FFF;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ticket-summary {
+      padding: 12px 14px;
+      background: #F8FAFC;
+      border-top: 1px solid #E2E8F0;
+      font-size: 0.84rem;
+    }
+    .ticket-summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    .ticket-summary-line.total {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #FF4B2B;
+      border-top: 1px solid #CBD5E1;
+      padding-top: 6px;
+      margin-top: 6px;
+    }
+    .ticket-actions {
+      padding: 10px 14px;
+      background: #FFF;
+      display: flex;
+      gap: 8px;
+    }
+    .btn-pos-pay {
+      flex: 2;
+      background: var(--torog-gradient);
+      color: #FFF;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(255, 75, 43, 0.3);
+      transition: all 0.2s;
+    }
+    .btn-pos-pay:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(255, 75, 43, 0.4);
+    }
+    .btn-pos-clear {
+      flex: 1;
+      background: #F1F5F9;
+      color: #475569;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    /* TABLE MAP LAYOUT */
+    .tables-map-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      padding: 6px;
+    }
+    .table-map-tile {
+      background: #FFF;
+      border-radius: 12px;
+      padding: 14px;
+      border: 2px solid #CBD5E1;
+      cursor: pointer;
+      transition: all 0.15s;
+      position: relative;
+    }
+    .table-map-tile:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .table-map-tile.available {
+      border-color: #10B981;
+      background: #F0FDF4;
+    }
+    .table-map-tile.occupied {
+      border-color: #F59E0B;
+      background: #FFFBEB;
+    }
+    .table-map-tile.billing {
+      border-color: #EF4444;
+      background: #FEF2F2;
+    }
+    .table-tile-status-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .table-map-tile.available .table-tile-status-pill {
+      background: #DCFCE7;
+      color: #166534;
+    }
+    .table-map-tile.occupied .table-tile-status-pill {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+    .table-map-tile.billing .table-tile-status-pill {
+      background: #FEE2E2;
+      color: #991B1B;
+    }
+
+    /* KITCHEN KDS DISPLAY */
+    .kds-tickets-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .kds-ticket-card {
+      background: #FFF;
+      border-radius: 12px;
+      border: 2px solid #E2E8F0;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+    }
+    .kds-ticket-card.waiting {
+      border-color: #F59E0B;
+    }
+    .kds-ticket-card.cooking {
+      border-color: #3B82F6;
+    }
+    .kds-ticket-card.urgent {
+      border-color: #EF4444;
+      animation: pulseBorder 1.5s infinite;
+    }
+    @keyframes pulseBorder {
+      0%, 100% { border-color: #EF4444; }
+      50% { border-color: #FCA5A5; }
+    }
+    .kds-ticket-header {
+      padding: 10px 14px;
+      background: #F8FAFC;
+      border-bottom: 1px solid #E2E8F0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .kds-items-list {
+      padding: 12px 14px;
+      flex: 1;
+    }
+    .kds-item-entry {
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed #E2E8F0;
+    }
+    .kds-actions-footer {
+      padding: 10px 14px;
+      background: #F8FAFC;
+      border-top: 1px solid #E2E8F0;
+      display: flex;
+      gap: 8px;
+    }
+
+    /* SHIFT MANAGEMENT CARD */
+    .shift-manager-card {
+      background: #FFF;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+      border: 1px solid #E2E8F0;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .shift-grid-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .shift-stat-box {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+    .shift-stat-num {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #0F172A;
+      margin-top: 4px;
+    }
+
+    /* THERMAL BILL MODAL & PRINT PREVIEW */
+    .thermal-bill-container {
+      width: 320px;
+      background: #FFF;
+      margin: 0 auto;
+      padding: 16px 14px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: #000;
+      border: 1px dashed #CBD5E1;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      position: relative;
+    }
+    .thermal-bill-header {
+      text-align: center;
+      border-bottom: 1px dashed #000;
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+    }
+    .thermal-bill-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 3px;
+    }
+    .thermal-bill-footer {
+      border-top: 1px dashed #000;
+      padding-top: 8px;
+      margin-top: 8px;
+      text-align: center;
+      font-size: 0.78rem;
+    }
+</style>
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
 </head>
@@ -1315,83 +1814,280 @@
 
     <!-- VIEW 2: QUẦY POS & BARISTA (CHỈ DÀNH CHO NHÂN VIÊN & ADMIN) -->
     <section id="view-pos" class="view-section">
-      <div class="pos-dashboard">
-        <div class="stats-row">
-          <div class="stat-card">
-            <div>
-              <div class="stat-label" data-i18n="statTotalOrders">Tổng đơn hôm nay</div>
-              <div class="stat-val" id="stat-total-orders">0</div>
-            </div>
-            <div class="stat-icon stat-blue">📋</div>
-          </div>
-          <div class="stat-card">
-            <div>
-              <div class="stat-label" data-i18n="statNewOrders">Mới đặt (Chờ bếp)</div>
-              <div class="stat-val" id="stat-new-orders" style="color: var(--warning);">0</div>
-            </div>
-            <div class="stat-icon stat-orange">⏳</div>
-          </div>
-          <div class="stat-card">
-            <div>
-              <div class="stat-label" data-i18n="statPrepOrders">Đang pha chế</div>
-              <div class="stat-val" id="stat-prep-orders" style="color: var(--info);">0</div>
-            </div>
-            <div class="stat-icon stat-amber">☕</div>
-          </div>
-          <div class="stat-card">
-            <div>
-              <div class="stat-label" data-i18n="statDoneOrders">Đã hoàn thành</div>
-              <div class="stat-val" id="stat-done-orders" style="color: var(--success);">0</div>
-            </div>
-            <div class="stat-icon stat-green">✅</div>
-          </div>
+      <!-- TOROG SMART POS HEADER (KOOTORO VIETNAM) -->
+      <div class="torog-header-bar">
+        <div class="torog-brand">
+          <span class="torog-logo-badge">⚡ ToroG Smart POS</span>
+          <span style="font-size: 0.82rem; opacity: 0.85;">Hệ Thống Bán Hàng & Quản Trị Đa Năng KOOTORO</span>
         </div>
-
-
-        <div class="pos-toolbar">
-          <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
-            <input type="text" class="form-control" id="search-order-input" style="width: 200px;" placeholder="🔍 Tìm mã đơn/bàn/SĐT..." data-i18n-ph="posSearchPlaceholder" oninput="renderOrders()">
-            <button class="toolbar-btn" onclick="openQrGeneratorModal()"><span data-i18n="printTableQrBtn">🔲 In Mã QR Bàn</span></button>
+        <div class="torog-meta-info">
+          <div class="torog-meta-item">
+            <span>🟢 Ca:</span> <b id="torog-shift-badge">#102 (Sáng)</b>
           </div>
-          <div>
-            <button class="toolbar-btn btn-primary" onclick="simulateNewIncomingOrder()"><span data-i18n="simulateOrderBtn">➕ Giả Lập Khách Đặt Bàn</span></button>
+          <div class="torog-meta-item">
+            <span>👤 Thu ngân:</span> <b id="torog-cashier-name">Admin (Chủ quán)</b>
           </div>
+          <div class="torog-meta-item">
+            <span>💵 Tiền mặt két:</span> <b id="torog-drawer-cash" style="color: #4ADE80;">1.000.000 đ</b>
+          </div>
+          <button type="button" class="toolbar-btn" style="padding: 5px 12px; font-size: 0.78rem; background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3);" onclick="openShiftDrawerModal()">
+            💵 Thu / Chi Két
+          </button>
+          <button type="button" class="toolbar-btn btn-primary" style="padding: 5px 12px; font-size: 0.78rem;" onclick="openEndShiftModal()">
+            🔒 Kết Ca (Z-Report)
+          </button>
         </div>
+      </div>
 
+      <!-- TOROG SUB-NAV TABS -->
+      <div class="pos-tabs-nav">
+        <button type="button" class="pos-tab-button active" id="btn-tab-counter" onclick="switchPosTab('counter', this)">
+          <span>🛒</span> Bán Hàng Tại Quầy
+        </button>
+        <button type="button" class="pos-tab-button" id="btn-tab-tables" onclick="switchPosTab('tables', this)">
+          <span>📍</span> Sơ Đồ Bàn (<span id="count-occupied-tables">0</span>/<span id="count-total-tables">8</span>)
+        </button>
+        <button type="button" class="pos-tab-button" id="btn-tab-kanban" onclick="switchPosTab('kanban', this)">
+          <span>🔔</span> Đơn Easy Order (<span id="count-pending-orders">0</span>)
+        </button>
+        <button type="button" class="pos-tab-button" id="btn-tab-kitchen" onclick="switchPosTab('kitchen', this)">
+          <span>👨‍🍳</span> Bếp / Barista (KDS) (<span id="count-kitchen-orders">0</span>)
+        </button>
+        <button type="button" class="pos-tab-button" id="btn-tab-shift" onclick="switchPosTab('shift', this)">
+          <span>📊</span> Quản Lý Ca & Doanh Thu
+        </button>
+      </div>
 
-        <div class="kanban-grid">
-          <div class="kanban-col new">
-            <div class="kanban-header">
-              <span style="font-weight: 700; font-size: 0.9rem;"><span data-i18n="kanbanColNew">🔔 Mới đặt (Chờ bếp)</span></span>
-              <span class="status-badge" id="badge-col-new" style="background:#FFE0B2;">0</span>
+      <!-- TAB 1: BÁN HÀNG TẠI QUẦY (COUNTER ORDER POS) -->
+      <div id="pos-pane-counter" class="pos-content-pane active">
+        <div class="counter-pos-layout">
+          <!-- CỘT TRÁI: CATALOG CHẠM MỘT CHẠM -->
+          <div class="counter-catalog-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+              <div class="counter-pos-pills" id="counter-category-pills"></div>
+              <input type="text" class="form-control" id="counter-search-input" placeholder="🔍 Tìm món nhanh..." style="width: 170px; padding: 6px 10px; font-size: 0.85rem;" oninput="renderCounterPosTiles()">
             </div>
-            <div class="kanban-cards-wrapper" id="col-new-cards"></div>
+            <div class="pos-tiles-grid" id="counter-tiles-grid"></div>
           </div>
 
-
-          <div class="kanban-col prep">
-            <div class="kanban-header">
-              <span style="font-weight: 700; font-size: 0.9rem;"><span data-i18n="kanbanColPrep">🔥 Đang pha chế</span></span>
-              <span class="status-badge" id="badge-col-prep" style="background:#B3E5FC;">0</span>
+          <!-- CỘT PHẢI: LIVE TICKET CỦA QUẦY -->
+          <div class="counter-ticket-box">
+            <div class="ticket-header">
+              <span style="font-weight: 700; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
+                <span>🧾</span> <span id="counter-order-id-label">Đơn Quầy #POS-1001</span>
+              </span>
+              <span style="font-size: 0.75rem; background: rgba(255,255,255,0.2); padding: 2px 8px; border-radius: 12px;" id="counter-time-display">--:--</span>
             </div>
-            <div class="kanban-cards-wrapper" id="col-prep-cards"></div>
-          </div>
 
-
-          <div class="kanban-col done">
-            <div class="kanban-header">
-              <span style="font-weight: 700; font-size: 0.9rem;"><span data-i18n="kanbanColDone">✨ Đã hoàn thành</span></span>
-              <span class="status-badge" id="badge-col-done" style="background:#C8E6C9;">0</span>
+            <div class="ticket-type-toggle">
+              <button type="button" class="ticket-type-btn active" id="btn-ticket-dinein" onclick="setCounterOrderType('dinein')">📍 Tại Quầy / Bàn</button>
+              <button type="button" class="ticket-type-btn" id="btn-ticket-takeaway" onclick="setCounterOrderType('takeaway')">🛍️ Mang Đi</button>
             </div>
-            <div class="kanban-cards-wrapper" id="col-done-cards"></div>
+
+            <div class="ticket-table-selector" id="counter-table-selector-row">
+              <span style="font-weight: 600;">Chọn bàn phục vụ:</span>
+              <select class="form-control" id="counter-select-table" style="width: 170px; padding: 4px 8px; font-size: 0.82rem;" onchange="onCounterTableChanged()"></select>
+            </div>
+
+            <div class="ticket-items-scroll" id="counter-ticket-items"></div>
+
+            <div class="ticket-summary">
+              <div class="ticket-summary-line">
+                <span>Tạm tính:</span>
+                <b id="counter-subtotal-val">0 đ</b>
+              </div>
+              <div class="ticket-summary-line" style="align-items: center;">
+                <span>Giảm giá / Voucher:</span>
+                <div style="display: flex; gap: 4px; align-items: center;">
+                  <input type="number" id="counter-discount-input" value="0" min="0" max="100" style="width: 55px; text-align: right; padding: 3px 6px; border: 1px solid #CBD5E1; border-radius: 4px; font-size: 0.84rem;" onchange="updateCounterTicketTotals()" oninput="updateCounterTicketTotals()">
+                  <span>%</span>
+                </div>
+              </div>
+              <div class="ticket-summary-line">
+                <span>Thuế VAT (8%):</span>
+                <span id="counter-vat-val">0 đ</span>
+              </div>
+              <div class="ticket-summary-line total">
+                <span>TỔNG THANH TOÁN:</span>
+                <b id="counter-total-val">0 đ</b>
+              </div>
+            </div>
+
+            <div class="ticket-actions">
+              <button type="button" class="btn-pos-clear" onclick="clearCounterOrder()" title="Xóa toàn bộ món đang chọn">
+                🗑️ Xóa Đơn
+              </button>
+              <button type="button" class="btn-pos-clear" onclick="holdCounterOrder()" title="Lưu tạm đơn cho bàn">
+                ⏸️ Lưu Tạm
+              </button>
+              <button type="button" class="btn-pos-pay" onclick="openCounterPaymentModal()">
+                <span>💳</span> THANH TOÁN (F4)
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </section>
 
+      <!-- TAB 2: SƠ ĐỒ BÀN (TABLE MAP) -->
+      <div id="pos-pane-tables" class="pos-content-pane">
+        <div style="background: #FFF; border-radius: 12px; padding: 16px; border: 1px solid #E2E8F0; margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; gap: 16px; align-items: center; font-size: 0.85rem; font-weight: 600;">
+              <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; background: #10B981; border-radius: 50%; display: inline-block;"></span> Bàn Trống</span>
+              <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; background: #F59E0B; border-radius: 50%; display: inline-block;"></span> Đang Có Khách</span>
+              <span style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; background: #EF4444; border-radius: 50%; display: inline-block;"></span> Chờ Thanh Toán</span>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="toolbar-btn" onclick="openQrGeneratorModal()">🔲 In Mã QR Bàn (Easy Order)</button>
+            </div>
+          </div>
+          <div class="tables-map-grid" id="tables-map-container"></div>
+        </div>
+      </div>
 
-    <!-- VIEW 3: QUẢN TRỊ BACKEND (CHỈ DÀNH CHO ADMIN) -->
-    <section id="view-backend" class="view-section">
+      <!-- TAB 3: HÀNG ĐỢI ĐƠN HÀNG EASY ORDER & KANBAN -->
+      <div id="pos-pane-kanban" class="pos-content-pane">
+        <div class="pos-dashboard">
+          <div class="stats-row">
+            <div class="stat-card">
+              <div>
+                <div class="stat-label">Tổng đơn hôm nay</div>
+                <div class="stat-val" id="stat-total-orders">0</div>
+              </div>
+              <div class="stat-icon stat-blue">📋</div>
+            </div>
+            <div class="stat-card">
+              <div>
+                <div class="stat-label">Mới đặt (Chờ bếp)</div>
+                <div class="stat-val" id="stat-new-orders" style="color: var(--warning);">0</div>
+              </div>
+              <div class="stat-icon stat-orange">⏳</div>
+            </div>
+            <div class="stat-card">
+              <div>
+                <div class="stat-label">Đang pha chế</div>
+                <div class="stat-val" id="stat-prep-orders" style="color: var(--info);">0</div>
+              </div>
+              <div class="stat-icon stat-amber">☕</div>
+            </div>
+            <div class="stat-card">
+              <div>
+                <div class="stat-label">Đã hoàn thành</div>
+                <div class="stat-val" id="stat-done-orders" style="color: var(--success);">0</div>
+              </div>
+              <div class="stat-icon stat-green">✅</div>
+            </div>
+          </div>
+
+          <div class="pos-toolbar">
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+              <input type="text" class="form-control" id="search-order-input" style="width: 220px;" placeholder="🔍 Tìm mã đơn/bàn/SĐT..." data-i18n-ph="posSearchPlaceholder" oninput="renderOrders()">
+              <button class="toolbar-btn" onclick="openQrGeneratorModal()"><span>🔲 In Mã QR Bàn</span></button>
+            </div>
+            <div>
+              <button class="toolbar-btn btn-primary" onclick="simulateNewIncomingOrder()"><span>➕ Giả Lập Khách Đặt Bàn</span></button>
+            </div>
+          </div>
+
+          <div class="kanban-grid">
+            <div class="kanban-col new">
+              <div class="kanban-header">
+                <span style="font-weight: 700; font-size: 0.9rem;">🔔 Mới đặt (Chờ bếp)</span>
+                <span class="status-badge" id="badge-col-new" style="background:#FFE0B2;">0</span>
+              </div>
+              <div class="kanban-cards-wrapper" id="col-new-cards"></div>
+            </div>
+
+            <div class="kanban-col prep">
+              <div class="kanban-header">
+                <span style="font-weight: 700; font-size: 0.9rem;">☕ Đang pha chế (Bếp)</span>
+                <span class="status-badge" id="badge-col-prep" style="background:#BBDEFB;">0</span>
+              </div>
+              <div class="kanban-cards-wrapper" id="col-prep-cards"></div>
+            </div>
+
+            <div class="kanban-col done">
+              <div class="kanban-header">
+                <span style="font-weight: 700; font-size: 0.9rem;">✅ Hoàn thành (Sẵn sàng)</span>
+                <span class="status-badge" id="badge-col-done" style="background:#C8E6C9;">0</span>
+              </div>
+              <div class="kanban-cards-wrapper" id="col-done-cards"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: MÀN HÌNH BẾP (KITCHEN DISPLAY SYSTEM - KDS) -->
+      <div id="pos-pane-kitchen" class="pos-content-pane">
+        <div style="background: #FFF; border-radius: 12px; padding: 16px; border: 1px solid #E2E8F0; margin-bottom: 14px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+            <div style="font-size: 1.1rem; font-weight: 800; color: #1E293B; display: flex; align-items: center; gap: 8px;">
+              <span>👨‍🍳 Màn Hình Pha Chế & Nhà Bếp (KDS)</span>
+              <span class="status-badge" id="kitchen-active-count" style="background: #EF4444; color: white;">0 đơn chờ</span>
+            </div>
+            <div style="display: flex; gap: 8px;">
+              <button type="button" class="toolbar-btn" onclick="openOutOfStockManagerModal()">
+                ⚠️ Quản Lý Hết Món / Nguyên Liệu
+              </button>
+            </div>
+          </div>
+          <div class="kds-tickets-container" id="kds-tickets-grid"></div>
+        </div>
+      </div>
+
+      <!-- TAB 5: QUẢN LÝ CA & DOANH THU (SHIFT & CASH RECONCILE) -->
+      <div id="pos-pane-shift" class="pos-content-pane">
+        <div class="shift-manager-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1.5px solid #E2E8F0; padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+            <div>
+              <h3 style="font-size: 1.2rem; color: #1E293B; display: flex; align-items: center; gap: 8px;">
+                <span>📊 Báo Cáo Ca Bán Hàng ToroG Smart POS</span>
+              </h3>
+              <p style="font-size: 0.84rem; color: #64748B;" id="shift-time-range-label">Ca #102 - Khởi tạo lúc 07:30 sáng</p>
+            </div>
+            <span class="status-badge" style="background: #DCFCE7; color: #166534; font-size: 0.85rem; padding: 6px 12px;">🟢 Ca Đang Hoạt Động</span>
+          </div>
+
+          <div class="shift-grid-stats">
+            <div class="shift-stat-box">
+              <div style="font-size: 0.78rem; color: #64748B;">💵 Tiền Mặt Đầu Ca</div>
+              <div class="shift-stat-num" id="shift-opening-float">1.000.000 đ</div>
+            </div>
+            <div class="shift-stat-box">
+              <div style="font-size: 0.78rem; color: #64748B;">💵 Doanh Thu Tiền Mặt</div>
+              <div class="shift-stat-num" id="shift-cash-sales" style="color: #10B981;">0 đ</div>
+            </div>
+            <div class="shift-stat-box">
+              <div style="font-size: 0.78rem; color: #64748B;">💳 Thẻ POS ToroG (EDC)</div>
+              <div class="shift-stat-num" id="shift-card-sales" style="color: #3B82F6;">0 đ</div>
+            </div>
+            <div class="shift-stat-box">
+              <div style="font-size: 0.78rem; color: #64748B;">⚡ Chuyển Khoản VietQR</div>
+              <div class="shift-stat-num" id="shift-vietqr-sales" style="color: #8B5CF6;">0 đ</div>
+            </div>
+            <div class="shift-stat-box">
+              <div style="font-size: 0.78rem; color: #64748B;">📱 Ví Điện Tử (MoMo/Zalo)</div>
+              <div class="shift-stat-num" id="shift-wallet-sales" style="color: #EC4899;">0 đ</div>
+            </div>
+            <div class="shift-stat-box" style="background: #FFFBEB; border-color: #FCD34D;">
+              <div style="font-size: 0.78rem; color: #92400E; font-weight: 700;">💰 TỔNG DOANH THU CA</div>
+              <div class="shift-stat-num" id="shift-total-revenue" style="color: #B45309;">0 đ</div>
+            </div>
+          </div>
+
+          <div style="background: #F8FAFC; border-radius: 10px; padding: 14px; border: 1px solid #E2E8F0; margin-bottom: 16px;">
+            <div style="font-weight: 700; font-size: 0.9rem; margin-bottom: 8px;">Nhật ký thu chi tiền mặt trong ca:</div>
+            <div id="shift-cash-log-list" style="font-size: 0.82rem; max-height: 150px; overflow-y: auto;"></div>
+          </div>
+
+          <div style="display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap;">
+            <button type="button" class="toolbar-btn" onclick="openShiftDrawerModal('in')">➕ Thu Tiền Mặt Phụ</button>
+            <button type="button" class="toolbar-btn" onclick="openShiftDrawerModal('out')">➖ Chi Tiền Mặt Phụ</button>
+            <button type="button" class="toolbar-btn btn-primary" onclick="openEndShiftModal()">🔒 Kết Ca & In Báo Cáo Z-Report</button>
+          </div>
+        </div>
+      </div>
+    </section><section id="view-backend" class="view-section">
       <div class="backend-layout">
         <div class="admin-subnav">
           <button class="admin-tab-btn active" onclick="switchAdminTab('tab-menu', this)">
@@ -2725,6 +3421,7 @@
 
     // --- 2. KHỞI TẠO ỨNG DỤNG ---
     window.addEventListener('DOMContentLoaded', () => {
+      initToroGShift();
       initRealtimeSync();
       loadStorageData();
       enrichMenuWithEnglish(menuItems);
@@ -5749,7 +6446,909 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
     }
 
 
-    // --- 16. TIỆN ÍCH ÂM THANH & SMS TOAST ---
+    
+    // =========================================================================
+    // KOOTORO TOROG SMART POS FRONTEND & BACKEND ENGINE
+    // =========================================================================
+    let activeCounterCategory = 'all';
+    let counterCart = [];
+    let counterOrderType = 'dinein';
+    let counterDiscountPercent = 0;
+    let counterPendingOrderId = null;
+    let selectedCounterPayMethod = 'card';
+
+    let currentShift = {
+      id: 102,
+      cashier: "Chủ Quán (Admin)",
+      startTime: "07:30 - " + (new Date().toLocaleDateString('vi-VN')),
+      openingCash: 1000000,
+      cashIn: 0,
+      cashOut: 0,
+      cashLogs: [
+        { time: "07:30", type: "in", amount: 1000000, reason: "Định mức tiền thối đầu ca (Opening Float)" }
+      ],
+      active: true
+    };
+
+    function initToroGShift() {
+      const saved = localStorage.getItem('torog_shift_data');
+      if (saved) {
+        try { currentShift = JSON.parse(saved); } catch(e) {}
+      }
+      updateShiftDisplayUI();
+    }
+
+    function saveToroGShift() {
+      localStorage.setItem('torog_shift_data', JSON.stringify(currentShift));
+      updateShiftDisplayUI();
+    }
+
+    function updateShiftDisplayUI() {
+      const totalCashInKiosk = currentShift.openingCash + getShiftCashRevenue() + currentShift.cashIn - currentShift.cashOut;
+      const drawerEl = document.getElementById('torog-drawer-cash');
+      if (drawerEl) drawerEl.textContent = formatMoney(totalCashInKiosk);
+      const cashierEl = document.getElementById('torog-cashier-name');
+      if (cashierEl && currentUser) cashierEl.textContent = currentUser.fullname || currentUser.username;
+    }
+
+    function getShiftCashRevenue() {
+      return orders.filter(o => o.paymentStatus === 'paid' && o.paymentMethod === 'cash').reduce((s, o) => s + (o.total || 0), 0);
+    }
+    function getShiftCardRevenue() {
+      return orders.filter(o => o.paymentStatus === 'paid' && o.paymentMethod === 'card').reduce((s, o) => s + (o.total || 0), 0);
+    }
+    function getShiftVietQrRevenue() {
+      return orders.filter(o => o.paymentStatus === 'paid' && o.paymentMethod === 'vietqr').reduce((s, o) => s + (o.total || 0), 0);
+    }
+    function getShiftWalletRevenue() {
+      return orders.filter(o => o.paymentStatus === 'paid' && (o.paymentMethod === 'momo' || o.paymentMethod === 'zalopay' || o.paymentMethod === 'wallet')).reduce((s, o) => s + (o.total || 0), 0);
+    }
+
+    // --- TAB SWITCHING TRONG QUẦY TOROG POS ---
+    function switchPosTab(tabId, btn) {
+      document.querySelectorAll('.pos-tab-button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.pos-content-pane').forEach(p => p.classList.remove('active'));
+      
+      if (btn) btn.classList.add('active');
+      const targetPane = document.getElementById('pos-pane-' + tabId);
+      if (targetPane) targetPane.classList.add('active');
+
+      if (tabId === 'counter') {
+        renderCounterPosCatalog();
+        renderCounterPosTiles();
+        renderCounterTicket();
+      } else if (tabId === 'tables') {
+        renderTableMap();
+      } else if (tabId === 'kanban') {
+        renderOrders();
+      } else if (tabId === 'kitchen') {
+        renderKitchenKDS();
+      } else if (tabId === 'shift') {
+        renderShiftManagement();
+      }
+    }
+
+    // --- 1. BÁN HÀNG TẠI QUẦY (COUNTER ORDER POS) ---
+    function renderCounterPosCatalog() {
+      const pillsContainer = document.getElementById('counter-category-pills');
+      if (!pillsContainer) return;
+
+      pillsContainer.innerHTML = CATEGORIES.map(c => `
+        <button type="button" class="counter-pos-pill ${c.id === activeCounterCategory ? 'active' : ''}" onclick="selectCounterCategory('${c.id}', this)">
+          ${currentLang === 'en' ? (c.name_en || c.name) : c.name}
+        </button>
+      `).join('');
+
+      // Populate table dropdown
+      const selTable = document.getElementById('counter-select-table');
+      if (selTable && selTable.children.length === 0) {
+        selTable.innerHTML = tables.map(t => `
+          <option value="${t.id}">${getTableDisplayName(t)}</option>
+        `).join('');
+      }
+
+      // Update time display
+      const now = new Date();
+      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      const timeEl = document.getElementById('counter-time-display');
+      if (timeEl) timeEl.textContent = timeStr;
+    }
+
+    function selectCounterCategory(catId, btn) {
+      activeCounterCategory = catId;
+      document.querySelectorAll('.counter-pos-pill').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderCounterPosTiles();
+    }
+
+    function renderCounterPosTiles() {
+      const grid = document.getElementById('counter-tiles-grid');
+      if (!grid) return;
+
+      const q = (document.getElementById('counter-search-input') ? document.getElementById('counter-search-input').value : '').toLowerCase().trim();
+
+      let list = (activeCounterCategory === 'all' || !activeCounterCategory) ? [...menuItems] : menuItems.filter(m => m.category === activeCounterCategory);
+      if (q) {
+        list = list.filter(m => m.name.toLowerCase().includes(q) || (m.name_en && m.name_en.toLowerCase().includes(q)));
+      }
+
+      grid.innerHTML = list.map(item => {
+        const isOutOfStock = item.available === false;
+        const imgDisplay = item.imgUrl 
+          ? `<img src="${item.imgUrl}" alt="${item.name}" class="pos-tile-img">` 
+          : `<div style="font-size: 32px; height: 75px; display: flex; align-items: center; justify-content: center; background: #E2E8F0; border-radius: 6px; margin-bottom: 6px;">☕</div>`;
+        const displayName = getItemDisplayName(item);
+
+        return `
+          <div class="pos-tile-card ${isOutOfStock ? 'out-of-stock' : ''}" onclick="${isOutOfStock ? '' : `addCounterPosItem(${item.id})`}" style="${isOutOfStock ? 'opacity: 0.5; cursor: not-allowed;' : ''}">
+            ${imgDisplay}
+            <div class="pos-tile-name">${displayName}</div>
+            <div class="pos-tile-price">${formatMoney(item.price)}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function addCounterPosItem(itemId) {
+      const item = menuItems.find(m => m.id === itemId);
+      if (!item || item.available === false) return;
+
+      const existing = counterCart.find(c => c.item.id === itemId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        counterCart.push({ item: { ...item }, qty: 1, custom: '' });
+      }
+
+      playAudioChime(660, 0.05); // POS scanner sound
+      renderCounterTicket();
+    }
+
+    function changeCounterItemQty(itemId, delta) {
+      const idx = counterCart.findIndex(c => c.item.id === itemId);
+      if (idx === -1) return;
+
+      counterCart[idx].qty += delta;
+      if (counterCart[idx].qty <= 0) {
+        counterCart.splice(idx, 1);
+      }
+      renderCounterTicket();
+    }
+
+    function removeCounterItem(itemId) {
+      counterCart = counterCart.filter(c => c.item.id !== itemId);
+      renderCounterTicket();
+    }
+
+    function setCounterOrderType(type) {
+      counterOrderType = type;
+      const btnDinein = document.getElementById('btn-ticket-dinein');
+      const btnTakeaway = document.getElementById('btn-ticket-takeaway');
+      const tableRow = document.getElementById('counter-table-selector-row');
+
+      if (btnDinein) btnDinein.classList.toggle('active', type === 'dinein');
+      if (btnTakeaway) btnTakeaway.classList.toggle('active', type === 'takeaway');
+      if (tableRow) tableRow.style.display = (type === 'dinein') ? 'flex' : 'none';
+      renderCounterTicket();
+    }
+
+    function onCounterTableChanged() {
+      // Optional hook for table sync
+    }
+
+    function renderCounterTicket() {
+      const container = document.getElementById('counter-ticket-items');
+      if (!container) return;
+
+      if (!counterPendingOrderId) {
+        counterPendingOrderId = 'POS-' + (1000 + orders.length + 1);
+      }
+      const labelEl = document.getElementById('counter-order-id-label');
+      if (labelEl) labelEl.textContent = `Đơn #${counterPendingOrderId}`;
+
+      if (counterCart.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; color: #94A3B8; padding: 40px 10px; font-size: 0.85rem;">
+            <div style="font-size: 36px; margin-bottom: 6px;">🛒</div>
+            Chạm vào món ăn bên trái để thêm vào đơn bán hàng
+          </div>
+        `;
+      } else {
+        container.innerHTML = counterCart.map(c => `
+          <div class="ticket-item-row">
+            <div style="flex: 1; padding-right: 8px;">
+              <div style="font-weight: 700; color: #1E293B;">${getItemDisplayName(c.item)}</div>
+              <div style="font-size: 0.75rem; color: #64748B;">${formatMoney(c.item.price)}</div>
+            </div>
+            <div class="ticket-item-qty-ctrl">
+              <button type="button" class="ticket-qty-btn" onclick="changeCounterItemQty(${c.item.id}, -1)">-</button>
+              <span style="min-width: 24px; text-align: center; font-weight: 700;">${c.qty}</span>
+              <button type="button" class="ticket-qty-btn" onclick="changeCounterItemQty(${c.item.id}, 1)">+</button>
+            </div>
+            <div style="width: 75px; text-align: right; font-weight: 700; color: #1E293B;">
+              ${formatMoney(c.item.price * c.qty)}
+            </div>
+            <button type="button" style="border: none; background: transparent; color: #EF4444; font-size: 1rem; cursor: pointer; margin-left: 6px;" onclick="removeCounterItem(${c.item.id})">&times;</button>
+          </div>
+        `).join('');
+      }
+
+      updateCounterTicketTotals();
+    }
+
+    function updateCounterTicketTotals() {
+      const subtotal = counterCart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const discountInput = document.getElementById('counter-discount-input');
+      counterDiscountPercent = discountInput ? (parseFloat(discountInput.value) || 0) : 0;
+      
+      const discountAmount = Math.round(subtotal * (counterDiscountPercent / 100));
+      const discountedSubtotal = Math.max(0, subtotal - discountAmount);
+      const vatRate = (storeSettings && storeSettings.vatRate) ? storeSettings.vatRate : 8;
+      const vat = Math.round(discountedSubtotal * (vatRate / 100));
+      const total = discountedSubtotal + vat;
+
+      const subtotalEl = document.getElementById('counter-subtotal-val');
+      if (subtotalEl) subtotalEl.textContent = formatMoney(subtotal);
+      const vatEl = document.getElementById('counter-vat-val');
+      if (vatEl) vatEl.textContent = formatMoney(vat);
+      const totalEl = document.getElementById('counter-total-val');
+      if (totalEl) totalEl.textContent = formatMoney(total);
+    }
+
+    function clearCounterOrder() {
+      if (counterCart.length === 0) return;
+      if (confirm("Bạn có chắc chắn muốn hủy đơn hàng hiện tại không?")) {
+        counterCart = [];
+        counterPendingOrderId = null;
+        renderCounterTicket();
+      }
+    }
+
+    function holdCounterOrder() {
+      if (counterCart.length === 0) {
+        alert("Đơn hàng đang trống, không thể lưu tạm!");
+        return;
+      }
+      showSmsToast("ĐÃ LƯU TẠM ĐƠN", `Đơn #${counterPendingOrderId} đã được lưu tạm thành công.`);
+      counterCart = [];
+      counterPendingOrderId = null;
+      renderCounterTicket();
+    }
+
+    // --- 2. THANH TOÁN TẠI QUẦY TOROG SMART POS ---
+    function openCounterPaymentModal() {
+      if (counterCart.length === 0) {
+        alert("Đơn hàng đang trống! Vui lòng chọn món trước khi thanh toán.");
+        return;
+      }
+
+      const subtotal = counterCart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const discountAmount = Math.round(subtotal * (counterDiscountPercent / 100));
+      const discountedSubtotal = Math.max(0, subtotal - discountAmount);
+      const vatRate = (storeSettings && storeSettings.vatRate) ? storeSettings.vatRate : 8;
+      const vat = Math.round(discountedSubtotal * (vatRate / 100));
+      const total = discountedSubtotal + vat;
+
+      document.getElementById('torog-pay-order-id-label').textContent = `Mã đơn: #${counterPendingOrderId}`;
+      
+      const selTable = document.getElementById('counter-select-table');
+      const tableName = (counterOrderType === 'dinein' && selTable && selTable.options[selTable.selectedIndex]) 
+        ? selTable.options[selTable.selectedIndex].text 
+        : 'Mang Đi (Takeaway)';
+      document.getElementById('torog-pay-table-label').textContent = tableName;
+      document.getElementById('torog-pay-total-amount').textContent = formatMoney(total);
+
+      selectCounterPayMethod('card');
+      document.getElementById('torog-counter-pay-modal').classList.add('open');
+    }
+
+    function closeCounterPaymentModal() {
+      document.getElementById('torog-counter-pay-modal').classList.remove('open');
+    }
+
+    function selectCounterPayMethod(method) {
+      selectedCounterPayMethod = method;
+      ['card', 'vietqr', 'wallet', 'cash'].forEach(m => {
+        const tab = document.getElementById('cpay-tab-' + m);
+        const view = document.getElementById('cpay-view-' + m);
+        if (tab) tab.classList.toggle('active', m === method);
+        if (view) view.style.display = (m === method) ? 'block' : 'none';
+      });
+
+      const subtotal = counterCart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const discountAmount = Math.round(subtotal * (counterDiscountPercent / 100));
+      const discountedSubtotal = Math.max(0, subtotal - discountAmount);
+      const vatRate = (storeSettings && storeSettings.vatRate) ? storeSettings.vatRate : 8;
+      const total = discountedSubtotal + Math.round(discountedSubtotal * (vatRate / 100));
+
+      if (method === 'vietqr') {
+        const bankId = (storeSettings && storeSettings.bankId) || 'MB';
+        const acc = (storeSettings && storeSettings.bankAccount) || '0988776655';
+        const name = encodeURIComponent((storeSettings && storeSettings.bankAccountName) || 'ACE TROPICAL COFFEE');
+        const memo = encodeURIComponent(counterPendingOrderId);
+        const qrUrl = `https://img.vietqr.io/image/${bankId}-${acc}-compact2.png?amount=${total}&addInfo=${memo}&accountName=${name}`;
+        const img = document.getElementById('cpay-vietqr-img');
+        if (img) img.src = qrUrl;
+        const accEl = document.getElementById('cpay-bank-acc');
+        if (accEl) accEl.textContent = `${acc} (${storeSettings.bankName || 'MBBank'})`;
+      }
+
+      if (method === 'wallet') {
+        const canvas = document.getElementById('cpay-wallet-canvas');
+        if (canvas) {
+          drawSimpleQrCode(canvas, `https://social.zalopay.vn/app/store/transfer?amount=${total}&desc=${counterPendingOrderId}`);
+        }
+      }
+
+      if (method === 'cash') {
+        const cashGivenInput = document.getElementById('cpay-cash-given');
+        if (cashGivenInput) {
+          cashGivenInput.value = total;
+          calculateCashChange();
+        }
+      }
+    }
+
+    function calculateCashChange() {
+      const subtotal = counterCart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const discountAmount = Math.round(subtotal * (counterDiscountPercent / 100));
+      const discountedSubtotal = Math.max(0, subtotal - discountAmount);
+      const vatRate = (storeSettings && storeSettings.vatRate) ? storeSettings.vatRate : 8;
+      const total = discountedSubtotal + Math.round(discountedSubtotal * (vatRate / 100));
+
+      const cashGiven = parseFloat((document.getElementById('cpay-cash-given').value || '0').replace(/[^0-9]/g, '')) || 0;
+      const change = Math.max(0, cashGiven - total);
+      document.getElementById('cpay-cash-change').textContent = formatMoney(change);
+    }
+
+    function setQuickCashAmount(amt) {
+      const subtotal = counterCart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const discountAmount = Math.round(subtotal * (counterDiscountPercent / 100));
+      const discountedSubtotal = Math.max(0, subtotal - discountAmount);
+      const vatRate = (storeSettings && storeSettings.vatRate) ? storeSettings.vatRate : 8;
+      const total = discountedSubtotal + Math.round(discountedSubtotal * (vatRate / 100));
+
+      const input = document.getElementById('cpay-cash-given');
+      if (amt === 'exact') {
+        input.value = total;
+      } else {
+        input.value = amt;
+      }
+      calculateCashChange();
+    }
+
+    function executeCounterCardPayment() {
+      completeCounterOrder('card', 'Thẻ POS ToroG (EMV/Contactless)');
+    }
+    function executeCounterVietQrPayment() {
+      completeCounterOrder('vietqr', 'Chuyển khoản VietQR (Napas 24/7)');
+    }
+    function executeCounterWalletPayment() {
+      completeCounterOrder('wallet', 'Ví Điện Tử (MoMo / ZaloPay)');
+    }
+    function executeCounterCashPayment() {
+      completeCounterOrder('cash', 'Tiền Mặt Tại Quầy');
+    }
+
+    function completeCounterOrder(method, methodName) {
+      const subtotal = counterCart.reduce((s, c) => s + (c.item.price * c.qty), 0);
+      const discountAmount = Math.round(subtotal * (counterDiscountPercent / 100));
+      const discountedSubtotal = Math.max(0, subtotal - discountAmount);
+      const vatRate = (storeSettings && storeSettings.vatRate) ? storeSettings.vatRate : 8;
+      const vat = Math.round(discountedSubtotal * (vatRate / 100));
+      const total = discountedSubtotal + vat;
+
+      const now = new Date();
+      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+      const orderId = counterPendingOrderId || ('POS-' + (1000 + orders.length + 1));
+      const paymentRef = 'TRC-' + Math.floor(100000 + Math.random() * 900000);
+
+      const selTable = document.getElementById('counter-select-table');
+      const tableName = (counterOrderType === 'dinein' && selTable && selTable.options[selTable.selectedIndex]) 
+        ? selTable.options[selTable.selectedIndex].text 
+        : 'Mang Đi (Takeaway)';
+
+      const newOrder = {
+        id: orderId,
+        time: timeStr,
+        table: tableName,
+        phone: 'Tại Quầy',
+        note: `POS Counter - ${methodName}`,
+        paymentMethod: method,
+        paymentMethodName: methodName,
+        paymentStatus: 'paid',
+        paymentRef: paymentRef,
+        paidAt: timeStr,
+        items: counterCart.map(c => ({
+          id: c.item.id,
+          name: getItemDisplayName(c.item),
+          qty: c.qty,
+          price: c.item.price,
+          total: c.item.price * c.qty,
+          custom: c.custom || ''
+        })),
+        subtotal: subtotal,
+        discount: discountAmount,
+        vat: vat,
+        total: total,
+        status: 'new' // BẮN VÀO BẾP KDS
+      };
+
+      orders.unshift(newOrder);
+      saveOrdersStorage();
+      broadcastOrderRealtime(newOrder);
+
+      // Cập nhật ca
+      saveToroGShift();
+
+      closeCounterPaymentModal();
+
+      // Reset quầy
+      counterCart = [];
+      counterPendingOrderId = null;
+      renderCounterTicket();
+
+      // In bill nhiệt ngay lập tức
+      playPrinterChime();
+      showThermalReceipt(newOrder);
+      showSmsToast("THANH TOÁN THÀNH CÔNG", `Đơn ${newOrder.id} đã hoàn tất thanh toán và gửi vào Bếp!`);
+    }
+
+    // --- 3. SƠ ĐỒ BÀN (TABLE MAP) ---
+    function renderTableMap() {
+      const container = document.getElementById('tables-map-container');
+      if (!container) return;
+
+      const occupiedCount = tables.filter(t => isTableOccupied(t)).length;
+      document.getElementById('count-occupied-tables').textContent = occupiedCount;
+      document.getElementById('count-total-tables').textContent = tables.length;
+
+      container.innerHTML = tables.map(t => {
+        const activeOrder = orders.find(o => (o.table === t.name || o.table.includes(t.name) || o.table.includes(t.id)) && o.status !== 'done' && o.status !== 'cancelled');
+        let statusClass = 'available';
+        let statusText = '🟢 Bàn Trống';
+        let detailHtml = '<div style="font-size: 0.78rem; color: #166534; margin-top: 6px;">Sẵn sàng đón khách</div>';
+
+        if (activeOrder) {
+          statusClass = 'occupied';
+          statusText = '🟠 Đang Phục Vụ';
+          detailHtml = `
+            <div style="font-size: 0.8rem; font-weight: 700; color: #92400E; margin-top: 6px;">
+              ${activeOrder.id} • ${activeOrder.items.length} món
+            </div>
+            <div style="font-size: 0.95rem; font-weight: 800; color: #B45309;">
+              ${formatMoney(activeOrder.total)}
+            </div>
+          `;
+        }
+
+        return `
+          <div class="table-map-tile ${statusClass}" onclick="onTableMapTileClicked('${t.id}')">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <b style="font-size: 0.95rem; color: #1E293B;">${getTableDisplayName(t)}</b>
+              <span class="table-tile-status-pill">${statusText}</span>
+            </div>
+            ${detailHtml}
+          </div>
+        `;
+      }).join('');
+    }
+
+    function isTableOccupied(table) {
+      return orders.some(o => (o.table === table.name || o.table.includes(table.name) || o.table.includes(table.id)) && o.status !== 'done' && o.status !== 'cancelled');
+    }
+
+    function onTableMapTileClicked(tableId) {
+      const table = tables.find(t => t.id === tableId);
+      if (!table) return;
+
+      const activeOrder = orders.find(o => (o.table === table.name || o.table.includes(table.name) || o.table.includes(table.id)) && o.status !== 'done' && o.status !== 'cancelled');
+      if (activeOrder) {
+        // Show bill for this table
+        showThermalReceipt(activeOrder);
+      } else {
+        // Open counter order for this table
+        currentTable = table;
+        updateTableDisplay();
+        switchPosTab('counter', document.getElementById('btn-tab-counter'));
+        const selTable = document.getElementById('counter-select-table');
+        if (selTable) selTable.value = table.id;
+        setCounterOrderType('dinein');
+      }
+    }
+
+    // --- 4. MÀN HÌNH BẾP (KITCHEN DISPLAY SYSTEM - KDS) ---
+    function renderKitchenKDS() {
+      const container = document.getElementById('kds-tickets-grid');
+      if (!container) return;
+
+      const activeOrders = orders.filter(o => o.status === 'new' || o.status === 'prep');
+      document.getElementById('kitchen-active-count').textContent = `${activeOrders.length} đơn chờ`;
+      document.getElementById('count-kitchen-orders').textContent = activeOrders.length;
+      document.getElementById('count-pending-orders').textContent = activeOrders.length;
+
+      if (activeOrders.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; color: #94A3B8; padding: 60px 10px;">
+            <div style="font-size: 48px; margin-bottom: 8px;">☕✨</div>
+            <p style="font-size: 1.1rem; font-weight: 700; color: #1E293B;">Tất cả món đã hoàn thành!</p>
+            <p style="font-size: 0.85rem;">Quầy pha chế và nhà bếp đang sẵn sàng nhận đơn mới.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = activeOrders.map(o => {
+        const isPrep = o.status === 'prep';
+        return `
+          <div class="kds-ticket-card ${isPrep ? 'cooking' : 'waiting'}">
+            <div class="kds-ticket-header">
+              <div>
+                <b style="font-size: 1.05rem; color: #1E293B;">${o.id}</b>
+                <div style="font-size: 0.82rem; font-weight: 700; color: #FF4B2B;">📍 ${o.table}</div>
+              </div>
+              <div style="text-align: right;">
+                <span class="status-badge" style="background: ${isPrep ? '#DBEAFE' : '#FEF3C7'}; color: ${isPrep ? '#1D4ED8' : '#B45309'};">
+                  ${isPrep ? 'Đang pha chế' : 'Mới đặt'}
+                </span>
+                <div style="font-size: 0.75rem; color: #64748B; margin-top: 2px;">⏳ ${o.time}</div>
+              </div>
+            </div>
+            <div class="kds-items-list">
+              ${o.items.map(it => `
+                <div class="kds-item-entry">
+                  <div style="display: flex; justify-content: space-between;">
+                    <b style="font-size: 0.95rem; color: #0F172A;">${it.qty}x ${it.name}</b>
+                  </div>
+                  ${it.custom ? `<div style="font-size: 0.78rem; color: #D97706; font-weight: 600; margin-top: 2px;">└ ${it.custom}</div>` : ''}
+                </div>
+              `).join('')}
+              ${o.note ? `<div style="font-size: 0.78rem; color: #64748B; font-style: italic; margin-top: 6px;">📝 Ghi chú: ${o.note}</div>` : ''}
+            </div>
+            <div class="kds-actions-footer">
+              ${!isPrep ? `
+                <button type="button" class="toolbar-btn" style="flex: 1; background: #3B82F6; color: white;" onclick="setKitchenOrderStatus('${o.id}', 'prep')">
+                  🔥 Bắt Đầu Làm
+                </button>
+              ` : `
+                <button type="button" class="toolbar-btn" style="flex: 1; background: #10B981; color: white; font-weight: 700;" onclick="setKitchenOrderStatus('${o.id}', 'done')">
+                  ✅ Đã Xong Món
+                </button>
+              `}
+              <button type="button" class="toolbar-btn" onclick="showThermalReceipt(orders.find(ord => ord.id === '${o.id}'))" title="In phiếu bếp">
+                🖨️
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function setKitchenOrderStatus(orderId, newStatus) {
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+
+      order.status = newStatus;
+      saveOrdersStorage();
+      broadcastOrderRealtime(order);
+
+      if (newStatus === 'done') {
+        playSuccessChime();
+        showSmsToast("MÓN ĐÃ HOÀN THÀNH", `Đơn ${order.id} tại ${order.table} đã pha chế xong!`);
+      }
+      renderKitchenKDS();
+      renderOrders();
+      renderTableMap();
+    }
+
+    // --- 5. BÁO HẾT MÓN / HẾT NGUYÊN LIỆU (OOS) ---
+    function openOutOfStockManagerModal() {
+      const container = document.getElementById('oos-items-list');
+      if (!container) return;
+
+      container.innerHTML = menuItems.map(item => {
+        const isOut = item.available === false;
+        return `
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #E2E8F0;">
+            <div>
+              <b style="font-size: 0.9rem;">${getItemDisplayName(item)}</b>
+              <div style="font-size: 0.78rem; color: #64748B;">${formatMoney(item.price)}</div>
+            </div>
+            <button type="button" class="toolbar-btn ${isOut ? 'btn-primary' : ''}" style="${isOut ? 'background: #EF4444;' : 'background: #10B981; color: white;'}" onclick="toggleItemStock(${item.id})">
+              ${isOut ? '🔴 Đang Hết Hàng' : '🟢 Còn Phục Vụ'}
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('torog-oos-modal').classList.add('open');
+    }
+
+    function closeOutOfStockManagerModal() {
+      document.getElementById('torog-oos-modal').classList.remove('open');
+    }
+
+    function toggleItemStock(itemId) {
+      const item = menuItems.find(m => m.id === itemId);
+      if (!item) return;
+
+      item.available = !(item.available !== false);
+      localStorage.setItem('ace_menu', JSON.stringify(menuItems));
+
+      // Broadcast update
+      broadcastMenuRealtime(menuItems);
+
+      openOutOfStockManagerModal();
+      renderCustomerProducts(activeCategory);
+      renderCounterPosTiles();
+      showSmsToast("CẬP NHẬT TRẠNG THÁI", `Món ${item.name} đã được đổi sang: ${item.available ? 'CÒN HÀNG' : 'HẾT NGUYÊN LIỆU'}`);
+    }
+
+    // --- 6. QUẢN LÝ CA & DOANH THU (SHIFT & CASH RECONCILE) ---
+    function renderShiftManagement() {
+      const cashSales = getShiftCashRevenue();
+      const cardSales = getShiftCardRevenue();
+      const qrSales = getShiftVietQrRevenue();
+      const walletSales = getShiftWalletRevenue();
+      const totalRev = cashSales + cardSales + qrSales + walletSales;
+
+      document.getElementById('shift-opening-float').textContent = formatMoney(currentShift.openingCash);
+      document.getElementById('shift-cash-sales').textContent = formatMoney(cashSales);
+      document.getElementById('shift-card-sales').textContent = formatMoney(cardSales);
+      document.getElementById('shift-vietqr-sales').textContent = formatMoney(qrSales);
+      document.getElementById('shift-wallet-sales').textContent = formatMoney(walletSales);
+      document.getElementById('shift-total-revenue').textContent = formatMoney(totalRev);
+
+      const logList = document.getElementById('shift-cash-log-list');
+      if (logList) {
+        logList.innerHTML = (currentShift.cashLogs || []).map(l => `
+          <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed #E2E8F0;">
+            <span>[${l.time}] ${l.type === 'in' ? '➕ Thu' : '➖ Chi'}: ${l.reason}</span>
+            <b style="color: ${l.type === 'in' ? '#10B981' : '#EF4444'};">${l.type === 'in' ? '+' : '-'}${formatMoney(l.amount)}</b>
+          </div>
+        `).join('');
+      }
+
+      updateShiftDisplayUI();
+    }
+
+    function openShiftDrawerModal(defaultType = 'in') {
+      const typeSel = document.getElementById('cash-move-type');
+      if (typeSel) typeSel.value = defaultType;
+      document.getElementById('cash-move-amount').value = '';
+      document.getElementById('cash-move-reason').value = '';
+      document.getElementById('torog-cash-drawer-modal').classList.add('open');
+    }
+    function closeShiftDrawerModal() {
+      document.getElementById('torog-cash-drawer-modal').classList.remove('open');
+    }
+
+    function saveCashMovement() {
+      const type = document.getElementById('cash-move-type').value;
+      const amount = parseFloat(document.getElementById('cash-move-amount').value) || 0;
+      const reason = document.getElementById('cash-move-reason').value.trim() || 'Thu/Chi phụ';
+
+      if (amount <= 0) {
+        alert("Vui lòng nhập số tiền lớn hơn 0!");
+        return;
+      }
+
+      const now = new Date();
+      const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+      if (type === 'in') {
+        currentShift.cashIn += amount;
+      } else {
+        currentShift.cashOut += amount;
+      }
+
+      currentShift.cashLogs.push({
+        time: timeStr,
+        type: type,
+        amount: amount,
+        reason: reason
+      });
+
+      saveToroGShift();
+      closeShiftDrawerModal();
+      renderShiftManagement();
+      showSmsToast("ĐÃ GHI NHẬN KÉT TIỀN", `Đã lưu giao dịch ${type === 'in' ? 'Thu' : 'Chi'} ${formatMoney(amount)} thành công.`);
+    }
+
+    function openEndShiftModal() {
+      const expectedCash = currentShift.openingCash + getShiftCashRevenue() + currentShift.cashIn - currentShift.cashOut;
+      document.getElementById('endshift-expected-cash').textContent = formatMoney(expectedCash);
+      document.getElementById('endshift-actual-cash').value = expectedCash;
+      checkEndShiftDifference();
+      document.getElementById('endshift-actual-cash').oninput = checkEndShiftDifference;
+      document.getElementById('torog-endshift-modal').classList.add('open');
+    }
+    function closeEndShiftModal() {
+      document.getElementById('torog-endshift-modal').classList.remove('open');
+    }
+
+    function checkEndShiftDifference() {
+      const expectedCash = currentShift.openingCash + getShiftCashRevenue() + currentShift.cashIn - currentShift.cashOut;
+      const actualCash = parseFloat(document.getElementById('endshift-actual-cash').value) || 0;
+      const diff = actualCash - expectedCash;
+      const diffEl = document.getElementById('endshift-difference');
+      if (diff === 0) {
+        diffEl.textContent = '0 đ (Khớp 100%)';
+        diffEl.style.color = '#10B981';
+      } else if (diff > 0) {
+        diffEl.textContent = `+${formatMoney(diff)} (Thừa tiền mặt)`;
+        diffEl.style.color = '#3B82F6';
+      } else {
+        diffEl.textContent = `${formatMoney(diff)} (Thiếu hụt tiền mặt)`;
+        diffEl.style.color = '#EF4444';
+      }
+    }
+
+    function confirmAndPrintZReport() {
+      closeEndShiftModal();
+      printZReport();
+      showSmsToast("KẾT CA THÀNH CÔNG", "Đã chốt sổ ca bán hàng và in báo cáo Z-Report!");
+    }
+
+    // --- 7. IN HÓA ĐƠN NHIỆT & BÁO CÁO Z-REPORT (ESC/POS) ---
+    function showThermalReceipt(order) {
+      if (!order) return;
+
+      const printArea = document.getElementById('thermal-bill-print-area');
+      if (!printArea) return;
+
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('vi-VN');
+
+      printArea.innerHTML = `
+        <div class="thermal-bill-header">
+          <div style="font-size: 1.1rem; font-weight: 900;">${storeSettings.name || 'ACE TROPICAL COFFEE'}</div>
+          <div>${storeSettings.address || 'TP. Hồ Chí Minh'}</div>
+          <div>Hotline: ${storeSettings.phone || '0988 776 655'}</div>
+          <div style="font-weight: bold; margin-top: 6px; font-size: 1rem;">HÓA ĐƠN BÁN LẺ (RECEIPT)</div>
+          <div style="font-size: 0.75rem;">Powered by ToroG Smart POS (KOOTORO)</div>
+        </div>
+
+        <div style="margin-bottom: 6px; font-size: 0.8rem;">
+          <div>Mã đơn: <b>${order.id}</b></div>
+          <div>Ngày giờ: ${order.paidAt || order.time} - ${dateStr}</div>
+          <div>Bàn phục vụ: <b>${order.table}</b></div>
+          <div>Thu ngân: <b>${currentUser ? currentUser.fullname : 'Admin'}</b></div>
+          ${order.paymentRef ? `<div>Mã GD: <b>${order.paymentRef}</b></div>` : ''}
+        </div>
+
+        <div style="border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 6px 0; margin-bottom: 6px;">
+          <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 4px;">
+            <span style="flex: 2;">Món</span>
+            <span style="width: 30px; text-align: center;">SL</span>
+            <span style="width: 60px; text-align: right;">Đ.Giá</span>
+            <span style="width: 70px; text-align: right;">T.Tiền</span>
+          </div>
+          ${order.items.map(it => `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+              <span style="flex: 2;">${it.name}</span>
+              <span style="width: 30px; text-align: center;">${it.qty}</span>
+              <span style="width: 60px; text-align: right;">${formatMoney(it.price).replace(' đ','')}</span>
+              <span style="width: 70px; text-align: right; font-weight: bold;">${formatMoney(it.price * it.qty).replace(' đ','')}</span>
+            </div>
+            ${it.custom ? `<div style="font-size: 0.72rem; color: #444; margin-left: 6px;">└ ${it.custom}</div>` : ''}
+          `).join('')}
+        </div>
+
+        <div style="margin-bottom: 6px; font-size: 0.82rem;">
+          <div class="thermal-bill-row">
+            <span>Tạm tính:</span>
+            <b>${formatMoney(order.subtotal || order.total)}</b>
+          </div>
+          ${order.discount ? `
+            <div class="thermal-bill-row" style="color: #444;">
+              <span>Chiết khấu:</span>
+              <b>-${formatMoney(order.discount)}</b>
+            </div>
+          ` : ''}
+          <div class="thermal-bill-row">
+            <span>Thuế VAT (${storeSettings.vatRate || 8}%):</span>
+            <b>${formatMoney(order.vat || 0)}</b>
+          </div>
+          <div class="thermal-bill-row" style="font-size: 1.05rem; font-weight: 900; border-top: 1px solid #000; padding-top: 4px; margin-top: 4px;">
+            <span>TỔNG CỘNG:</span>
+            <span>${formatMoney(order.total)}</span>
+          </div>
+          <div class="thermal-bill-row" style="margin-top: 4px;">
+            <span>Thanh toán:</span>
+            <b>${order.paymentMethodName || 'Đã thanh toán'}</b>
+          </div>
+        </div>
+
+        <div class="thermal-bill-footer">
+          <div style="font-weight: bold; margin-bottom: 4px;">*** ĐÃ THANH TOÁN 100% ***</div>
+          <div>Cảm ơn Quý khách & Hẹn gặp lại!</div>
+          <div style="margin-top: 6px; font-size: 0.72rem; opacity: 0.8;">Hệ Thống Smart POS ToroG • www.torog.vn</div>
+        </div>
+      `;
+
+      document.getElementById('torog-thermal-bill-modal').classList.add('open');
+    }
+
+    function closeThermalBillModal() {
+      document.getElementById('torog-thermal-bill-modal').classList.remove('open');
+    }
+
+    function printZReport() {
+      const printArea = document.getElementById('thermal-bill-print-area');
+      if (!printArea) return;
+
+      const now = new Date();
+      const cashSales = getShiftCashRevenue();
+      const cardSales = getShiftCardRevenue();
+      const qrSales = getShiftVietQrRevenue();
+      const walletSales = getShiftWalletRevenue();
+      const totalRev = cashSales + cardSales + qrSales + walletSales;
+      const expectedCash = currentShift.openingCash + cashSales + currentShift.cashIn - currentShift.cashOut;
+
+      printArea.innerHTML = `
+        <div class="thermal-bill-header">
+          <div style="font-size: 1.15rem; font-weight: 900;">BÁO CÁO KẾT CA (Z-REPORT)</div>
+          <div style="font-weight: bold;">ToroG Smart POS by KOOTORO</div>
+          <div>${storeSettings.name || 'ACE TROPICAL COFFEE'}</div>
+          <div>Ngày in: ${now.toLocaleString('vi-VN')}</div>
+        </div>
+
+        <div style="margin-bottom: 8px; font-size: 0.8rem;">
+          <div>Ca bán hàng: <b>Ca #${currentShift.id}</b></div>
+          <div>Bắt đầu: <b>${currentShift.startTime}</b></div>
+          <div>Thu ngân: <b>${currentUser ? currentUser.fullname : 'Admin'}</b></div>
+          <div>Tổng số đơn hoàn thành: <b>${orders.filter(o => o.paymentStatus === 'paid').length}</b></div>
+        </div>
+
+        <div style="border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 6px 0; margin-bottom: 6px; font-size: 0.82rem;">
+          <div style="font-weight: bold; margin-bottom: 4px;">DOANH THU THEO PHƯƠNG THỨC:</div>
+          <div class="thermal-bill-row"><span>💵 Tiền mặt:</span><b>${formatMoney(cashSales)}</b></div>
+          <div class="thermal-bill-row"><span>💳 Thẻ POS ToroG:</span><b>${formatMoney(cardSales)}</b></div>
+          <div class="thermal-bill-row"><span>⚡ VietQR Napas:</span><b>${formatMoney(qrSales)}</b></div>
+          <div class="thermal-bill-row"><span>📱 Ví Điện Tử:</span><b>${formatMoney(walletSales)}</b></div>
+          <div class="thermal-bill-row" style="border-top: 1px solid #000; padding-top: 4px; font-weight: bold; font-size: 0.95rem;">
+            <span>TỔNG DOANH THU:</span><span>${formatMoney(totalRev)}</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 10px; font-size: 0.82rem;">
+          <div style="font-weight: bold; margin-bottom: 4px;">CÂN ĐỐI KÉT TIỀN MẶT:</div>
+          <div class="thermal-bill-row"><span>Tiền mặt đầu ca:</span><b>${formatMoney(currentShift.openingCash)}</b></div>
+          <div class="thermal-bill-row"><span>(+) Thu tiền mặt bán hàng:</span><b>${formatMoney(cashSales)}</b></div>
+          <div class="thermal-bill-row"><span>(+) Thu tiền mặt phụ:</span><b>${formatMoney(currentShift.cashIn)}</b></div>
+          <div class="thermal-bill-row"><span>(-) Chi tiền mặt phụ:</span><b>${formatMoney(currentShift.cashOut)}</b></div>
+          <div class="thermal-bill-row" style="border-top: 1px solid #000; padding-top: 4px; font-weight: bold;">
+            <span>Tiền mặt trong két:</span><span>${formatMoney(expectedCash)}</span>
+          </div>
+        </div>
+
+        <div class="thermal-bill-footer" style="display: flex; justify-content: space-around; padding-top: 16px; margin-top: 16px;">
+          <div>
+            <b>Thu ngân ký tên</b>
+            <div style="height: 40px;"></div>
+            <div>${currentUser ? currentUser.fullname : 'Admin'}</div>
+          </div>
+          <div>
+            <b>Quản lý ký tên</b>
+            <div style="height: 40px;"></div>
+            <div>Chủ Cửa Hàng</div>
+          </div>
+        </div>
+      `;
+
+      playPrinterChime();
+      document.getElementById('torog-thermal-bill-modal').classList.add('open');
+    }
+
+    function playPrinterChime() {
+      playAudioChime(800, 0.04);
+      setTimeout(() => playAudioChime(1200, 0.04), 60);
+      setTimeout(() => playAudioChime(900, 0.08), 120);
+    }
+
+
+// --- 16. TIỆN ÍCH ÂM THANH & SMS TOAST ---
     function playAudioChime(freq, duration) {
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -6757,5 +8356,222 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
     <p id="proc-desc" style="font-size: 0.85rem; opacity: 0.88; max-width: 320px;">Đang đối soát giao dịch và xác thực thanh toán tiền trước khi gửi đơn vào bếp.</p>
   </div>
 
+
+  <!-- MODAL: THANH TOÁN TẠI QUẦY CHUẨN TOROG SMART POS -->
+  <div class="modal-overlay" id="torog-counter-pay-modal">
+    <div class="modal" style="max-width: 520px; border-top: 5px solid #FF4B2B;">
+      <div class="modal-header" style="background: #1E293B; color: #FFF;">
+        <h3 style="font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+          <span>⚡ ToroG Smart POS</span>
+          <span style="font-size: 0.82rem; opacity: 0.85;">Thanh Toán Đơn Hàng</span>
+        </h3>
+        <button type="button" class="close-modal-btn" onclick="closeCounterPaymentModal()" style="color: #FFF;">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 18px;">
+        <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 10px; padding: 12px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 0.82rem; color: #64748B;" id="torog-pay-order-id-label">Đơn: POS-1001</div>
+            <div style="font-weight: 700; font-size: 0.95rem;" id="torog-pay-table-label">Bàn 01 (Tầng trệt)</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 0.78rem; color: #64748B;">Cần thanh toán:</div>
+            <div style="font-size: 1.3rem; font-weight: 900; color: #FF4B2B;" id="torog-pay-total-amount">0 đ</div>
+          </div>
+        </div>
+
+        <label style="font-size: 0.82rem; font-weight: 700; color: #334155; margin-bottom: 6px; display: block;">
+          Chọn cổng thanh toán ToroG:
+        </label>
+        <div class="pay-methods-grid" style="margin-bottom: 12px;">
+          <button type="button" class="pay-tab-btn active" id="cpay-tab-card" onclick="selectCounterPayMethod('card')">
+            <span>💳 Quẹt / Chạm Thẻ</span>
+          </button>
+          <button type="button" class="pay-tab-btn" id="cpay-tab-vietqr" onclick="selectCounterPayMethod('vietqr')">
+            <span>⚡ VietQR Ngân Hàng</span>
+          </button>
+          <button type="button" class="pay-tab-btn" id="cpay-tab-wallet" onclick="selectCounterPayMethod('wallet')">
+            <span>📱 Ví Điện Tử (MoMo/Zalo)</span>
+          </button>
+          <button type="button" class="pay-tab-btn" id="cpay-tab-cash" onclick="selectCounterPayMethod('cash')">
+            <span>💵 Tiền Mặt</span>
+          </button>
+        </div>
+
+        <!-- 1. QUẸT / CHẠM THẺ TOROG EDC -->
+        <div id="cpay-view-card" class="qr-payment-card" style="padding: 14px; text-align: center; border: 1.5px solid #3B82F6;">
+          <div style="font-weight: 800; color: #1E3A8A; margin-bottom: 6px;">
+            MÁY ĐỌC THẺ THÔNG MINH TOROG SMART POS
+          </div>
+          <p style="font-size: 0.82rem; color: #475569; margin-bottom: 12px;">
+            Hỗ trợ Visa, Mastercard, JCB, Napas (Chạm Contactless NFC / Cắm chip EMV / Quẹt dải từ)
+          </p>
+          <div style="display: flex; justify-content: center; gap: 14px; font-size: 32px; margin-bottom: 12px;">
+            <span>💳</span><span>📶</span><span>✨</span>
+          </div>
+          <div style="background: #EFF6FF; border: 1px dashed #3B82F6; border-radius: 8px; padding: 10px; font-size: 0.84rem; color: #1E40AF; margin-bottom: 10px;">
+            Đang chờ đưa thẻ vào đầu đọc ToroG...
+          </div>
+          <button type="button" class="btn-pos-pay" style="width: 100%;" onclick="executeCounterCardPayment()">
+            ⚡ XÁC NHẬN QUẸT / CHẠM THẺ THÀNH CÔNG
+          </button>
+        </div>
+
+        <!-- 2. VIETQR -->
+        <div id="cpay-view-vietqr" class="qr-payment-card" style="display: none; padding: 14px; text-align: center; border: 1.5px solid #8B5CF6;">
+          <div style="font-size: 0.82rem; font-weight: 700; color: #6D28D9; margin-bottom: 8px;">
+            Khách quét mã VietQR tự động điền tiền & nội dung:
+          </div>
+          <div style="background: #FFF; padding: 10px; border-radius: 12px; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 8px;">
+            <img id="cpay-vietqr-img" src="" alt="VietQR" style="max-width: 220px; width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px;">
+          </div>
+          <div style="font-size: 0.82rem; color: #475569; margin-bottom: 10px;">
+            Tài khoản: <b id="cpay-bank-acc">0988776655</b> (MBBank)
+          </div>
+          <button type="button" class="btn-pos-pay" style="width: 100%;" onclick="executeCounterVietQrPayment()">
+            ⚡ TÀI KHOẢN ĐÃ BÁO CÓ - XÁC THỰC ĐƠN
+          </button>
+        </div>
+
+        <!-- 3. VÍ ĐIỆN TỬ -->
+        <div id="cpay-view-wallet" class="qr-payment-card" style="display: none; padding: 14px; text-align: center; border: 1.5px solid #EC4899;">
+          <div style="font-size: 0.82rem; font-weight: 700; color: #BE185D; margin-bottom: 8px;">
+            Quét mã thanh toán MoMo / ZaloPay / VNPay:
+          </div>
+          <div style="background: #FFF; padding: 10px; border-radius: 12px; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 8px;">
+            <canvas id="cpay-wallet-canvas" width="200" height="200" style="display: block; margin: 0 auto;"></canvas>
+          </div>
+          <button type="button" class="btn-pos-pay" style="width: 100%;" onclick="executeCounterWalletPayment()">
+            ⚡ VÍ BÁO THÀNH CÔNG - XÁC THỰC ĐƠN
+          </button>
+        </div>
+
+        <!-- 4. TIỀN MẶT -->
+        <div id="cpay-view-cash" class="qr-payment-card" style="display: none; padding: 14px; border: 1.5px solid #10B981;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <span style="font-size: 0.85rem; font-weight: 700;">Tiền khách đưa:</span>
+            <input type="text" id="cpay-cash-given" class="form-control" style="width: 180px; text-align: right; font-size: 1.1rem; font-weight: 800; color: #1E293B;" value="0" oninput="calculateCashChange()">
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px;">
+            <button type="button" class="toolbar-btn" onclick="setQuickCashAmount('exact')">Đủ Tiền</button>
+            <button type="button" class="toolbar-btn" onclick="setQuickCashAmount(50000)">50.000 đ</button>
+            <button type="button" class="toolbar-btn" onclick="setQuickCashAmount(100000)">100.000 đ</button>
+            <button type="button" class="toolbar-btn" onclick="setQuickCashAmount(200000)">200.000 đ</button>
+            <button type="button" class="toolbar-btn" onclick="setQuickCashAmount(500000)">500.000 đ</button>
+            <button type="button" class="toolbar-btn" onclick="setQuickCashAmount(1000000)">1.000.000 đ</button>
+          </div>
+          <div style="background: #F0FDF4; border: 1px solid #86EFAC; border-radius: 8px; padding: 10px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <span style="font-size: 0.88rem; font-weight: 700; color: #166534;">TIỀN THỐI LẠI KHÁCH:</span>
+            <span style="font-size: 1.25rem; font-weight: 900; color: #15803D;" id="cpay-cash-change">0 đ</span>
+          </div>
+          <button type="button" class="btn-pos-pay" style="width: 100%;" onclick="executeCounterCashPayment()">
+            💵 THU TIỀN MẶT & IN HÓA ĐƠN
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: XEM TRƯỚC & IN HÓA ĐƠN NHIỆT TOROG 58MM/80MM -->
+  <div class="modal-overlay" id="torog-thermal-bill-modal">
+    <div class="modal" style="max-width: 380px;">
+      <div class="modal-header">
+        <h3 style="font-size: 1rem;">🖨️ Hóa Đơn Bán Lẻ (ESC/POS)</h3>
+        <button type="button" class="close-modal-btn" onclick="closeThermalBillModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 12px; background: #F1F5F9;">
+        <div class="thermal-bill-container" id="thermal-bill-print-area">
+          <!-- Thermal receipt injected here -->
+        </div>
+        <div style="margin-top: 14px; display: flex; gap: 8px;">
+          <button type="button" class="toolbar-btn" style="flex: 1;" onclick="closeThermalBillModal()">Đóng</button>
+          <button type="button" class="btn-pos-pay" style="flex: 2; padding: 10px;" onclick="window.print()">🖨️ In Hóa Đơn</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: KẾT CA & BÁO CÁO Z-REPORT CHUẨN TOROG -->
+  <div class="modal-overlay" id="torog-endshift-modal">
+    <div class="modal" style="max-width: 440px;">
+      <div class="modal-header" style="background: #0F172A; color: #FFF;">
+        <h3 style="font-size: 1.05rem;">🔒 Kết Ca & Kiểm Kê Két Tiền</h3>
+        <button type="button" class="close-modal-btn" onclick="closeEndShiftModal()" style="color: #FFF;">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 18px;">
+        <p style="font-size: 0.84rem; color: #64748B; margin-bottom: 14px;">
+          Vui lòng đếm số tiền mặt thực tế đang có trong két để đối soát chênh lệch:
+        </p>
+        <div class="form-group">
+          <label style="font-size: 0.84rem; font-weight: 700;">Tiền mặt thực tế kiểm đếm (VNĐ):</label>
+          <input type="number" class="form-control" id="endshift-actual-cash" style="font-size: 1.2rem; font-weight: 800; color: #1E293B;" value="1000000">
+        </div>
+        <div class="form-group">
+          <label style="font-size: 0.84rem; font-weight: 700;">Ghi chú bàn giao ca:</label>
+          <input type="text" class="form-control" id="endshift-note" placeholder="Bàn giao đủ tiền lẻ, không thiếu hụt...">
+        </div>
+        <div style="background: #F8FAFC; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px; margin-bottom: 14px; font-size: 0.82rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+            <span>Tiền lý thuyết trong két:</span>
+            <b id="endshift-expected-cash">1.000.000 đ</b>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+            <span>Chênh lệch:</span>
+            <b id="endshift-difference" style="color: #10B981;">0 đ (Khớp 100%)</b>
+          </div>
+        </div>
+        <button type="button" class="btn-pos-pay" style="width: 100%;" onclick="confirmAndPrintZReport()">
+          🖨️ XÁC NHẬN KẾT CA & IN BÁO CÁO Z-REPORT
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: THU / CHI TIỀN MẶT PHỤ TRONG CA -->
+  <div class="modal-overlay" id="torog-cash-drawer-modal">
+    <div class="modal" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3 style="font-size: 1rem;" id="cash-modal-title">💵 Thu / Chi Tiền Mặt</h3>
+        <button type="button" class="close-modal-btn" onclick="closeShiftDrawerModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 16px;">
+        <div class="form-group">
+          <label style="font-size: 0.84rem; font-weight: 700;">Loại giao dịch:</label>
+          <select class="form-control" id="cash-move-type">
+            <option value="in">➕ Thu Tiền Mặt Vào Két (Cash In)</option>
+            <option value="out">➖ Chi Tiền Mặt Ra Khỏi Két (Cash Out)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label style="font-size: 0.84rem; font-weight: 700;">Số tiền (VNĐ):</label>
+          <input type="number" class="form-control" id="cash-move-amount" style="font-size: 1.1rem; font-weight: 800;" placeholder="Ví dụ: 100000">
+        </div>
+        <div class="form-group">
+          <label style="font-size: 0.84rem; font-weight: 700;">Lý do / Mục đích chi tiết:</label>
+          <input type="text" class="form-control" id="cash-move-reason" placeholder="Ví dụ: Mua đá lạnh khẩn cấp, bù tiền lẻ...">
+        </div>
+        <button type="button" class="btn-pos-pay" style="width: 100%;" onclick="saveCashMovement()">
+          💾 XÁC NHẬN GHI VÀO NHẬT KÝ CA
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: QUẢN LÝ HẾT MÓN / HẾT NGUYÊN LIỆU (KITCHEN OOS) -->
+  <div class="modal-overlay" id="torog-oos-modal">
+    <div class="modal" style="max-width: 480px;">
+      <div class="modal-header" style="background: #1E293B; color: #FFF;">
+        <h3 style="font-size: 1.05rem;">⚠️ Báo Hết Món / Khóa Món Realtime</h3>
+        <button type="button" class="close-modal-btn" onclick="closeOutOfStockManagerModal()" style="color: #FFF;">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 16px;">
+        <p style="font-size: 0.82rem; color: #64748B; margin-bottom: 12px;">
+          Khi bếp báo hết món, món này sẽ ngay lập tức bị mờ đi và khóa đặt trên menu Easy Order của khách:
+        </p>
+        <div id="oos-items-list" style="max-height: 340px; overflow-y: auto;">
+          <!-- Item toggles injected via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
