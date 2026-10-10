@@ -2678,11 +2678,26 @@
       return autoTranslateBadge(item.badge);
     }
 
+    function getTableDisplayName(table) {
+      if (!table) return currentLang === 'en' ? 'Table 01 (Ground Floor)' : 'Bàn 01 (Tầng trệt)';
+      if (currentLang === 'en') {
+        if (table.name_en) return table.name_en;
+        let name = table.name || ('Table ' + (table.id || '01'));
+        name = name.replace(/^Bàn\s*/i, 'Table ');
+        name = name.replace(/Tầng trệt/i, 'Ground Floor');
+        name = name.replace(/Khu máy lạnh/i, 'AC Room');
+        name = name.replace(/Sân vườn/i, 'Garden Patio');
+        name = name.replace(/Ban công/i, 'Balcony');
+        return name;
+      }
+      return table.name || ('Bàn ' + (table.id || '01'));
+    }
+
     let currentUser = null;
     let usersList = [];
     let menuItems = [];
     let tables = [];
-    let currentTable = null;
+    let currentTable = DEFAULT_TABLES[0] || { id: "1", name: "Bàn 01 (Tầng trệt)", name_en: "Table 01 (Ground Floor)" };
     let cart = [];
     let orders = [];
     let storeSettings = {
@@ -3556,42 +3571,78 @@
     }
 
     function openPaymentCheckoutModal() {
-      if (cart.length === 0) {
-        alert(currentLang === 'en' ? "Your cart is empty! Please choose items first." : "Giỏ hàng của bạn đang trống! Vui lòng chọn món trước.");
-        return;
+      try {
+        if (!cart || cart.length === 0) {
+          alert(currentLang === 'en' ? "Your cart is empty! Please choose items first." : "Giỏ hàng của bạn đang trống! Vui lòng chọn món trước.");
+          return;
+        }
+
+        if (!currentPendingOrderId) {
+          const orderNumber = 1000 + (orders ? orders.length : 0) + 1;
+          currentPendingOrderId = `ORD-${orderNumber}`;
+        }
+
+        toggleCartDrawer(false);
+
+        // Pre-populate customer phone and notes from cart drawer to checkout modal
+        const cartPhoneEl = document.getElementById('customer-phone');
+        const modalPhoneEl = document.getElementById('checkout-phone');
+        if (cartPhoneEl && modalPhoneEl && cartPhoneEl.value) {
+          modalPhoneEl.value = cartPhoneEl.value;
+        }
+
+        const cartNoteEl = document.getElementById('customer-note');
+        const modalNoteEl = document.getElementById('checkout-general-note');
+        if (cartNoteEl && modalNoteEl && cartNoteEl.value) {
+          modalNoteEl.value = cartNoteEl.value;
+        }
+
+        const subtotal = cart.reduce((s, c) => s + ((c.item && c.item.price ? c.item.price : 0) * c.qty), 0);
+        const vatRate = (storeSettings && storeSettings.vatRate) ? storeSettings.vatRate : 8;
+        const vat = Math.round(subtotal * (vatRate / 100));
+        const total = subtotal + vat;
+
+        const orderIdEl = document.getElementById('checkout-order-id-display');
+        if (orderIdEl) orderIdEl.textContent = currentPendingOrderId;
+
+        const tableEl = document.getElementById('checkout-table-display');
+        if (tableEl) tableEl.textContent = getTableDisplayName(currentTable);
+
+        const subtotalEl = document.getElementById('checkout-subtotal-display');
+        if (subtotalEl) subtotalEl.textContent = formatMoney(subtotal);
+
+        const vatEl = document.getElementById('checkout-vat-display');
+        if (vatEl) vatEl.textContent = formatMoney(vat);
+
+        const totalEl = document.getElementById('checkout-total-display');
+        if (totalEl) totalEl.textContent = formatMoney(total);
+
+        const totalHeaderEl = document.getElementById('checkout-total-header');
+        if (totalHeaderEl) totalHeaderEl.textContent = formatMoney(total);
+
+        const previewContainer = document.getElementById('checkout-items-preview');
+        if (previewContainer) {
+          previewContainer.innerHTML = cart.map(c => `
+            <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px dashed #eee;">
+              <div>
+                <b>${c.qty}x</b> ${getItemDisplayName(c.item)}
+                ${c.custom ? `<div style="font-size: 0.72rem; color: #888;">└ ${c.custom}</div>` : ''}
+              </div>
+              <div style="font-weight: 600;">${formatMoney((c.item && c.item.price ? c.item.price : 0) * c.qty)}</div>
+            </div>
+          `).join('');
+        }
+
+        selectPaymentMethod(selectedPaymentMethod || 'vietqr');
+        startPaymentCountdown();
+        
+        const payModal = document.getElementById('payment-checkout-modal');
+        if (payModal) payModal.classList.add('open');
+      } catch (err) {
+        console.error("Lỗi khi mở modal thanh toán:", err);
+        const payModal = document.getElementById('payment-checkout-modal');
+        if (payModal) payModal.classList.add('open');
       }
-
-      if (!currentPendingOrderId) {
-        const orderNumber = 1000 + orders.length + 1;
-        currentPendingOrderId = `ORD-${orderNumber}`;
-      }
-
-      toggleCartDrawer(false);
-
-      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
-      const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
-      const total = subtotal + vat;
-
-      document.getElementById('checkout-order-id-display').textContent = currentPendingOrderId;
-      document.getElementById('checkout-table-display').textContent = currentTable.name;
-      document.getElementById('checkout-subtotal-display').textContent = formatMoney(subtotal);
-      document.getElementById('checkout-vat-display').textContent = formatMoney(vat);
-      document.getElementById('checkout-total-display').textContent = formatMoney(total);
-      document.getElementById('checkout-total-header').textContent = formatMoney(total);
-
-      document.getElementById('checkout-items-preview').innerHTML = cart.map(c => `
-        <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px dashed #eee;">
-          <div>
-            <b>${c.qty}x</b> ${getItemDisplayName(c.item)}
-            ${c.custom ? `<div style="font-size: 0.72rem; color: #888;">└ ${c.custom}</div>` : ''}
-          </div>
-          <div style="font-weight: 600;">${formatMoney(c.item.price * c.qty)}</div>
-        </div>
-      `).join('');
-
-      selectPaymentMethod(selectedPaymentMethod || 'vietqr');
-      startPaymentCountdown();
-      document.getElementById('payment-checkout-modal').classList.add('open');
     }
 
     function closePaymentCheckoutModal() {
@@ -3600,91 +3651,109 @@
     }
 
     function selectPaymentMethod(method) {
-      selectedPaymentMethod = method;
+      try {
+        selectedPaymentMethod = method;
 
-      ['vietqr', 'momo', 'zalopay', 'visa'].forEach(m => {
-        const tab = document.getElementById('pay-tab-' + m);
-        const view = document.getElementById('pay-view-' + m);
-        if (tab) tab.classList.toggle('active', m === method);
-        if (view) view.style.display = (m === method) ? 'block' : 'none';
-      });
+        ['vietqr', 'momo', 'zalopay', 'visa'].forEach(m => {
+          const tab = document.getElementById('pay-tab-' + m);
+          const view = document.getElementById('pay-view-' + m);
+          if (tab) tab.classList.toggle('active', m === method);
+          if (view) view.style.display = (m === method) ? 'block' : 'none';
+        });
 
-      const subtotal = cart.reduce((s, c) => s + (c.item.price * c.qty), 0);
-      const vat = Math.round(subtotal * (storeSettings.vatRate / 100));
-      const total = subtotal + vat;
+        const subtotal = cart.reduce((s, c) => s + ((c.item && c.item.price ? c.item.price : 0) * c.qty), 0);
+        const vatRate = (storeSettings && storeSettings.vatRate) ? storeSettings.vatRate : 8;
+        const vat = Math.round(subtotal * (vatRate / 100));
+        const total = subtotal + vat;
 
-      // 1. VIETQR
-      if (method === 'vietqr') {
-        const bankId = storeSettings.bankId || 'MB';
-        const acc = storeSettings.bankAccount || '0988776655';
-        const name = encodeURIComponent(storeSettings.bankAccountName || 'ACE TROPICAL COFFEE');
-        const memo = encodeURIComponent(currentPendingOrderId);
-        const vietQrUrl = `https://img.vietqr.io/image/${bankId}-${acc}-compact2.png?amount=${total}&addInfo=${memo}&accountName=${name}`;
-        
-        const qrImg = document.getElementById('pay-vietqr-img');
-        if (qrImg) {
-          qrImg.style.display = 'block';
-          qrImg.src = vietQrUrl;
+        // 1. VIETQR
+        if (method === 'vietqr') {
+          const bankId = (storeSettings && storeSettings.bankId) || 'MB';
+          const acc = (storeSettings && storeSettings.bankAccount) || '0988776655';
+          const name = encodeURIComponent((storeSettings && storeSettings.bankAccountName) || 'ACE TROPICAL COFFEE');
+          const memo = encodeURIComponent(currentPendingOrderId || 'ORD-1001');
+          const vietQrUrl = `https://img.vietqr.io/image/${bankId}-${acc}-compact2.png?amount=${total}&addInfo=${memo}&accountName=${name}`;
+          
+          const qrImg = document.getElementById('pay-vietqr-img');
+          if (qrImg) {
+            qrImg.style.display = 'block';
+            qrImg.src = vietQrUrl;
+          }
+
+          const canvas = document.getElementById('pay-vietqr-canvas');
+          if (canvas) {
+            const qrData = `2|99|${acc}|${total}|${currentPendingOrderId || 'ORD-1001'}`;
+            drawSimpleQrCode(canvas, qrData);
+          }
+
+          const bankNameEl = document.getElementById('vietqr-bank-name');
+          if (bankNameEl) bankNameEl.textContent = (storeSettings && storeSettings.bankName) || 'MBBank';
+          const accNumEl = document.getElementById('vietqr-acc-num');
+          if (accNumEl) accNumEl.textContent = acc;
+          const accNameEl = document.getElementById('vietqr-acc-name');
+          if (accNameEl) accNameEl.textContent = (storeSettings && storeSettings.bankAccountName) || 'ACE TROPICAL COFFEE';
+          const amountEl = document.getElementById('vietqr-amount');
+          if (amountEl) amountEl.textContent = formatMoney(total);
+          const memoEl = document.getElementById('vietqr-memo');
+          if (memoEl) memoEl.textContent = currentPendingOrderId || 'ORD-1001';
         }
 
-        const canvas = document.getElementById('pay-vietqr-canvas');
-        if (canvas) {
-          const qrData = `2|99|${acc}|${total}|${currentPendingOrderId}`;
-          drawSimpleQrCode(canvas, qrData);
+        // 2. MOMO
+        if (method === 'momo') {
+          const momoPhone = (storeSettings && storeSettings.momoPhone) || '0988776655';
+          const momoName = (storeSettings && storeSettings.momoName) || 'ACE TROPICAL COFFEE';
+          const phoneEl = document.getElementById('momo-phone');
+          if (phoneEl) phoneEl.textContent = momoPhone;
+          const nameEl = document.getElementById('momo-name');
+          if (nameEl) nameEl.textContent = momoName;
+          const amountEl = document.getElementById('momo-amount');
+          if (amountEl) amountEl.textContent = formatMoney(total);
+          const memoEl = document.getElementById('momo-memo');
+          if (memoEl) memoEl.textContent = currentPendingOrderId || 'ORD-1001';
+
+          const canvas = document.getElementById('pay-momo-canvas');
+          if (canvas) {
+            const momoQrData = `2|99|${momoPhone}|${momoName}||0|0|${total}|${currentPendingOrderId || 'ORD-1001'}|transfer_p2p`;
+            drawSimpleQrCode(canvas, momoQrData);
+          }
         }
 
-        document.getElementById('vietqr-bank-name').textContent = storeSettings.bankName || 'MBBank';
-        document.getElementById('vietqr-acc-num').textContent = acc;
-        document.getElementById('vietqr-acc-name').textContent = storeSettings.bankAccountName || 'ACE TROPICAL COFFEE';
-        document.getElementById('vietqr-amount').textContent = formatMoney(total);
-        document.getElementById('vietqr-memo').textContent = currentPendingOrderId;
-      }
+        // 3. ZALOPAY
+        if (method === 'zalopay') {
+          const zaloPhone = (storeSettings && storeSettings.zalopayPhone) || '0988776655';
+          const zaloName = (storeSettings && storeSettings.zalopayName) || 'ACE TROPICAL COFFEE';
+          const phoneEl = document.getElementById('zalopay-phone');
+          if (phoneEl) phoneEl.textContent = zaloPhone;
+          const nameEl = document.getElementById('zalopay-name');
+          if (nameEl) nameEl.textContent = zaloName;
+          const amountEl = document.getElementById('zalopay-amount');
+          if (amountEl) amountEl.textContent = formatMoney(total);
+          const memoEl = document.getElementById('zalopay-memo');
+          if (memoEl) memoEl.textContent = currentPendingOrderId || 'ORD-1001';
 
-      // 2. MOMO
-      if (method === 'momo') {
-        const momoPhone = storeSettings.momoPhone || '0988776655';
-        const momoName = storeSettings.momoName || 'ACE TROPICAL COFFEE';
-        document.getElementById('momo-phone').textContent = momoPhone;
-        document.getElementById('momo-name').textContent = momoName;
-        document.getElementById('momo-amount').textContent = formatMoney(total);
-        document.getElementById('momo-memo').textContent = currentPendingOrderId;
-
-        const canvas = document.getElementById('pay-momo-canvas');
-        if (canvas) {
-          const momoQrData = `2|99|${momoPhone}|${momoName}||0|0|${total}|${currentPendingOrderId}|transfer_p2p`;
-          drawSimpleQrCode(canvas, momoQrData);
+          const canvas = document.getElementById('pay-zalopay-canvas');
+          if (canvas) {
+            drawSimpleQrCode(canvas, `https://social.zalopay.vn/app/store/transfer?receiver=${zaloPhone}&amount=${total}&desc=${currentPendingOrderId || 'ORD-1001'}`);
+          }
         }
-      }
 
-      // 3. ZALOPAY
-      if (method === 'zalopay') {
-        const zaloPhone = storeSettings.zalopayPhone || '0988776655';
-        const zaloName = storeSettings.zalopayName || 'ACE TROPICAL COFFEE';
-        document.getElementById('zalopay-phone').textContent = zaloPhone;
-        document.getElementById('zalopay-name').textContent = zaloName;
-        document.getElementById('zalopay-amount').textContent = formatMoney(total);
-        document.getElementById('zalopay-memo').textContent = currentPendingOrderId;
-
-        const canvas = document.getElementById('pay-zalopay-canvas');
-        if (canvas) {
-          drawSimpleQrCode(canvas, `https://social.zalopay.vn/app/store/transfer?receiver=${zaloPhone}&amount=${total}&desc=${currentPendingOrderId}`);
+        // 4. VISA
+        if (method === 'visa') {
+          const visaBtnAmount = document.getElementById('visa-btn-amount');
+          if (visaBtnAmount) visaBtnAmount.textContent = formatMoney(total);
         }
-      }
 
-      // 4. VISA
-      if (method === 'visa') {
-        const visaBtnAmount = document.getElementById('visa-btn-amount');
-        if (visaBtnAmount) visaBtnAmount.textContent = formatMoney(total);
-      }
-
-      // Update button labels according to language
-      const confirmBtn = document.getElementById('btn-confirm-payment');
-      if (confirmBtn) {
-        confirmBtn.innerHTML = `<span>⚡</span> <span>${I18N[currentLang].confirmPaymentBtn}</span>`;
-      }
-      const gatewayStatusEl = document.getElementById('gateway-status-text');
-      if (gatewayStatusEl) {
-        gatewayStatusEl.textContent = I18N[currentLang].gatewayListening;
+        // Update button labels according to language
+        const confirmBtn = document.getElementById('btn-confirm-payment');
+        if (confirmBtn && I18N[currentLang] && I18N[currentLang].confirmPaymentBtn) {
+          confirmBtn.innerHTML = `<span>⚡</span> <span>${I18N[currentLang].confirmPaymentBtn}</span>`;
+        }
+        const gatewayStatusEl = document.getElementById('gateway-status-text');
+        if (gatewayStatusEl && I18N[currentLang] && I18N[currentLang].gatewayListening) {
+          gatewayStatusEl.textContent = I18N[currentLang].gatewayListening;
+        }
+      } catch (err) {
+        console.error("Lỗi cập nhật phương thức thanh toán:", err);
       }
     }
 
@@ -3836,7 +3905,7 @@
       const newOrder = {
         id: orderId,
         time: timeStr,
-        table: currentTable.name,
+        table: currentTable ? (currentTable.name || getTableDisplayName(currentTable)) : (currentLang === 'en' ? 'Table 01' : 'Bàn 01'),
         phone: phone,
         note: generalNote,
         paymentMethod: method,
