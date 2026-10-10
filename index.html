@@ -2411,22 +2411,271 @@
       renderOrders();
     }
 
+    
+    // --- BỘ TỪ ĐIỂN VÀ CÔNG CỤ DỊCH THỰC ĐƠN TỰ ĐỘNG CHUẨN QUỐC TẾ (VI <-> EN) ---
+    const MENU_DICTIONARY = {
+      1: {
+        name_en: "Saigon Iced Milk Coffee",
+        desc_en: "Rich Robusta drip coffee blended with sweet condensed milk over crushed ice.",
+        badge_en: "Best Seller"
+      },
+      2: {
+        name_en: "Pure Vietnamese Iced Black Coffee",
+        desc_en: "Traditional bold flavor brewed from premium Đắk Lắk Robusta beans.",
+        badge_en: "Bold Flavor"
+      },
+      3: {
+        name_en: "Layered Bac Xiu (White Coffee)",
+        desc_en: "Creamy layered condensed milk with a touch of aromatic drip coffee.",
+        badge_en: "Popular"
+      },
+      4: {
+        name_en: "Royal Salted Cream Coffee",
+        desc_en: "Velvety sea-salt cream foam layered over rich Vietnamese phin coffee.",
+        badge_en: "Signature"
+      },
+      5: {
+        name_en: "Peach Orange Lemongrass Tea",
+        desc_en: "Fragrant tea infused with fresh orange, lemongrass, and crisp peach slices.",
+        badge_en: "Refreshing"
+      },
+      6: {
+        name_en: "Golden Lotus Lychee Tea",
+        desc_en: "Aromatic Oolong tea with juicy lychees and tender lotus seeds.",
+        badge_en: "Specialty"
+      },
+      7: {
+        name_en: "Roasted Oolong Milk Tea",
+        desc_en: "Smoky roasted oolong milk tea paired with chewy brown sugar pearls.",
+        badge_en: "Trending"
+      },
+      8: {
+        name_en: "Garlic Butter Cheese Croissant",
+        desc_en: "Flaky golden croissant filled with aromatic garlic butter and melted cheese.",
+        badge_en: "Fresh Baked"
+      },
+      9: {
+        name_en: "Classic Italian Tiramisu",
+        desc_en: "Espresso-soaked ladyfingers, rich mascarpone cream, dusted with pure cocoa.",
+        badge_en: "Best Dessert"
+      },
+      10: {
+        name_en: "Mango Coconut Smoothie",
+        desc_en: "Ripe mango blended with rich coconut milk and chewy coconut jelly toppings.",
+        badge_en: "Tropical"
+      }
+    };
+
+    const MENU_NAME_TRANSLATIONS = {
+      "cà phê sữa đá sài gòn": { name_en: "Saigon Iced Milk Coffee", desc_en: "Rich Robusta drip coffee blended with sweet condensed milk over crushed ice." },
+      "cà phê sữa đá": { name_en: "Vietnamese Iced Milk Coffee", desc_en: "Traditional Vietnamese drip coffee blended with sweet condensed milk." },
+      "cà phê sữa": { name_en: "Vietnamese Milk Coffee", desc_en: "Fresh drip coffee blended with rich condensed milk." },
+      "cà phê đen đá nguyên chất": { name_en: "Pure Vietnamese Iced Black Coffee", desc_en: "Traditional bold flavor brewed from premium Đắk Lắk Robusta beans." },
+      "cà phê đen đá": { name_en: "Vietnamese Iced Black Coffee", desc_en: "Bold and aromatic drip coffee served over ice." },
+      "cà phê đen": { name_en: "Vietnamese Black Coffee", desc_en: "Rich, bold traditional Robusta coffee." },
+      "bạc xỉu đá tầng": { name_en: "Layered Bac Xiu (White Coffee)", desc_en: "Creamy layered condensed milk with a touch of aromatic drip coffee." },
+      "bạc xỉu": { name_en: "White Coffee (Bac Xiu)", desc_en: "Sweet creamy milk with a gentle shot of Vietnamese coffee." },
+      "cà phê muối hoàng gia": { name_en: "Royal Salted Cream Coffee", desc_en: "Velvety sea-salt cream foam layered over rich Vietnamese phin coffee." },
+      "cà phê muối": { name_en: "Salted Cream Coffee", desc_en: "Signature sea-salt cream foam over traditional drip coffee." },
+      "cà phê trứng": { name_en: "Hanoi Egg Coffee", desc_en: "Fluffy whipped egg yolk cream over hot dark coffee." },
+      "cà phê cốt dừa": { name_en: "Coconut Coffee Smoothie", desc_en: "Blended coconut cream paired with rich Vietnamese espresso." },
+      "espresso": { name_en: "Single Espresso", desc_en: "Intense, concentrated shot of Italian espresso." },
+      "americano": { name_en: "Iced Americano", desc_en: "Smooth espresso diluted with hot water or poured over ice." },
+      "cappuccino": { name_en: "Cappuccino", desc_en: "Rich espresso topped with velvety steamed milk foam." },
+      "latte": { name_en: "Caffè Latte", desc_en: "Creamy steamed milk combined with a smooth shot of espresso." },
+      "mocha": { name_en: "Caffè Mocha", desc_en: "Espresso combined with rich Dutch chocolate and steamed milk." },
+      "cold brew": { name_en: "Cold Brew Coffee", desc_en: "Slow-steeped cold brew with a smooth, non-acidic finish." },
+
+      "trà đào cam sả": { name_en: "Peach Orange Lemongrass Tea", desc_en: "Fragrant tea infused with fresh orange, lemongrass, and crisp peach slices." },
+      "trà đào": { name_en: "Iced Peach Tea", desc_en: "Refreshing tea with sweet peach syrup and crunchy peach slices." },
+      "trà sải vải sen vàng": { name_en: "Golden Lotus Lychee Tea", desc_en: "Aromatic Oolong tea with juicy lychees and tender lotus seeds." },
+      "trà vải": { name_en: "Iced Lychee Tea", desc_en: "Fragrant black tea served with sweet juicy lychee fruit." },
+      "trà sữa oolong nướng": { name_en: "Roasted Oolong Milk Tea", desc_en: "Smoky roasted oolong milk tea paired with chewy brown sugar pearls." },
+      "trà sữa trân châu": { name_en: "Classic Boba Milk Tea", desc_en: "Taiwanese style black milk tea with chewy brown sugar boba pearls." },
+      "trà sữa": { name_en: "Signature Milk Tea", desc_en: "Creamy rich milk tea brewed with premium whole tea leaves." },
+      "trà dâu": { name_en: "Fresh Strawberry Tea", desc_en: "Crisp iced tea infused with sweet strawberry puree and mint." },
+      "trà ổi hồng": { name_en: "Pink Guava Fruit Tea", desc_en: "Tropical pink guava infused tea with chia seeds." },
+      "trà chanh": { name_en: "Hanoi Lemon Iced Tea", desc_en: "Refreshing street-style iced tea with fresh lime and honey." },
+      "trà sen vàng": { name_en: "Golden Lotus Seed Tea", desc_en: "Delicate lotus tea topped with sweetened lotus seeds and cheese foam." },
+
+      "bánh croissant bơ tỏi phô mai": { name_en: "Garlic Butter Cheese Croissant", desc_en: "Flaky golden croissant filled with aromatic garlic butter and melted cheese." },
+      "bánh croissant": { name_en: "Butter Croissant", desc_en: "Classic French flaky, buttery baked croissant." },
+      "bánh tiramisu ý": { name_en: "Classic Italian Tiramisu", desc_en: "Espresso-soaked ladyfingers, rich mascarpone cream, dusted with pure cocoa." },
+      "bánh tiramisu": { name_en: "Italian Tiramisu Cake", desc_en: "Layered sponge cake with coffee, mascarpone, and dark cocoa." },
+      "bánh phô mai": { name_en: "New York Cheesecake", desc_en: "Rich and creamy baked cheesecake with a buttery graham crust." },
+      "bánh su kem": { name_en: "Choux Cream Puff", desc_en: "Crispy pastry puff filled with chilled vanilla custard cream." },
+      "bánh mì": { name_en: "Vietnamese Baguette", desc_en: "Crispy traditional Vietnamese baguette." },
+
+      "sinh tố xoài dừa dầm": { name_en: "Mango Coconut Smoothie", desc_en: "Ripe mango blended with rich coconut milk and chewy coconut jelly toppings." },
+      "sinh tố xoài": { name_en: "Fresh Mango Smoothie", desc_en: "Sweet tropical ripe mango blended with cream." },
+      "sinh tố bơ": { name_en: "Đắk Lắk Avocado Shake", desc_en: "Rich buttery avocado blended with condensed milk and crushed ice." },
+      "sinh tố dâu": { name_en: "Strawberry Smoothie", desc_en: "Fresh sweet strawberries blended with yogurt and cream." },
+      "nước ép cam": { name_en: "Fresh Orange Juice", desc_en: "100% freshly squeezed sweet orange juice." },
+      "nước ép dưa hấu": { name_en: "Fresh Watermelon Juice", desc_en: "Cool and refreshing pure watermelon juice." },
+      "chanh tuyết": { name_en: "Frozen Lime Slushie", desc_en: "Zesty crushed lime slush with fresh mint." },
+
+      "cơm tấm": { name_en: "Saigon Broken Rice with Pork", desc_en: "Fragrant broken rice served with marinated grilled pork and pickles." },
+      "mì ý": { name_en: "Spaghetti Bolognese", desc_en: "Italian pasta with rich minced beef and tomato herb sauce." }
+    };
+
+    function autoTranslateMenuName(vName) {
+      if (!vName) return '';
+      const clean = vName.trim().toLowerCase();
+      if (MENU_NAME_TRANSLATIONS[clean]) return MENU_NAME_TRANSLATIONS[clean].name_en;
+
+      for (const [key, val] of Object.entries(MENU_NAME_TRANSLATIONS)) {
+        if (clean.includes(key)) {
+          return val.name_en;
+        }
+      }
+
+      let translated = vName;
+      const wordMap = [
+        [/cà phê sữa/gi, "Milk Coffee"],
+        [/cà phê đen/gi, "Black Coffee"],
+        [/cà phê/gi, "Coffee"],
+        [/bạc xỉu/gi, "White Coffee (Bac Xiu)"],
+        [/trà sữa/gi, "Milk Tea"],
+        [/trà đào/gi, "Peach Tea"],
+        [/trà vải/gi, "Lychee Tea"],
+        [/trà sen/gi, "Lotus Tea"],
+        [/trà chanh/gi, "Lemon Tea"],
+        [/trà xanh/gi, "Green Tea"],
+        [/trà/gi, "Tea"],
+        [/bánh mì/gi, "Baguette"],
+        [/bánh ngọt/gi, "Pastry"],
+        [/bánh/gi, "Cake"],
+        [/sinh tố/gi, "Smoothie"],
+        [/nước ép/gi, "Fresh Juice"],
+        [/đá/gi, "Iced"],
+        [/nóng/gi, "Hot"],
+        [/sữa chua/gi, "Yogurt"],
+        [/trân châu/gi, "Boba Pearls"],
+        [/muối/gi, "Salted Cream"],
+        [/dừa/gi, "Coconut"],
+        [/xoài/gi, "Mango"],
+        [/dâu/gi, "Strawberry"],
+        [/cam/gi, "Orange"],
+        [/sả/gi, "Lemongrass"],
+        [/bơ/gi, "Avocado"],
+        [/phô mai/gi, "Cheese"],
+        [/tỏi/gi, "Garlic"]
+      ];
+      for (const [reg, rep] of wordMap) {
+        translated = translated.replace(reg, rep);
+      }
+      return translated;
+    }
+
+    function autoTranslateMenuDesc(vDesc, item) {
+      if (currentLang !== 'en') return vDesc || '';
+      if (!vDesc) {
+        if (item && item.category === 'coffee') return "Rich and aromatic coffee brewed from premium Vietnamese beans.";
+        if (item && item.category === 'tea') return "Refreshing brewed tea infused with natural fragrant fruit extracts.";
+        if (item && item.category === 'bakery') return "Freshly baked artisan treat with delicate flavors.";
+        if (item && item.category === 'smoothie') return "Creamy chilled beverage blended with fresh natural ingredients.";
+        return "Delightful beverage prepared fresh at Ace Tropical Wellness Coffee.";
+      }
+
+      const clean = vDesc.trim().toLowerCase();
+      for (const [key, val] of Object.entries(MENU_NAME_TRANSLATIONS)) {
+        if (val.desc_en && (clean.includes(key) || (item && item.name && item.name.toLowerCase().includes(key)))) {
+          return val.desc_en;
+        }
+      }
+
+      const descMap = [
+        [/cà phê nguyên chất rang xay đậm đà kết hợp sữa đặc ngọt ngào béo ngậy/gi, "Rich Robusta drip coffee blended with sweet condensed milk over crushed ice."],
+        [/hương vị truyền thống mạnh mẽ từ hạt robusta đắk lắk tuyển chọn/gi, "Traditional bold flavor brewed from premium Đắk Lắk Robusta beans."],
+        [/nhiều sữa ít cà phê, béo ngậy thơm ngon, phân tầng 3 lớp đẹp mắt/gi, "Creamy layered condensed milk with a touch of aromatic drip coffee."],
+        [/lớp kem muối bồng bềnh mằn mặn hòa quyện cà phê phin đậm đà quyến rũ/gi, "Velvety sea-salt cream foam layered over rich Vietnamese phin coffee."],
+        [/trà thanh dịu kết hợp những miếng đào giòn thơm nức và sả tươi giải nhiệt/gi, "Fragrant tea infused with fresh orange, lemongrass, and crisp peach slices."],
+        [/trà ô long thơm ngát kèm hạt sen bùi béo và vải tươi mọng nước giòn ngọt/gi, "Aromatic Oolong tea with juicy lychees and tender lotus seeds."],
+        [/trà oolong nướng thơm lừng kết hợp sữa tươi thanh trùng và trân châu đường đen/gi, "Smoky roasted oolong milk tea paired with chewy brown sugar pearls."],
+        [/bánh sừng bò giòn rụm phủ bơ tỏi thơm lừng và ngập tràn phô mai tan chảy/gi, "Flaky golden croissant filled with aromatic garlic butter and melted cheese."],
+        [/bánh ngọt vị cà phê đậm đà, kem mascarpone mềm mịn phủ bột cacao nguyên chất/gi, "Espresso-soaked ladyfingers, rich mascarpone cream, dusted with pure cocoa."],
+        [/xoài chín mọng xay mịn cùng nước cốt dừa béo bùi và thạch dừa giòn sần sật/gi, "Ripe mango blended with rich coconut milk and chewy coconut jelly toppings."]
+      ];
+      for (const [reg, rep] of descMap) {
+        if (reg.test(vDesc)) {
+          return rep;
+        }
+      }
+
+      if (item && item.category === 'coffee') return "Rich and aromatic coffee brewed from premium Vietnamese beans.";
+      if (item && item.category === 'tea') return "Refreshing brewed tea infused with natural fragrant fruit extracts.";
+      if (item && item.category === 'bakery') return "Freshly baked artisan treat with delicate flavors.";
+      if (item && item.category === 'smoothie') return "Creamy chilled beverage blended with fresh natural ingredients.";
+      return "Delightful recipe prepared fresh at Ace Tropical Wellness Coffee.";
+    }
+
+    function autoTranslateBadge(badge) {
+      if (!badge) return '';
+      if (currentLang !== 'en') return badge;
+      const badgeMap = {
+        "bán chạy nhất": "Best Seller",
+        "đậm vị": "Bold Flavor",
+        "được yêu thích": "Popular",
+        "signature": "Signature",
+        "thanh mát": "Refreshing",
+        "đặc biệt": "Specialty",
+        "hot trend": "Trending",
+        "nướng nóng": "Fresh Baked",
+        "best dessert": "Best Dessert",
+        "nhiệt đới": "Tropical",
+        "mới": "New",
+        "ngon": "Delicious",
+        "hot": "Hot",
+        "bán chạy": "Best Seller"
+      };
+      const clean = badge.trim().toLowerCase();
+      return badgeMap[clean] || badge;
+    }
+
+    
+    function enrichMenuWithEnglish(list) {
+      if (!Array.isArray(list)) return;
+      list.forEach(item => {
+        if (MENU_DICTIONARY[item.id]) {
+          item.name_en = MENU_DICTIONARY[item.id].name_en;
+          item.desc_en = MENU_DICTIONARY[item.id].desc_en;
+          item.badge_en = MENU_DICTIONARY[item.id].badge_en;
+        } else {
+          item.name_en = item.name_en || autoTranslateMenuName(item.name);
+          item.desc_en = item.desc_en || autoTranslateMenuDesc(item.desc, item);
+          item.badge_en = item.badge_en || autoTranslateBadge(item.badge);
+        }
+      });
+    }
+
     function getItemDisplayName(item) {
       if (!item) return '';
-      if (currentLang === 'en' && item.name_en) return item.name_en;
-      return item.name;
+      if (currentLang !== 'en') return item.name;
+      if (item.name_en) return item.name_en;
+      if (item.id && MENU_DICTIONARY[item.id] && MENU_DICTIONARY[item.id].name_en) {
+        return MENU_DICTIONARY[item.id].name_en;
+      }
+      return autoTranslateMenuName(item.name);
     }
 
     function getItemDisplayDesc(item) {
       if (!item) return '';
-      if (currentLang === 'en' && item.desc_en) return item.desc_en;
-      return item.desc || '';
+      if (currentLang !== 'en') return item.desc || '';
+      if (item.desc_en) return item.desc_en;
+      if (item.id && MENU_DICTIONARY[item.id] && MENU_DICTIONARY[item.id].desc_en) {
+        return MENU_DICTIONARY[item.id].desc_en;
+      }
+      return autoTranslateMenuDesc(item.desc, item);
     }
 
     function getItemDisplayBadge(item) {
       if (!item) return '';
-      if (currentLang === 'en' && item.badge_en) return item.badge_en;
-      return item.badge || '';
+      if (currentLang !== 'en') return item.badge || '';
+      if (item.badge_en) return item.badge_en;
+      if (item.id && MENU_DICTIONARY[item.id] && MENU_DICTIONARY[item.id].badge_en) {
+        return MENU_DICTIONARY[item.id].badge_en;
+      }
+      return autoTranslateBadge(item.badge);
     }
 
     let currentUser = null;
@@ -2461,9 +2710,10 @@
 
     // --- 2. KHỞI TẠO ỨNG DỤNG ---
     window.addEventListener('DOMContentLoaded', () => {
-      setLanguage(currentLang);
       initRealtimeSync();
       loadStorageData();
+      enrichMenuWithEnglish(menuItems);
+      setLanguage(currentLang);
       checkAuthSession();
 
 
@@ -2573,6 +2823,19 @@
       const savedTables = localStorage.getItem('ace_tables');
       tables = savedTables ? JSON.parse(savedTables) : [...DEFAULT_TABLES];
 
+      // Đảm bảo mọi món ăn đều có tên và miêu tả tiếng Anh đầy đủ
+      menuItems.forEach(item => {
+        if (MENU_DICTIONARY[item.id]) {
+          item.name_en = MENU_DICTIONARY[item.id].name_en;
+          item.desc_en = MENU_DICTIONARY[item.id].desc_en;
+          item.badge_en = MENU_DICTIONARY[item.id].badge_en;
+        } else {
+          item.name_en = item.name_en || autoTranslateMenuName(item.name);
+          item.desc_en = item.desc_en || autoTranslateMenuDesc(item.desc, item);
+          item.badge_en = item.badge_en || autoTranslateBadge(item.badge);
+        }
+      });
+
 
       // Users
       const savedUsers = localStorage.getItem('ace_users');
@@ -2632,6 +2895,7 @@
 
 
             menuItems = Array.from(mergedMap.values());
+            enrichMenuWithEnglish(menuItems);
             localStorage.setItem('ace_menu', JSON.stringify(menuItems));
             renderCustomerProducts(activeCategory);
             if (currentUser && currentUser.role === 'admin') renderAdminMenuTable();
@@ -3061,12 +3325,28 @@
       container.innerHTML = cart.map(c => {
         const itemTotal = c.item.price * c.qty;
         subtotal += itemTotal;
+        let customDisplay = c.custom || '';
+        if (currentLang === 'en') {
+          customDisplay = customDisplay
+            .replace(/Đá bình thường \(100%\)/gi, '100% Regular Ice')
+            .replace(/100% Đá/gi, '100% Regular Ice')
+            .replace(/Ít đá \(50%\)/gi, '50% Less Ice')
+            .replace(/50% Đá/gi, '50% Less Ice')
+            .replace(/Không đá/gi, 'No Ice')
+            .replace(/Uống nóng/gi, 'Hot')
+            .replace(/Nóng/gi, 'Hot')
+            .replace(/Ngọt bình thường \(100%\)/gi, '100% Standard Sweet')
+            .replace(/100% Ngọt/gi, '100% Standard Sweet')
+            .replace(/Ít ngọt \(50%\)/gi, '50% Less Sweet')
+            .replace(/50% Ngọt/gi, '50% Less Sweet')
+            .replace(/Không đường/gi, '0% Sugar');
+        }
         const customSafe = (c.custom || '').replace(/'/g, "\\'");
         return `
           <div class="cart-item">
             <div class="cart-item-info">
-              <div class="cart-item-name">${(currentLang === "en" && c.item.name_en) ? c.item.name_en : c.item.name}</div>
-              ${c.custom ? `<div style="font-size:0.75rem; color:var(--text-muted); margin: 2px 0;">└ ${c.custom}</div>` : ''}
+              <div class="cart-item-name">${getItemDisplayName(c.item)}</div>
+              ${customDisplay ? `<div style="font-size:0.75rem; color:var(--text-muted); margin: 2px 0;">└ ${customDisplay}</div>` : ''}
               <div class="cart-item-unit-price">${formatMoney(c.item.price)}</div>
             </div>
             <div class="cart-qty-control">
@@ -3302,7 +3582,7 @@
       document.getElementById('checkout-items-preview').innerHTML = cart.map(c => `
         <div style="display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px dashed #eee;">
           <div>
-            <b>${c.qty}x</b> ${(currentLang === 'en' && c.item.name_en) ? c.item.name_en : c.item.name}
+            <b>${c.qty}x</b> ${getItemDisplayName(c.item)}
             ${c.custom ? `<div style="font-size: 0.72rem; color: #888;">└ ${c.custom}</div>` : ''}
           </div>
           <div style="font-weight: 600;">${formatMoney(c.item.price * c.qty)}</div>
@@ -3566,7 +3846,7 @@
         paidAt: timeStr,
         items: cart.map(c => ({
           id: c.item.id,
-          name: (currentLang === 'en' && c.item.name_en) ? c.item.name_en : c.item.name,
+          name: getItemDisplayName(c.item),
           qty: c.qty,
           price: c.item.price,
           total: c.item.price * c.qty,
@@ -5598,6 +5878,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
 
 
               menuItems = Array.from(mergedMap.values());
+              enrichMenuWithEnglish(menuItems);
               localStorage.setItem('ace_menu', JSON.stringify(menuItems));
               renderCustomerProducts(activeCategory);
               if (currentUser && currentUser.role === 'admin') renderAdminMenuTable();
@@ -5962,6 +6243,7 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
       if (Array.isArray(data) && data.length > 0) {
         if (JSON.stringify(menuItems) !== JSON.stringify(data)) {
           menuItems = data;
+          enrichMenuWithEnglish(menuItems);
           localStorage.setItem('ace_menu', JSON.stringify(menuItems));
           renderCustomerProducts(activeCategory);
           updateCartUI();
