@@ -98,5 +98,15 @@
     "desc": "",
     "imgUrl": "",
     "available": true
+  },
+  {
+    "id": 11,
+    "name": "Yogurt Hạt Đát Đậu Phộng",
+    "category": "smoothie",
+    "price": 45000,
+    "badge": "Mới",
+    "desc": "",
+    "imgUrl": "https://quickshare.samsungcloud.com/bheM4GVv6MDU",
+    "available": true
   }
 ]
