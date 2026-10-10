@@ -5,9 +5,9 @@
     "category": "coffee",
     "price": 51000,
     "badge": "Bán chạy nhất",
-    "desc": "Cà phê nguyên chất rang xay đậm đà kết hợp sữa đặc ngọt ngào.",
+    "desc": "Cà phê nguyên chất rang xay đậm đà kết hợp sữa đặc ngọt ngào béo ngậy.",
     "available": true,
-    "imgUrl": ""
+    "imgUrl": "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=500&auto=format&fit=crop&q=80"
   },
   {
     "id": 2,
@@ -15,9 +15,9 @@
     "category": "coffee",
     "price": 60000,
     "badge": "Đậm vị",
-    "desc": "Hương vị truyền thống mạnh mẽ từ hạt Robusta Đắk Lắk.",
+    "desc": "Hương vị truyền thống mạnh mẽ từ hạt Robusta Đắk Lắk tuyển chọn.",
     "available": true,
-    "imgUrl": ""
+    "imgUrl": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&auto=format&fit=crop&q=80"
   },
   {
     "id": 3,
@@ -25,79 +25,79 @@
     "category": "coffee",
     "price": 55000,
     "badge": "Được yêu thích",
-    "desc": "Nhiều sữa ít cà phê, béo ngậy thơm ngon, phân tầng đẹp mắt.",
+    "desc": "Nhiều sữa ít cà phê, béo ngậy thơm ngon, phân tầng 3 lớp đẹp mắt.",
     "available": true,
-    "imgUrl": ""
+    "imgUrl": "https://images.unsplash.com/photo-1541167760496-1628856ab772?w=500&auto=format&fit=crop&q=80"
   },
   {
     "id": 4,
+    "name": "Cà Phê Muối Hoàng Gia",
+    "category": "coffee",
+    "price": 45000,
+    "badge": "Signature",
+    "desc": "Lớp kem muối bồng bềnh mằn mặn hòa quyện cà phê phin đậm đà quyến rũ.",
+    "available": true,
+    "imgUrl": "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=500&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": 5,
     "name": "Trà Đào Cam Sả",
     "category": "tea",
     "price": 45000,
     "badge": "Thanh mát",
-    "desc": "Trà thanh dịu kết hợp những miếng đào giòn thơm nức và sả tươi.",
+    "desc": "Trà thanh dịu kết hợp những miếng đào giòn thơm nức và sả tươi giải nhiệt.",
     "available": true,
-    "imgUrl": ""
+    "imgUrl": "https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=500&auto=format&fit=crop&q=80"
   },
   {
-    "id": 5,
+    "id": 6,
     "name": "Trà Sải Vải Sen Vàng",
     "category": "tea",
     "price": 49000,
     "badge": "Đặc biệt",
-    "desc": "Trà ô long thơm ngát kèm hạt sen bùi béo và vải tươi mọng nước.",
+    "desc": "Trà ô long thơm ngát kèm hạt sen bùi béo và vải tươi mọng nước giòn ngọt.",
     "available": true,
-    "imgUrl": ""
+    "imgUrl": "https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=500&auto=format&fit=crop&q=80"
   },
   {
-    "id": 6,
+    "id": 7,
+    "name": "Trà Sữa Oolong Nướng",
+    "category": "tea",
+    "price": 48000,
+    "badge": "Hot Trend",
+    "desc": "Trà oolong nướng thơm lừng kết hợp sữa tươi thanh trùng và trân châu đường đen.",
+    "available": true,
+    "imgUrl": "https://images.unsplash.com/photo-1558857563-b371b266a206?w=500&auto=format&fit=crop&q=80"
+  },
+  {
+    "id": 8,
     "name": "Bánh Croissant Bơ Tỏi Phô Mai",
     "category": "bakery",
     "price": 38000,
     "badge": "Nướng nóng",
-    "desc": "Bánh sừng bò giòn rụm phủ bơ tỏi thơm lừng và ngập tràn phô mai.",
+    "desc": "Bánh sừng bò giòn rụm phủ bơ tỏi thơm lừng và ngập tràn phô mai tan chảy.",
     "available": true,
-    "imgUrl": ""
+    "imgUrl": "https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=500&auto=format&fit=crop&q=80"
   },
   {
-    "id": 7,
+    "id": 9,
     "name": "Bánh Tiramisu Ý",
     "category": "bakery",
     "price": 48000,
     "badge": "Best Dessert",
-    "desc": "Bánh ngọt vị cà phê đậm đà, kem mascarpone mềm mịn phủ cacao.",
+    "desc": "Bánh ngọt vị cà phê đậm đà, kem mascarpone mềm mịn phủ bột cacao nguyên chất.",
     "available": true,
-    "imgUrl": ""
+    "imgUrl": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=500&auto=format&fit=crop&q=80"
   },
   {
-    "id": 8,
+    "id": 10,
     "name": "Sinh Tố Xoài Dừa Dầm",
     "category": "smoothie",
     "price": 52000,
     "badge": "Nhiệt đới",
-    "desc": "Xoài chín mọng xay mịn cùng nước cốt dừa béo bùi và trân châu trắng.",
+    "desc": "Xoài chín mọng xay mịn cùng nước cốt dừa béo bùi và thạch dừa giòn sần sật.",
     "available": true,
-    "imgUrl": ""
-  },
-  {
-    "id": 9,
-    "name": "Cơm Tấm",
-    "category": "coffee",
-    "price": 100000,
-    "badge": "Mới",
-    "desc": "",
-    "imgUrl": "",
-    "available": true
-  },
-  {
-    "id": 10,
-    "name": "Mì Ý",
-    "category": "coffee",
-    "price": 150000,
-    "badge": "Mới",
-    "desc": "",
-    "imgUrl": "",
-    "available": true
+    "imgUrl": "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?w=500&auto=format&fit=crop&q=80"
   }
 
 ]
