@@ -3680,11 +3680,7 @@
             qrImg.src = vietQrUrl;
           }
 
-          const canvas = document.getElementById('pay-vietqr-canvas');
-          if (canvas) {
-            const qrData = `2|99|${acc}|${total}|${currentPendingOrderId || 'ORD-1001'}`;
-            drawSimpleQrCode(canvas, qrData);
-          }
+
 
           const bankNameEl = document.getElementById('vietqr-bank-name');
           if (bankNameEl) bankNameEl.textContent = (storeSettings && storeSettings.bankName) || 'MBBank';
@@ -6600,9 +6596,8 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
           <div style="font-size: 0.8rem; font-weight: 700; color: #1565C0; margin: 8px 0 6px 0;" data-i18n="vietqrInstruction">
             ⚡ Hoặc quét mã VietQR tự động điền tiền & nội dung:
           </div>
-          <div style="background: #FFF; padding: 10px; border-radius: 8px; display: inline-block; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-            <img id="pay-vietqr-img" src="" alt="Mã VietQR" style="width: 200px; height: 200px; object-fit: contain; display: block; margin: 0 auto;" onerror="this.style.display='none'; document.getElementById('pay-vietqr-canvas').style.display='block';">
-            <canvas id="pay-vietqr-canvas" width="200" height="200" style="display: none; margin: 0 auto;"></canvas>
+          <div style="background: #FFF; padding: 10px; border-radius: 12px; display: inline-block; box-shadow: 0 2px 10px rgba(0,0,0,0.08); max-width: 260px; margin: 0 auto;">
+            <img id="pay-vietqr-img" src="" alt="Mã VietQR Thanh Toán" style="max-width: 240px; width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px;">
           </div>
           <div style="margin-top: 10px; font-size: 0.8rem; text-align: left; background: #FFF; padding: 10px; border-radius: 8px; border: 1px solid #E3F2FD;">
             <div style="margin-bottom: 4px;"><span data-i18n="bankLabel">Ngân hàng:</span> <b id="vietqr-bank-name">MBBank</b></div>
