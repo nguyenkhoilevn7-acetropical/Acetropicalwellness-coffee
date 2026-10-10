@@ -1013,6 +1013,7 @@
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
               <button class="toolbar-btn btn-primary" onclick="openItemModal(null)">➕ Thêm Món Mới</button>
               <button class="toolbar-btn btn-success" onclick="exportMenuJson()">📥 Tải File Menu.json Để Lưu GitHub</button>
+              <button class="toolbar-btn" style="background:#FFF3E0; color:#E65100; border-color:#FFE0B2;" onclick="openSyncQrModal()">📲 Mã QR Đồng Bộ Sang Máy Khác</button>
               <label class="toolbar-btn" style="margin: 0; cursor: pointer;">
                 📤 Nhập Menu.json <input type="file" accept=".json" style="display: none;" onchange="importMenuJson(event)">
               </label>
@@ -1612,6 +1613,22 @@
       // Kiểm tra tham số ?table= trên URL
       const urlParams = new URLSearchParams(window.location.search);
       const tableParam = urlParams.get('table');
+
+      // Kiểm tra tham số ?menu_data= trên URL để đồng bộ thực đơn tức thì giữa các máy
+      const menuDataParam = urlParams.get('menu_data');
+      if (menuDataParam) {
+        try {
+          const decoded = JSON.parse(decodeURIComponent(escape(atob(menuDataParam))));
+          if (Array.isArray(decoded) && decoded.length > 0) {
+            menuItems = decoded;
+            localStorage.setItem('ace_menu', JSON.stringify(menuItems));
+            showSmsToast("ĐỒNG BỘ THÀNH CÔNG", `Đã nhận thực đơn mới nhất (${menuItems.length} món)!`);
+          }
+        } catch(e) {
+          console.warn("Không thể giải mã menu_data từ URL:", e);
+        }
+      }
+
       if (tableParam) {
         const found = tables.find(t => t.id === tableParam || t.name.toLowerCase().includes(tableParam.toLowerCase()));
         currentTable = found || { id: tableParam, name: `Bàn ${tableParam}` };
@@ -2805,7 +2822,32 @@
             <img src="${dataUrl}">
             <div class="footer">${storeSettings.footer}</div>
           </div>
-        </body>
+        
+  <!-- MODAL: MÃ QR ĐỒNG BỘ THỰC ĐƠN TỨC THÌ (DÀNH CHO CHỦ QUÁN ĐỒNG BỘ NHANH) -->
+  <div class="modal-overlay" id="sync-qr-modal">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3>📲 Mã QR Đồng Bộ Thực Đơn Sang Máy Khác</h3>
+        <button class="close-cart-btn" onclick="closeSyncQrModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;">
+          Dùng điện thoại khác (hoặc máy POS/thu ngân) mở camera hoặc Zalo quét mã này 1 lần duy nhất để <b>nạp ngay toàn bộ món mới & giá mới</b> sang máy đó:
+        </p>
+        <div style="background: #FDFBF8; border: 2px dashed var(--border); border-radius: 12px; padding: 18px; display: inline-block;">
+          <canvas id="sync-menu-qr-canvas" width="240" height="240" style="margin: 0 auto; display: block; border-radius: 8px;"></canvas>
+        </div>
+        <div style="margin-top: 14px;">
+          <button class="toolbar-btn btn-primary" style="margin: 0 auto;" onclick="copySyncUrlToClipboard()">📋 Sao Chép Link Đồng Bộ Trực Tiếp</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="toolbar-btn" onclick="closeSyncQrModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+</body>
         </html>
       `);
       printWin.document.close();
@@ -2855,7 +2897,32 @@
           <div class="qr-grid">
             ${cardsHtml}
           </div>
-        </body>
+        
+  <!-- MODAL: MÃ QR ĐỒNG BỘ THỰC ĐƠN TỨC THÌ (DÀNH CHO CHỦ QUÁN ĐỒNG BỘ NHANH) -->
+  <div class="modal-overlay" id="sync-qr-modal">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3>📲 Mã QR Đồng Bộ Thực Đơn Sang Máy Khác</h3>
+        <button class="close-cart-btn" onclick="closeSyncQrModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;">
+          Dùng điện thoại khác (hoặc máy POS/thu ngân) mở camera hoặc Zalo quét mã này 1 lần duy nhất để <b>nạp ngay toàn bộ món mới & giá mới</b> sang máy đó:
+        </p>
+        <div style="background: #FDFBF8; border: 2px dashed var(--border); border-radius: 12px; padding: 18px; display: inline-block;">
+          <canvas id="sync-menu-qr-canvas" width="240" height="240" style="margin: 0 auto; display: block; border-radius: 8px;"></canvas>
+        </div>
+        <div style="margin-top: 14px;">
+          <button class="toolbar-btn btn-primary" style="margin: 0 auto;" onclick="copySyncUrlToClipboard()">📋 Sao Chép Link Đồng Bộ Trực Tiếp</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="toolbar-btn" onclick="closeSyncQrModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+</body>
         </html>
       `);
       printWin.document.close();
@@ -3843,7 +3910,66 @@ if (typeof module !== 'undefined') module.exports = QRCodeLib;
 
 
     // --- 16. TIỆN ÍCH ÂM THANH & SMS TOAST ---
+
+    // --- TÍNH NĂNG MÃ QR ĐỒNG BỘ THỰC ĐƠN GIỮA CÁC MÁY (TỨC THÌ 100%) ---
+    function openSyncQrModal() {
+      document.getElementById('sync-qr-modal').classList.add('open');
+      generateSyncQrCode();
+    }
+
+    function closeSyncQrModal() {
+      document.getElementById('sync-qr-modal').classList.remove('open');
+    }
+
+    function generateSyncUrl() {
+      const baseUrl = window.location.href.split('?')[0];
+      // Nén dữ liệu menu thành chuỗi Base64 đưa vào URL
+      const jsonStr = JSON.stringify(menuItems);
+      const b64 = btoa(unescape(encodeURIComponent(jsonStr)));
+      return `${baseUrl}?menu_data=${encodeURIComponent(b64)}`;
+    }
+
+    function generateSyncQrCode() {
+      const canvas = document.getElementById('sync-menu-qr-canvas');
+      const syncUrl = generateSyncUrl();
+      drawSimpleQrCode(canvas, syncUrl);
+    }
+
+    function copySyncUrlToClipboard() {
+      const syncUrl = generateSyncUrl();
+      navigator.clipboard.writeText(syncUrl).then(() => {
+        showSmsToast("ĐÃ SAO CHÉP LINK", "Gửi link này qua Zalo/tin nhắn sang máy khác, mở link là máy đó tự cập nhật menu mới!");
+      }).catch(() => {
+        prompt("Sao chép link đồng bộ dưới đây:", syncUrl);
+      });
+    }
+
   </script>
+
+  <!-- MODAL: MÃ QR ĐỒNG BỘ THỰC ĐƠN TỨC THÌ (DÀNH CHO CHỦ QUÁN ĐỒNG BỘ NHANH) -->
+  <div class="modal-overlay" id="sync-qr-modal">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <h3>📲 Mã QR Đồng Bộ Thực Đơn Sang Máy Khác</h3>
+        <button class="close-cart-btn" onclick="closeSyncQrModal()">&times;</button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 14px;">
+          Dùng điện thoại khác (hoặc máy POS/thu ngân) mở camera hoặc Zalo quét mã này 1 lần duy nhất để <b>nạp ngay toàn bộ món mới & giá mới</b> sang máy đó:
+        </p>
+        <div style="background: #FDFBF8; border: 2px dashed var(--border); border-radius: 12px; padding: 18px; display: inline-block;">
+          <canvas id="sync-menu-qr-canvas" width="240" height="240" style="margin: 0 auto; display: block; border-radius: 8px;"></canvas>
+        </div>
+        <div style="margin-top: 14px;">
+          <button class="toolbar-btn btn-primary" style="margin: 0 auto;" onclick="copySyncUrlToClipboard()">📋 Sao Chép Link Đồng Bộ Trực Tiếp</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="toolbar-btn" onclick="closeSyncQrModal()">Đóng</button>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>
 
