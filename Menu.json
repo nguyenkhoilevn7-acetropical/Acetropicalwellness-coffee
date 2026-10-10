@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Cà phê Sữa Đá Sài Gòn",
     "category": "coffee",
-    "price": 35000,
+    "price": 51000,
     "badge": "Bán chạy nhất",
     "desc": "Cà phê nguyên chất rang xay đậm đà kết hợp sữa đặc ngọt ngào.",
     "available": true,
@@ -13,7 +13,7 @@
     "id": 2,
     "name": "Cà phê Đen Đá Nguyên Chất",
     "category": "coffee",
-    "price": 29000,
+    "price": 60000,
     "badge": "Đậm vị",
     "desc": "Hương vị truyền thống mạnh mẽ từ hạt Robusta Đắk Lắk.",
     "available": true,
@@ -23,7 +23,7 @@
     "id": 3,
     "name": "Bạc Xỉu Đá Tầng",
     "category": "coffee",
-    "price": 39000,
+    "price": 55000,
     "badge": "Được yêu thích",
     "desc": "Nhiều sữa ít cà phê, béo ngậy thơm ngon, phân tầng đẹp mắt.",
     "available": true,
@@ -78,6 +78,26 @@
     "desc": "Xoài chín mọng xay mịn cùng nước cốt dừa béo bùi và trân châu trắng.",
     "available": true,
     "imgUrl": ""
+  },
+  {
+    "id": 9,
+    "name": "Cơm Tấm",
+    "category": "coffee",
+    "price": 100000,
+    "badge": "Mới",
+    "desc": "",
+    "imgUrl": "",
+    "available": true
+  },
+  {
+    "id": 10,
+    "name": "Mì Ý",
+    "category": "coffee",
+    "price": 150000,
+    "badge": "Mới",
+    "desc": "",
+    "imgUrl": "",
+    "available": true
   }
 
 ]
